@@ -153,9 +153,6 @@ export function Nav() {
               <span className="text-primary font-bold">({user?.firstName || "Client"})</span>
             </Link>
           )}
-          <Link to="/editors" hash="apply" className="link-line label hidden 2xl:inline text-snow/70 hover:text-snow">
-            Become an Editor
-          </Link>
           <Cta to="/get-started" className={scrolled ? "!py-3" : ""}>
             Start a Project
           </Cta>
@@ -196,9 +193,6 @@ export function Nav() {
                 <Cta to="/dashboard">Go to Dashboard ({user?.firstName})</Cta>
               )}
               <Cta to="/get-started">Start a Project</Cta>
-              <Cta to="/editors" variant="ghost" hash="apply">
-                Become an Editor
-              </Cta>
             </div>
           </motion.div>
         )}
@@ -277,7 +271,7 @@ export function Footer() {
         <div className="col-span-2 lg:col-span-1">
           <Logo className="h-10 md:h-12" />
           <p className="mt-6 max-w-xs text-sm text-gray">
-            HiKARii connects the people with the story to the people with the craft.
+            HiKARii is a professional video editing agency built to turn your footage into finished content.
           </p>
           <div className="mt-6 flex gap-5">
             <a

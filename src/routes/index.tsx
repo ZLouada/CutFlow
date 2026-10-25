@@ -7,7 +7,6 @@ import {
   Portfolio,
   Problem,
   Reel,
-  Stats,
   SystemTimeline,
   Trust,
 } from "@/components/site/sections";
@@ -30,12 +29,11 @@ function Index() {
   return (
     <>
       <Hero />
-      <Stats />
       <Problem />
-      <Portfolio />
-      <Reel />
       <SystemTimeline />
       <Editors />
+      <Reel />
+      <Portfolio />
       <Matching />
       <Trust />
       <FinalCta />

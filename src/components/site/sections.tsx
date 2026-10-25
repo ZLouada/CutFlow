@@ -199,7 +199,7 @@ export function Hero() {
           transition={{ delay: 0.5, duration: 0.8, ease }}
         >
           <p className="max-w-lg text-base text-snow/70 md:text-lg">
-            HiKARii is a professional video editing agency. Send us your raw footage and creative brief—our internal team handles the full post-production workflow, from first cut to final master.
+            You create. HiKARii handles the edit. Send us your raw footage and creative brief—our dedicated team handles the entire post-production process from first cut to final master.
           </p>
           <div className="flex flex-wrap gap-3">
             <Cta to="/get-started">Start a Project</Cta>
@@ -457,13 +457,13 @@ export function Editors() {
           <div>
             <Eyebrow n="04">Our team</Eyebrow>
             <h2 className="display mt-6 text-[13vw] md:text-[clamp(4rem,7vw,7rem)]">
-              <RevealLines lines={["The craft,", " on call."]} />
+              <RevealLines lines={["The craft, ", "on call."]} />
             </h2>
             <p className="mt-4 max-w-lg text-sm text-gray md:text-base">
               Behind every HiKARii cut is a dedicated lead editor from our internal studio team. We assign the right specialist to your brief—you never have to browse or manage freelancers.
             </p>
           </div>
-          <Cta to="/get-started" variant="ghost">Start a project</Cta>
+          <Cta to="/get-started" variant="ghost">Start a Project</Cta>
         </div>
 
         <div className="no-scrollbar mt-16 flex snap-x gap-4 overflow-x-auto pb-8 lg:gap-0 lg:overflow-visible lg:pl-4">
@@ -881,10 +881,10 @@ export function Matching() {
       <div className="mx-auto max-w-[1600px] px-5 md:px-10">
         <div className="label flex items-center gap-3 text-ink/60"><span className="text-primary">05</span><span className="h-px w-10 bg-primary" />Studio assignment</div>
         <h2 className="display mt-6 text-[12vw] md:text-[clamp(3.5rem,6vw,6rem)]">
-          <RevealLines lines={["One brief.", " The right team."]} />
+          <RevealLines lines={["One brief. ", "The right team."]} />
         </h2>
         <p className="mt-4 max-w-xl text-base text-ink/70">
-          Behind every HiKARii cut is an editor selected from our internal studio team based on your style, format, and pacing. You don't browse freelancers or negotiate rates—HiKARii directs the entire post-production process.
+          Your footage. Our editing team. Behind every HiKARii cut is an editor selected from our internal studio team based on your style, format, and pacing. You don't browse freelancers or negotiate rates—HiKARii directs the entire post-production process.
         </p>
         <div ref={ref} className="relative mt-16 grid gap-10 lg:grid-cols-[1fr_1.4fr_1fr] lg:items-center">
           <motion.div initial={{ opacity: 0, x: -40 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8, ease }} className="bg-ink p-6 text-snow">
