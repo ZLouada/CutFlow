@@ -17,6 +17,7 @@ dist-ssr
 *.local
 
 # Wrangler / Cloudflare
+.amplify-hosting/
 .wrangler/
 .dev.vars
 
