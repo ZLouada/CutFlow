@@ -14,7 +14,9 @@ import { Route as ClientsRouteImport } from './routes/clients'
 import { Route as EditorsRouteImport } from './routes/editors'
 import { Route as GetStartedRouteImport } from './routes/get-started'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as PoliciesRouteImport } from './routes/policies'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as WorkRouteImport } from './routes/work'
 
 const IndexRoute = IndexRouteImport.update({
@@ -42,9 +44,19 @@ const HowItWorksRoute = HowItWorksRouteImport.update({
   path: '/how-it-works',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PoliciesRoute = PoliciesRouteImport.update({
+  id: '/policies',
+  path: '/policies',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WorkRoute = WorkRouteImport.update({
@@ -59,7 +71,9 @@ export interface FileRoutesByFullPath {
   '/editors': typeof EditorsRoute
   '/get-started': typeof GetStartedRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/policies': typeof PoliciesRoute
   '/pricing': typeof PricingRoute
+  '/terms': typeof TermsRoute
   '/work': typeof WorkRoute
 }
 export interface FileRoutesByTo {
@@ -68,7 +82,9 @@ export interface FileRoutesByTo {
   '/editors': typeof EditorsRoute
   '/get-started': typeof GetStartedRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/policies': typeof PoliciesRoute
   '/pricing': typeof PricingRoute
+  '/terms': typeof TermsRoute
   '/work': typeof WorkRoute
 }
 export interface FileRoutesById {
@@ -78,7 +94,9 @@ export interface FileRoutesById {
   '/editors': typeof EditorsRoute
   '/get-started': typeof GetStartedRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/policies': typeof PoliciesRoute
   '/pricing': typeof PricingRoute
+  '/terms': typeof TermsRoute
   '/work': typeof WorkRoute
 }
 export interface FileRouteTypes {
@@ -89,7 +107,9 @@ export interface FileRouteTypes {
     | '/editors'
     | '/get-started'
     | '/how-it-works'
+    | '/policies'
     | '/pricing'
+    | '/terms'
     | '/work'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -98,7 +118,9 @@ export interface FileRouteTypes {
     | '/editors'
     | '/get-started'
     | '/how-it-works'
+    | '/policies'
     | '/pricing'
+    | '/terms'
     | '/work'
   id:
     | '__root__'
@@ -107,7 +129,9 @@ export interface FileRouteTypes {
     | '/editors'
     | '/get-started'
     | '/how-it-works'
+    | '/policies'
     | '/pricing'
+    | '/terms'
     | '/work'
   fileRoutesById: FileRoutesById
 }
@@ -117,7 +141,9 @@ export interface RootRouteChildren {
   EditorsRoute: typeof EditorsRoute
   GetStartedRoute: typeof GetStartedRoute
   HowItWorksRoute: typeof HowItWorksRoute
+  PoliciesRoute: typeof PoliciesRoute
   PricingRoute: typeof PricingRoute
+  TermsRoute: typeof TermsRoute
   WorkRoute: typeof WorkRoute
 }
 
@@ -158,11 +184,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HowItWorksRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/policies': {
+      id: '/policies'
+      path: '/policies'
+      fullPath: '/policies'
+      preLoaderRoute: typeof PoliciesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pricing': {
       id: '/pricing'
       path: '/pricing'
       fullPath: '/pricing'
       preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/work': {
@@ -181,7 +221,9 @@ const rootRouteChildren: RootRouteChildren = {
   EditorsRoute: EditorsRoute,
   GetStartedRoute: GetStartedRoute,
   HowItWorksRoute: HowItWorksRoute,
+  PoliciesRoute: PoliciesRoute,
   PricingRoute: PricingRoute,
+  TermsRoute: TermsRoute,
   WorkRoute: WorkRoute,
 }
 export const routeTree = rootRouteImport

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import { PageHeader } from "@/components/site/sections";
@@ -113,7 +113,15 @@ function GetStarted() {
                 <label className="block"><span className="label">Describe your project</span><textarea rows={5} className={`${input} resize-none text-lg`} value={f.brief} onChange={(e) => set("brief")(e.target.value)} maxLength={1500} placeholder="Goal, length, style references, where it will be published…" /><Err k="brief" /></label>
                 <label className="block"><span className="label">Footage or reference link (optional)</span><input className={input} value={f.link} onChange={(e) => set("link")(e.target.value)} maxLength={500} placeholder="https://" /><Err k="link" /></label>
               </div>
-              <button type="submit" className="btn-slide btn-primary group"><span>Apply for an editor</span><span className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span></button>
+              <div className="pt-2">
+                <button type="submit" className="btn-slide btn-primary group"><span>Apply for an editor</span><span className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span></button>
+                <p className="mt-4 text-xs text-ink/60">
+                  By submitting, you confirm that you hold necessary rights to your footage and agree to Cutflow's{" "}
+                  <Link to="/terms" className="font-medium underline underline-offset-2 hover:text-ink">
+                    Halal Content Policy & Content Authorization Terms
+                  </Link>.
+                </p>
+              </div>
             </form>
           )}
         </div>

@@ -9,7 +9,7 @@ export function Logo({ className = "h-8" }: { className?: string }) {
 }
 
 type CtaProps = {
-  to: "/" | "/work" | "/how-it-works" | "/clients" | "/editors" | "/pricing" | "/get-started";
+  to: "/" | "/work" | "/how-it-works" | "/clients" | "/editors" | "/pricing" | "/get-started" | "/terms";
   hash?: string;
   children: ReactNode;
   variant?: "primary" | "ghost" | "ink";
@@ -167,8 +167,23 @@ const cols = [
       { to: "/pricing", t: "Pricing" },
     ],
   },
-  { h: "Company", l: [{ to: "/", t: "About" }, { to: "/work", t: "Work" }, { to: "/clients", t: "Contact" }] },
-  { h: "Resources", l: [{ to: "/how-it-works", t: "Guides" }, { to: "/pricing", t: "Help" }, { to: "/work", t: "Blog" }] },
+  {
+    h: "Company",
+    l: [
+      { to: "/", t: "About" },
+      { to: "/work", t: "Work" },
+      { to: "/clients", t: "Contact" },
+      { to: "/terms", t: "Terms & Policies" },
+    ],
+  },
+  {
+    h: "Standards",
+    l: [
+      { to: "/terms", t: "Halal Content Policy" },
+      { to: "/terms", t: "Content Authorization" },
+      { to: "/how-it-works", t: "Editing Process" },
+    ],
+  },
 ] as const;
 
 export function Footer() {
@@ -212,8 +227,13 @@ export function Footer() {
           CUTFLOW
         </div>
       </div>
-      <div className="mx-auto flex max-w-[1600px] justify-between px-5 py-6 text-xs text-gray md:px-10">
-        <span>© 2026 Cutflow</span>
+      <div className="mx-auto flex max-w-[1600px] flex-wrap items-center justify-between gap-4 px-5 py-6 text-xs text-gray md:px-10">
+        <div className="flex flex-wrap items-center gap-6">
+          <span>© 2026 Cutflow</span>
+          <Link to="/terms" className="link-line hover:text-snow">
+            Halal Policy & Content Terms
+          </Link>
+        </div>
         <span className="label">00:00:00:00 — End of reel</span>
       </div>
     </footer>
