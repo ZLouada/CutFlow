@@ -2,25 +2,37 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import logoWhite from "@/assets/hikarii-logo-white.png";
 import logoBlack from "@/assets/hikarii-logo-black.png";
+import logoOrange from "@/assets/hikarii-logo-orange.png";
 import markWhite from "@/assets/hikarii-mark-white.png";
 import markBlack from "@/assets/hikarii-mark-black.png";
+import markOrange from "@/assets/hikarii-mark-orange.png";
 import { useEffect, useState, type ReactNode } from "react";
 import { useLightweightMotion } from "@/hooks/use-lightweight-motion";
 import { useHikariiAuth } from "@/lib/auth-context";
 
 export function Logo({
   className = "h-8",
-  variant = "white",
+  variant = "orange",
   symbolOnly = false,
   responsive = false,
 }: {
   className?: string;
-  variant?: "white" | "black";
+  variant?: "white" | "black" | "orange";
   symbolOnly?: boolean;
   responsive?: boolean;
 }) {
-  const full = variant === "black" ? logoBlack : logoWhite;
-  const mark = variant === "black" ? markBlack : markWhite;
+  const full =
+    variant === "black"
+      ? logoBlack
+      : variant === "white"
+      ? logoWhite
+      : logoOrange;
+  const mark =
+    variant === "black"
+      ? markBlack
+      : variant === "white"
+      ? markWhite
+      : markOrange;
 
   if (symbolOnly) {
     return (
@@ -295,7 +307,7 @@ export function Footer() {
         ))}
       </div>
       <div className="group mt-16 select-none px-3">
-        <div className="font-display font-bold relative text-center text-[20vw] leading-[0.8] tracking-tight text-soft transition-colors duration-700 group-hover:text-snow">
+        <div className="font-display font-bold relative text-center text-[20vw] leading-[0.8] tracking-tight text-soft transition-colors duration-700 group-hover:text-primary">
           HiKARii
         </div>
       </div>
