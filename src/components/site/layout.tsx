@@ -74,7 +74,7 @@ export function Nav() {
           ))}
         </nav>
         <div className="hidden items-center gap-5 whitespace-nowrap xl:flex">
-          {isSignedIn ? (
+          {isSignedIn && (
             <Link
               to="/dashboard"
               className="flex items-center gap-2 px-3 py-1.5 border border-primary/40 bg-primary/10 rounded-xs text-xs text-snow hover:border-primary transition-colors font-mono"
@@ -82,10 +82,6 @@ export function Nav() {
               <span className="h-2 w-2 rounded-full bg-emerald-400" />
               <span>Dashboard</span>
               <span className="text-primary font-bold">({user?.firstName || "Client"})</span>
-            </Link>
-          ) : (
-            <Link to="/sign-in" className="link-line label text-snow/70 hover:text-snow">
-              Client Portal
             </Link>
           )}
           <Link to="/editors" hash="apply" className="link-line label hidden 2xl:inline text-snow/70 hover:text-snow">
@@ -127,10 +123,8 @@ export function Nav() {
               </motion.div>
             ))}
             <div className="mt-8 flex flex-col gap-3">
-              {isSignedIn ? (
+              {isSignedIn && (
                 <Cta to="/dashboard">Go to Dashboard ({user?.firstName})</Cta>
-              ) : (
-                <Cta to="/sign-in" variant="ghost">Client Portal Sign In</Cta>
               )}
               <Cta to="/get-started">Get Your Video Edited</Cta>
               <Cta to="/editors" variant="ghost" hash="apply">
