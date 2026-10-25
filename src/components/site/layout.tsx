@@ -233,6 +233,13 @@ export function Footer() {
           <Link to="/terms" className="link-line hover:text-snow">
             Halal Policy & Content Terms
           </Link>
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new CustomEvent("open-policy-modal"))}
+            className="link-line cursor-pointer text-gray hover:text-snow transition-colors"
+          >
+            Policy Preferences
+          </button>
         </div>
         <span className="label">00:00:00:00 — End of reel</span>
       </div>

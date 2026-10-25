@@ -130,6 +130,13 @@ function TermsPage() {
             >
               02 Client Authorization & Rights
             </a>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent("open-policy-modal"))}
+              className="label hidden sm:inline-block border border-primary/50 bg-primary/10 px-2.5 py-1 text-primary hover:bg-primary hover:text-ink transition-colors cursor-pointer"
+            >
+              Consent Window
+            </button>
           </div>
         </div>
       </div>

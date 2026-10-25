@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Footer, Nav, PageTransition } from "../components/site/layout";
+import { PolicyModal } from "../components/site/policy-modal";
 
 function NotFoundComponent() {
   return (
@@ -126,6 +127,7 @@ function RootComponent() {
         <Outlet />
       </main>
       <Footer />
+      <PolicyModal />
       <PageTransition />
     </QueryClientProvider>
   );
