@@ -7,11 +7,9 @@ import {
   CreditCard,
   Download,
   CheckCircle2,
-  Clock,
   Shield,
   ArrowRight,
   Receipt,
-  Sparkles,
 } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard/billing")({
@@ -49,40 +47,30 @@ function BillingPage() {
           <div className="md:col-span-2 border border-border bg-charcoal/80 p-6 sm:p-8 rounded-sm relative overflow-hidden">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border/80 pb-6">
               <div>
-                <span className="label text-[0.68rem] bg-primary/10 text-primary border border-primary/20 px-2.5 py-0.5 rounded-xs">
-                  Active Subscription
+                <span className="label text-[0.68rem] bg-soft text-gray border border-border px-2.5 py-0.5 rounded-xs">
+                  Membership Status
                 </span>
                 <h2 className="display text-2xl sm:text-3xl font-extrabold text-snow mt-2">
-                  Pro Retainer Plan
+                  No Active Retainer
                 </h2>
                 <p className="text-xs text-gray mt-1">
-                  8 High-Retention Videos / Month • Dedicated Lead Editor & Colorist
+                  Choose an ongoing editing retainer or start an individual project.
                 </p>
               </div>
 
-              <div className="text-right sm:text-right">
-                <div className="display text-3xl font-extrabold text-snow">$1,950</div>
-                <div className="text-[0.68rem] font-mono text-gray">Billed monthly</div>
-              </div>
-            </div>
-
-            {/* Plan Usage Meter */}
-            <div className="pt-6 space-y-3">
-              <div className="flex items-center justify-between text-xs">
-                <span className="font-mono text-gray">Monthly Editing Allocation</span>
-                <span className="font-mono text-snow font-bold">5 of 8 Videos Cut</span>
-              </div>
-              <div className="h-2 w-full bg-ink rounded-full overflow-hidden">
-                <div className="h-full bg-primary rounded-full" style={{ width: "62.5%" }} />
-              </div>
-              <div className="flex justify-between text-[0.68rem] text-gray pt-1">
-                <span>3 videos remaining this cycle</span>
-                <span>Renews on November 1, 2026</span>
+              <div className="text-left sm:text-right">
+                <Link
+                  to="/pricing"
+                  className="btn-slide btn-primary !py-2.5 !px-5 text-xs font-semibold inline-flex items-center gap-1.5"
+                >
+                  <span>Explore Retainers</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
               </div>
             </div>
 
             {/* Plan Features */}
-            <div className="mt-6 pt-6 border-t border-border/80 grid grid-cols-2 gap-3 text-xs text-snow/90">
+            <div className="pt-6 grid grid-cols-2 gap-3 text-xs text-snow/90">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
                 <span>48-hour first cut turnaround</span>
@@ -111,14 +99,10 @@ function BillingPage() {
               </div>
 
               <div className="mt-5 p-4 bg-ink border border-border rounded-xs">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="font-mono text-xs font-bold text-snow">Mastercard •••• 4242</span>
-                  <span className="text-[0.62rem] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded-xs">
-                    Default
-                  </span>
+                <div className="text-xs text-gray">No payment method on file</div>
+                <div className="text-[0.68rem] text-gray/70 mt-1">
+                  Payment details are requested securely when subscribing or purchasing a project.
                 </div>
-                <div className="text-[0.68rem] text-gray font-mono">Expires 08/28</div>
-                <div className="text-[0.68rem] text-snow/70 mt-1">{user?.fullName || "Alex Rivera"}</div>
               </div>
 
               <div className="mt-5 space-y-2 text-xs text-gray">
@@ -131,12 +115,12 @@ function BillingPage() {
               </div>
             </div>
 
-            <button
-              onClick={() => alert("Card update portal: Connected to secure billing management.")}
-              className="mt-6 w-full py-2 text-xs font-semibold bg-soft hover:bg-border text-snow rounded-xs transition-colors"
+            <Link
+              to="/pricing"
+              className="mt-6 block text-center w-full py-2 text-xs font-semibold bg-soft hover:bg-border text-snow rounded-xs transition-colors"
             >
-              Update Payment Method
-            </button>
+              Select Plan
+            </Link>
           </div>
         </div>
 
@@ -150,51 +134,61 @@ function BillingPage() {
             <span className="text-xs font-mono text-gray">{invoices.length} billing statements</span>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead>
-                <tr className="border-b border-border/80 bg-ink/50 text-[0.68rem] font-mono uppercase text-gray">
-                  <th className="p-4 font-semibold">Invoice #</th>
-                  <th className="p-4 font-semibold">Billing Date</th>
-                  <th className="p-4 font-semibold">Description</th>
-                  <th className="p-4 font-semibold">Amount</th>
-                  <th className="p-4 font-semibold">Status</th>
-                  <th className="p-4 font-semibold text-right">Receipt</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border/60">
-                {invoices.map((inv) => (
-                  <tr key={inv.id} className="hover:bg-soft/40 transition-colors">
-                    <td className="p-4 font-mono font-bold text-snow">{inv.invoiceNumber}</td>
-                    <td className="p-4 font-mono text-gray">{inv.date}</td>
-                    <td className="p-4 text-snow/90 font-medium">{inv.description}</td>
-                    <td className="p-4 font-mono font-bold text-snow">{inv.amount}</td>
-                    <td className="p-4">
-                      <span
-                        className={`label text-[0.65rem] px-2 py-0.5 rounded-xs border ${
-                          inv.status === "Paid"
-                            ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
-                            : "bg-amber-500/10 text-amber-400 border-amber-500/20"
-                        }`}
-                      >
-                        {inv.status}
-                      </span>
-                    </td>
-                    <td className="p-4 text-right">
-                      <a
-                        href={inv.downloadUrl}
-                        download
-                        className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline font-mono"
-                      >
-                        <Download className="h-3 w-3" />
-                        <span>PDF</span>
-                      </a>
-                    </td>
+          {invoices.length === 0 ? (
+            <div className="py-12 text-center text-xs text-gray">
+              <Receipt className="h-8 w-8 text-gray mx-auto mb-2 opacity-50" />
+              <p className="text-snow font-medium">No billing invoices found</p>
+              <p className="mt-1 max-w-sm mx-auto">
+                Invoices and downloadable receipts will appear here once billing statements are generated.
+              </p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead>
+                  <tr className="border-b border-border/80 bg-ink/50 text-[0.68rem] font-mono uppercase text-gray">
+                    <th className="p-4 font-semibold">Invoice #</th>
+                    <th className="p-4 font-semibold">Billing Date</th>
+                    <th className="p-4 font-semibold">Description</th>
+                    <th className="p-4 font-semibold">Amount</th>
+                    <th className="p-4 font-semibold">Status</th>
+                    <th className="p-4 font-semibold text-right">Receipt</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="divide-y divide-border/60">
+                  {invoices.map((inv) => (
+                    <tr key={inv.id} className="hover:bg-soft/40 transition-colors">
+                      <td className="p-4 font-mono font-bold text-snow">{inv.invoiceNumber}</td>
+                      <td className="p-4 font-mono text-gray">{inv.date}</td>
+                      <td className="p-4 text-snow/90 font-medium">{inv.description}</td>
+                      <td className="p-4 font-mono font-bold text-snow">{inv.amount}</td>
+                      <td className="p-4">
+                        <span
+                          className={`label text-[0.65rem] px-2 py-0.5 rounded-xs border ${
+                            inv.status === "Paid"
+                              ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                              : "bg-amber-500/10 text-amber-400 border-amber-500/20"
+                          }`}
+                        >
+                          {inv.status}
+                        </span>
+                      </td>
+                      <td className="p-4 text-right">
+                        <a
+                          href={inv.downloadUrl}
+                          download
+                          className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline font-mono"
+                        >
+                          <Download className="h-3 w-3" />
+                          <span>PDF</span>
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
     </DashboardLayout>

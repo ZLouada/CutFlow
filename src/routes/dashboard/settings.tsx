@@ -18,10 +18,10 @@ export const Route = createFileRoute("/dashboard/settings")({
 });
 
 function SettingsPage() {
-  const { user, signOut, isClerkConfigured } = useCutflowAuth();
+  const { user, signOut } = useCutflowAuth();
 
-  const [channelName, setChannelName] = useState("Alex Rivera Media");
-  const [website, setWebsite] = useState("https://creators.co");
+  const [channelName, setChannelName] = useState("");
+  const [website, setWebsite] = useState("");
   const [timezone, setTimezone] = useState("America/New_York (UTC-5)");
 
   // Notification toggles
@@ -65,19 +65,17 @@ function SettingsPage() {
               <h2 className="display text-lg text-snow font-bold">Client Profile</h2>
             </div>
             <span className="text-xs font-mono text-gray">
-              {isClerkConfigured ? "Authenticated via Clerk" : "Sandbox Client Account"}
+              Active Client Workspace
             </span>
           </div>
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-            <img
-              src={user?.imageUrl || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"}
-              alt={user?.fullName || "Avatar"}
-              className="h-16 w-16 rounded-full border-2 border-primary/60 object-cover shrink-0"
-            />
+            <div className="h-16 w-16 rounded-full border-2 border-primary/60 bg-primary/20 text-primary font-bold flex items-center justify-center text-xl shrink-0">
+              {user?.firstName?.charAt(0) || "C"}
+            </div>
             <div>
-              <h3 className="text-base font-bold text-snow">{user?.fullName || "Alex Rivera"}</h3>
-              <p className="text-xs text-gray font-mono mt-0.5">{user?.email || "alex@creators.co"}</p>
+              <h3 className="text-base font-bold text-snow">{user?.fullName || "Client"}</h3>
+              <p className="text-xs text-gray font-mono mt-0.5">{user?.email || "client@cutflow.agency"}</p>
               <div className="flex items-center gap-3 mt-3">
                 <span className="label text-[0.65rem] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-xs">
                   Active Client
@@ -209,7 +207,7 @@ function SettingsPage() {
           </div>
 
           <p className="text-xs text-gray leading-relaxed">
-            Your login is authenticated through Clerk multi-factor secure protocols. When working on shared devices, always sign out to protect confidential video assets and pre-release cuts.
+            Your login is authenticated with secure local session protocols. When working on shared devices, always sign out to protect confidential video assets and pre-release cuts.
           </p>
 
           <div className="pt-2 flex items-center justify-between">

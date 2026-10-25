@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { SignIn as ClerkSignIn } from "@clerk/clerk-react";
-import { useCutflowAuth, IS_CLERK_ENABLED } from "@/lib/auth-context";
-import { ShieldCheck, Video, Lock, ArrowRight, Sparkles } from "lucide-react";
+import { useCutflowAuth } from "@/lib/auth-context";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import logo from "@/assets/cutflow-logo.png";
 
 export const Route = createFileRoute("/sign-in")({
@@ -10,16 +9,16 @@ export const Route = createFileRoute("/sign-in")({
 });
 
 function SignInPage() {
-  const { isClerkConfigured, toggleMockSignIn, isSignedIn } = useCutflowAuth();
+  const { signIn } = useCutflowAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("alex@creators.co");
-  const [password, setPassword] = useState("••••••••••••");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleDemoSignIn = (e: React.FormEvent) => {
+  const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault();
-    if (toggleMockSignIn && !isSignedIn) {
-      toggleMockSignIn();
-    }
+    if (!email.trim()) return;
+
+    signIn({ email: email.trim() });
     navigate({ to: "/dashboard" });
   };
 
@@ -44,69 +43,53 @@ function SignInPage() {
 
       {/* Main Authentication Card */}
       <div className="w-full max-w-md relative z-10">
-        {IS_CLERK_ENABLED ? (
-          <div className="flex justify-center">
-            <ClerkSignIn
-              routing="path"
-              path="/sign-in"
-              signUpUrl="/sign-up"
-              fallbackRedirectUrl="/dashboard"
-            />
-          </div>
-        ) : (
-          <div className="border border-border bg-charcoal p-7 sm:p-9 rounded-sm shadow-2xl space-y-6">
-            <div className="flex items-center gap-2 p-3 bg-primary/10 border border-primary/20 rounded-xs text-xs text-snow/90">
-              <ShieldCheck className="h-4 w-4 text-primary shrink-0" />
-              <span>
-                <strong>Sandbox Client Portal:</strong> Clerk publishable key is in sandbox mode. Sign in directly with the preloaded client profile.
-              </span>
+        <div className="border border-border bg-charcoal p-7 sm:p-9 rounded-sm shadow-2xl space-y-6">
+          <form onSubmit={handleSignIn} className="space-y-4">
+            <div>
+              <label className="block text-xs font-medium text-snow mb-1.5">Client Email</label>
+              <input
+                type="email"
+                placeholder="name@company.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full bg-ink border border-border px-3.5 py-2.5 rounded-xs text-xs text-snow placeholder:text-gray/50 focus:outline-none focus:border-primary"
+                required
+              />
             </div>
 
-            <form onSubmit={handleDemoSignIn} className="space-y-4">
-              <div>
-                <label className="block text-xs font-medium text-snow mb-1.5">Client Email</label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-ink border border-border px-3.5 py-2.5 rounded-xs text-xs text-snow focus:outline-none focus:border-primary"
-                  required
-                />
+            <div>
+              <div className="flex justify-between items-center mb-1.5">
+                <label className="block text-xs font-medium text-snow">Password</label>
+                <span className="text-[0.65rem] text-primary cursor-pointer hover:underline">
+                  Forgot password?
+                </span>
               </div>
-
-              <div>
-                <div className="flex justify-between items-center mb-1.5">
-                  <label className="block text-xs font-medium text-snow">Password</label>
-                  <span className="text-[0.65rem] text-primary cursor-pointer hover:underline">
-                    Forgot password?
-                  </span>
-                </div>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-ink border border-border px-3.5 py-2.5 rounded-xs text-xs text-snow focus:outline-none focus:border-primary"
-                  required
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="btn-slide btn-primary !py-3 w-full text-xs font-semibold flex items-center justify-center gap-2 mt-2"
-              >
-                <span>Enter Cutflow Dashboard</span>
-                <ArrowRight className="h-3.5 w-3.5" />
-              </button>
-            </form>
-
-            <div className="pt-4 border-t border-border/80 text-center text-xs text-gray">
-              Don't have an active project yet?{" "}
-              <Link to="/get-started" className="text-primary hover:underline font-semibold">
-                Get Your Video Edited
-              </Link>
+              <input
+                type="password"
+                placeholder="••••••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full bg-ink border border-border px-3.5 py-2.5 rounded-xs text-xs text-snow placeholder:text-gray/50 focus:outline-none focus:border-primary"
+                required
+              />
             </div>
+
+            <button
+              type="submit"
+              className="btn-slide btn-primary !py-3 w-full text-xs font-semibold flex items-center justify-center gap-2 mt-2"
+            >
+              <span>Enter Cutflow Dashboard</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </form>
+
+          <div className="pt-4 border-t border-border/80 text-center text-xs text-gray">
+            Don't have an account yet?{" "}
+            <Link to="/sign-up" className="text-primary hover:underline font-semibold">
+              Create an account
+            </Link>
           </div>
-        )}
+        </div>
       </div>
 
       {/* Footer Return Link */}

@@ -29,7 +29,7 @@ describe("Dashboard Routes and Store", () => {
     }
   });
 
-  describe("DashboardStore", () => {
+  describe("DashboardStore (Zero Mock Data)", () => {
     let store: DashboardStore;
 
     beforeEach(() => {
@@ -37,18 +37,13 @@ describe("Dashboard Routes and Store", () => {
       store = new DashboardStore("test-client");
     });
 
-    it("initializes with seed data", () => {
-      const projects = store.getProjects();
-      expect(projects.length).toBeGreaterThanOrEqual(3);
-
-      const tasks = store.getTasks();
-      expect(tasks.length).toBeGreaterThanOrEqual(4);
-
-      const files = store.getFiles();
-      expect(files.length).toBeGreaterThanOrEqual(3);
-
-      const invoices = store.getInvoices();
-      expect(invoices.length).toBeGreaterThanOrEqual(3);
+    it("initializes with empty collections (no mock data)", () => {
+      expect(store.getProjects()).toEqual([]);
+      expect(store.getTasks()).toEqual([]);
+      expect(store.getFiles()).toEqual([]);
+      expect(store.getInvoices()).toEqual([]);
+      expect(store.getMessages()).toEqual([]);
+      expect(store.getNotifications()).toEqual([]);
     });
 
     it("can create a new project and initial task", () => {
@@ -73,45 +68,46 @@ describe("Dashboard Routes and Store", () => {
       expect(tasks.length).toBeGreaterThan(0);
     });
 
-    it("updates project status and creates notifications", () => {
-      const projects = store.getProjects();
-      const first = projects[0];
+    it("updates project status and progress", () => {
+      const proj = store.addProject({
+        name: "Commercial Spot",
+      });
 
-      store.updateProjectStatus(first.id, "Editing", 50);
-      const updated = store.getProjectById(first.id);
+      store.updateProjectStatus(proj.id, "Editing", 60);
+      const updated = store.getProjectById(proj.id);
       expect(updated?.status).toBe("Editing");
-      expect(updated?.progress).toBe(50);
+      expect(updated?.progress).toBe(60);
     });
 
     it("handles revision request and marks project as Revisions Requested", () => {
-      const projects = store.getProjects();
-      const first = projects[0];
-      const initialCount = first.revisionsCount;
+      const proj = store.addProject({
+        name: "YouTube Episode",
+      });
 
-      store.requestRevision(first.id, "Trim intro by 5 seconds", ["00:05", "01:20"]);
-      const updated = store.getProjectById(first.id);
+      store.requestRevision(proj.id, "Trim intro by 5 seconds", ["00:05", "01:20"]);
+      const updated = store.getProjectById(proj.id);
 
       expect(updated?.status).toBe("Revisions Requested");
-      expect(updated?.revisionsCount).toBe(initialCount + 1);
+      expect(updated?.revisionsCount).toBe(1);
 
-      const revs = store.getRevisions(first.id);
-      expect(revs.length).toBeGreaterThan(0);
+      const revs = store.getRevisions(proj.id);
+      expect(revs.length).toBe(1);
       expect(revs[0].feedback).toBe("Trim intro by 5 seconds");
     });
 
     it("approves project and sets status to Approved", () => {
-      const projects = store.getProjects();
-      const first = projects[0];
+      const proj = store.addProject({
+        name: "Documentary Short",
+      });
 
-      store.approveProject(first.id);
-      const updated = store.getProjectById(first.id);
+      store.approveProject(proj.id);
+      const updated = store.getProjectById(proj.id);
       expect(updated?.status).toBe("Approved");
       expect(updated?.progress).toBe(100);
+      expect(updated?.finalVideoUrl).toBeDefined();
     });
 
     it("adds and deletes vault files", () => {
-      const initialCount = store.getFiles().length;
-
       const file = store.addFile({
         name: "new_broll_cut.mp4",
         type: "Video",
@@ -122,10 +118,10 @@ describe("Dashboard Routes and Store", () => {
         status: "Ready",
       });
 
-      expect(store.getFiles().length).toBe(initialCount + 1);
+      expect(store.getFiles().length).toBe(1);
 
       store.deleteFile(file.id);
-      expect(store.getFiles().length).toBe(initialCount);
+      expect(store.getFiles().length).toBe(0);
     });
 
     it("sends and stores chat messages", () => {
@@ -133,11 +129,21 @@ describe("Dashboard Routes and Store", () => {
       expect(msg.id).toBeDefined();
 
       const msgs = store.getMessages("proj-1");
-      expect(msgs.some((m) => m.text === "Hello editor!")).toBe(true);
+      expect(msgs.length).toBe(1);
+      expect(msgs[0].text).toBe("Hello editor!");
     });
 
     it("toggles task status", () => {
-      const task = store.getTasks()[0];
+      const task = store.addTask({
+        projectId: "proj-1",
+        projectName: "Project A",
+        title: "Test Task",
+        description: "Task description",
+        status: "To Do",
+        priority: "High",
+        dueDate: "2026-10-30",
+      });
+
       store.updateTaskStatus(task.id, "Completed");
 
       const updated = store.getTasks().find((t) => t.id === task.id);

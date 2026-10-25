@@ -34,7 +34,7 @@ const navItems = [
 ];
 
 export function DashboardLayout({ children }: { children: ReactNode }) {
-  const { user, signOut, isClerkConfigured, toggleMockSignIn } = useCutflowAuth();
+  const { user, signOut } = useCutflowAuth();
   const currentPath = useRouterState({ select: (s) => s.location.pathname });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
@@ -163,32 +163,15 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
                 </div>
               </div>
 
-              {isClerkConfigured ? (
-                <UserButton afterSignOutUrl="/" />
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => signOut()}
-                  title="Sign out"
-                  className="p-1.5 text-gray hover:text-destructive transition-colors rounded-sm hover:bg-ink cursor-pointer"
-                >
-                  <LogOut className="h-4 w-4" />
-                </button>
-              )}
+              <button
+                type="button"
+                onClick={() => signOut()}
+                title="Sign out"
+                className="p-1.5 text-gray hover:text-destructive transition-colors rounded-sm hover:bg-ink cursor-pointer"
+              >
+                <LogOut className="h-4 w-4" />
+              </button>
             </div>
-
-            {!isClerkConfigured && (
-              <div className="mt-2 text-[0.65rem] text-gray/80 px-1 flex items-center justify-between">
-                <span>Demo Client Mode</span>
-                <button
-                  type="button"
-                  onClick={toggleMockSignIn}
-                  className="underline hover:text-primary cursor-pointer"
-                >
-                  Switch User
-                </button>
-              </div>
-            )}
           </div>
         </aside>
 
