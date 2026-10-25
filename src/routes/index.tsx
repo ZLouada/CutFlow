@@ -2,8 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import {
   Editors,
   FinalCta,
-  ForClients,
-  ForEditors,
   Hero,
   Matching,
   Portfolio,
@@ -22,7 +20,7 @@ export const Route = createFileRoute("/")({
       { title: "HiKARii — Professional Video Editing Agency" },
       { name: "description", content: "HiKARii is a professional video editing agency. Upload raw footage, collaborate with our creative post-production team, and receive master edits." },
       { property: "og:title", content: "HiKARii — Professional Video Editing Agency" },
-      { property: "og:description", content: "HiKARii connects people with stories to world-class video editors. Upload, edit, review, and deliver." },
+      { property: "og:description", content: "HiKARii is a professional video editing agency. Send us your footage, and our dedicated team handles the entire post-production workflow." },
     ],
   }),
   component: Index,
@@ -34,12 +32,10 @@ function Index() {
       <Hero />
       <Stats />
       <Problem />
+      <Portfolio />
+      <Reel />
       <SystemTimeline />
       <Editors />
-      <Reel />
-      <ForClients />
-      <ForEditors />
-      <Portfolio />
       <Matching />
       <Trust />
       <FinalCta />

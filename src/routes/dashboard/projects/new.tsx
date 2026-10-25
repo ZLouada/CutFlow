@@ -78,7 +78,7 @@ function NewProjectPage() {
                 Start a New Project
               </h1>
               <p className="mt-1 text-xs sm:text-sm text-gray">
-                Provide your footage parameters and creative direction. We'll match and assign your dedicated editor.
+                Provide your footage parameters and creative direction. We'll assign your dedicated lead editor.
               </p>
             </div>
           </div>

@@ -198,12 +198,12 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8, ease }}
         >
-          <p className="max-w-md text-base text-snow/70 md:text-lg">
-            Send us your raw footage. HiKARii's dedicated editing team crafts your story. You get back a video worth watching.
+          <p className="max-w-lg text-base text-snow/70 md:text-lg">
+            HiKARii is a professional video editing agency. Send us your raw footage and creative brief—our internal team handles the full post-production workflow, from first cut to final master.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Cta to="/clients">Get your video edited</Cta>
-            <Cta to="/editors" variant="ghost">Explore editors</Cta>
+            <Cta to="/get-started">Start a Project</Cta>
+            <Cta to="/work" variant="ghost">View Our Work</Cta>
           </div>
         </motion.div>
 
@@ -259,7 +259,7 @@ export function Hero() {
 const problems = [
   { k: "Too much footage", d: "Hours of rushes. One story buried somewhere inside.", stat: "47h", sub: "avg. raw footage per brand film" },
   { k: "Not enough time", d: "You're running a business, not a post-production house.", stat: "6wk", sub: "typical agency turnaround" },
-  { k: "Hard to find the right editor", d: "Portfolios all look the same until the deadline hits.", stat: "1 in 9", sub: "freelance hires that fit the style" },
+  { k: "Freelancer roulette", d: "Managing disjointed freelancers with unpredictable quality and missed deadlines drains your momentum.", stat: "1 team", sub: "dedicated HiKARii post-production pipeline" },
 ];
 
 export function Problem() {
@@ -455,12 +455,15 @@ export function Editors() {
       <div className="mx-auto max-w-[1600px] px-5 md:px-10">
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <div>
-            <Eyebrow n="03">Find your editor</Eyebrow>
+            <Eyebrow n="04">Our team</Eyebrow>
             <h2 className="display mt-6 text-[13vw] md:text-[clamp(4rem,7vw,7rem)]">
-              <RevealLines lines={["The craft,", "on call."]} />
+              <RevealLines lines={["The craft,", " on call."]} />
             </h2>
+            <p className="mt-4 max-w-lg text-sm text-gray md:text-base">
+              Behind every HiKARii cut is a dedicated lead editor from our internal studio team. We assign the right specialist to your brief—you never have to browse or manage freelancers.
+            </p>
           </div>
-          <Cta to="/editors" variant="ghost">Browse all editors</Cta>
+          <Cta to="/get-started" variant="ghost">Start a project</Cta>
         </div>
 
         <div className="no-scrollbar mt-16 flex snap-x gap-4 overflow-x-auto pb-8 lg:gap-0 lg:overflow-visible lg:pl-4">
@@ -488,10 +491,10 @@ export function Editors() {
                 <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-transparent" />
                 {/* preview rec indicator */}
                 <div className="label absolute left-4 top-4 flex items-center gap-2 text-snow opacity-0 transition-opacity group-hover:opacity-100">
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-primary" /> Previewing reel
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-primary" /> Studio Reel Lead
                 </div>
-                <div className={`label absolute right-4 top-4 px-2 py-1 ${e.available ? "bg-primary text-ink" : "bg-snow/15 text-snow"}`}>
-                  {e.available ? "Available" : "Booked till Nov"}
+                <div className="label absolute right-4 top-4 border border-primary/40 bg-primary/10 px-2.5 py-1 text-[0.65rem] text-primary">
+                  Studio Lead
                 </div>
                 <div className="absolute inset-x-0 bottom-0 p-5 md:p-7">
                   <div className="h-[2px] w-full origin-left scale-x-0 bg-primary transition-transform duration-700 group-hover:scale-x-100" />
@@ -500,14 +503,13 @@ export function Editors() {
                   <p className="mt-2 text-sm text-snow/70">"{e.style}"</p>
                   <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-700 group-hover:grid-rows-[1fr]">
                     <div className="overflow-hidden">
-                      <div className="mt-5 grid grid-cols-3 gap-3 border-t border-border pt-4">
-                        <div><div className="display text-2xl">{e.years}y</div><div className="label text-[0.55rem] text-gray">Experience</div></div>
-                        <div><div className="display text-2xl">★ {e.rating.toFixed(1)}</div><div className="label text-[0.55rem] text-gray">Rating</div></div>
-                        <div><div className="display text-2xl">{e.projects}</div><div className="label text-[0.55rem] text-gray">Projects</div></div>
+                      <div className="mt-5 grid grid-cols-2 gap-3 border-t border-border pt-4">
+                        <div><div className="display text-2xl">{e.years}+ yrs</div><div className="label text-[0.55rem] text-gray">Post Craft</div></div>
+                        <div><div className="display text-2xl">Agency Lead</div><div className="label text-[0.55rem] text-gray">Direct Review</div></div>
                       </div>
                       <div className="mt-4 flex flex-wrap gap-2">
                         {e.software.map((s) => (
-                          <span key={s} className="label border border-border px-2 py-1 text-[0.6rem]">{s}</span>
+                          <span key={s} className="label border border-border px-2 py-1 text-[0.6rem] text-snow/90">{s}</span>
                         ))}
                       </div>
                     </div>
@@ -594,7 +596,7 @@ export function ForClients() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 80%", "end 60%"] });
   const draw = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const stages = ["Raw footage", "Match", "Editor", "Final cut"];
+  const stages = ["Raw footage", "Creative brief", "Team edit", "Master delivery"];
   return (
     <section ref={ref} className="relative grid overflow-hidden lg:grid-cols-2">
       <div className="bg-paper px-5 py-24 text-ink md:px-10 md:py-40">
@@ -613,7 +615,7 @@ export function ForClients() {
       </div>
       <div className="bg-ink px-5 py-24 md:px-10 md:py-40">
         <h2 className="display text-[13vw] lg:text-right md:text-[clamp(3.5rem,6vw,6rem)]">
-          <RevealLines lines={["We find", "the editor."]} delay={0.2} />
+          <RevealLines lines={["We craft", "the edit."]} delay={0.2} />
         </h2>
         <div className="mt-12 space-y-0 lg:ml-auto lg:max-w-sm">
           {stages.map((s, i) => (
@@ -684,7 +686,7 @@ export function ForEditors() {
             <RevealLines lines={["Your skills", "deserve great", "projects."]} />
           </h2>
           <p className="mt-6 text-gray lg:ml-auto lg:max-w-sm">Briefs that match your style, budgets agreed upfront, payment on delivery. Spend your time cutting — not pitching.</p>
-          <div className="mt-8"><Cta to="/editors" hash="apply">Become an editor</Cta></div>
+          <div className="mt-8"><Cta to="/editors" hash="apply">Apply to join team</Cta></div>
         </div>
       </div>
     </section>
@@ -869,50 +871,53 @@ export function Portfolio() {
 export function Matching() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-20%" });
-  const matches = [
-    { n: "Omar", s: 92, y: 18 },
-    { n: "Yusuf", s: 88, y: 50 },
-    { n: "Theo", s: 84, y: 82 },
+  const assignments = [
+    { n: "Omar", role: "Lead Editor", tag: "Primary Cut", y: 18, active: true },
+    { n: "Theo", role: "Color & Grade", tag: "Master Look", y: 50, active: false },
+    { n: "Yusuf", role: "Motion Designer", tag: "Titles & VFX", y: 82, active: false },
   ];
   return (
     <section className="bg-paper py-28 text-ink md:py-40">
       <div className="mx-auto max-w-[1600px] px-5 md:px-10">
-        <div className="label flex items-center gap-3 text-ink/60"><span className="text-primary">08</span><span className="h-px w-10 bg-primary" />Live matching</div>
+        <div className="label flex items-center gap-3 text-ink/60"><span className="text-primary">05</span><span className="h-px w-10 bg-primary" />Studio assignment</div>
         <h2 className="display mt-6 text-[12vw] md:text-[clamp(3.5rem,6vw,6rem)]">
-          <RevealLines lines={["One brief.", "The right three."]} />
+          <RevealLines lines={["One brief.", " The right team."]} />
         </h2>
+        <p className="mt-4 max-w-xl text-base text-ink/70">
+          Behind every HiKARii cut is an editor selected from our internal studio team based on your style, format, and pacing. You don't browse freelancers or negotiate rates—HiKARii directs the entire post-production process.
+        </p>
         <div ref={ref} className="relative mt-16 grid gap-10 lg:grid-cols-[1fr_1.4fr_1fr] lg:items-center">
           <motion.div initial={{ opacity: 0, x: -40 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8, ease }} className="bg-ink p-6 text-snow">
-            <div className="label text-primary">Client brief</div>
-            <div className="display mt-3 text-3xl">"Need a YouTube editor"</div>
+            <div className="label text-primary">Your Project Brief</div>
+            <div className="display mt-3 text-3xl">"High-retention YouTube cut"</div>
             <div className="mt-4 flex flex-wrap gap-2">
-              {["Fast cuts", "Weekly", "Captions", "$900/ep"].map((t) => <span key={t} className="label border border-border px-2 py-1 text-[0.6rem]">{t}</span>)}
+              {["Fast cuts", "Color grade", "Kinetic titles", "Sound mix"].map((t) => <span key={t} className="label border border-border px-2 py-1 text-[0.6rem]">{t}</span>)}
             </div>
           </motion.div>
           <div className="relative hidden h-56 lg:block lg:h-80">
             <svg viewBox="0 0 200 100" preserveAspectRatio="none" className="h-full w-full">
-              {matches.map((m, i) => (
+              {assignments.map((m, i) => (
                 <g key={m.n}>
                   <motion.path d={`M0 50 C 80 50, 120 ${m.y}, 200 ${m.y}`} fill="none" className={i === 0 ? "stroke-primary" : "stroke-ink/25"} strokeWidth={i === 0 ? 2 : 1} vectorEffect="non-scaling-stroke" initial={{ pathLength: 0 }} animate={inView ? { pathLength: 1 } : {}} transition={{ duration: 1.2, delay: 0.4 + i * 0.15, ease }} />
                   <path d={`M0 50 C 80 50, 120 ${m.y}, 200 ${m.y}`} fill="none" className={i === 0 ? "stroke-primary" : "stroke-ink/40"} strokeWidth="3" strokeDasharray="2 38" vectorEffect="non-scaling-stroke" style={{ animation: inView ? `dash ${1 + i * 0.4}s linear infinite` : "none" }} />
                 </g>
               ))}
             </svg>
-            <div className="label absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-paper px-3 py-1">Matching</div>
+            <div className="label absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-paper px-3 py-1 font-bold">Studio Directing</div>
           </div>
           <div className="space-y-3">
-            {matches.map((m, i) => (
-              <motion.div key={m.n} initial={{ opacity: 0, x: 40 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8, ease, delay: 0.8 + i * 0.15 }} className={`flex items-center justify-between border p-4 ${i === 0 ? "border-primary bg-primary text-ink" : "border-ink-line bg-snow"}`}>
+            {assignments.map((m, i) => (
+              <motion.div key={m.n} initial={{ opacity: 0, x: 40 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8, ease, delay: 0.8 + i * 0.15 }} className={`flex items-center justify-between border p-4 ${m.active ? "border-primary bg-primary text-ink" : "border-ink-line bg-snow"}`}>
                 <div>
-                  <div className="label text-[0.6rem] opacity-60">Editor {String.fromCharCode(65 + i)}</div>
+                  <div className="label text-[0.6rem] opacity-60">{m.role}</div>
                   <div className="display text-2xl">{m.n}</div>
                 </div>
-                <div className="display text-4xl tabular-nums">{inView ? <Counter to={m.s} suffix="%" /> : "0%"}</div>
+                <div className="label border px-2 py-1 text-xs border-current font-bold">{m.tag}</div>
               </motion.div>
             ))}
           </div>
         </div>
-        <p className="label mt-10 text-ink/50">Scored on specialty, style, software, turnaround and availability.</p>
+        <p className="label mt-10 text-ink/50">Internal team assignment ensures brand alignment, rapid turnaround, and zero freelancer friction.</p>
       </div>
     </section>
   );
@@ -964,22 +969,39 @@ export function Trust() {
   );
 }
 
-/* ---------- STATS strip ---------- */
+/* ---------- AGENCY BENEFITS strip ---------- */
 
 export function Stats() {
-  const s = [
-    { v: 1200, s: "+", l: "Vetted editors" },
-    { v: 48, s: "h", l: "Average first cut" },
-    { v: 4.9, s: "", l: "Avg. project rating", d: 1 },
-    { v: 32, s: "", l: "Countries" },
+  const benefits = [
+    {
+      n: "01",
+      title: "Professional Editing",
+      desc: "Every project is cut, paced, and polished by our dedicated internal editing team.",
+    },
+    {
+      n: "02",
+      title: "Clear Workflow",
+      desc: "A proven, transparent pipeline: Brief → Edit → Review → Deliver.",
+    },
+    {
+      n: "03",
+      title: "Built for Content",
+      desc: "Engineered for YouTube, social shorts, podcasts, brand films, and commercial cuts.",
+    },
+    {
+      n: "04",
+      title: "Collaborative Review",
+      desc: "Frame-accurate timeline feedback with iterative revisions and direct communication.",
+    },
   ];
   return (
     <section className="border-y border-border bg-ink">
-      <div className="mx-auto grid max-w-[1600px] grid-cols-2 md:grid-cols-4">
-        {s.map((x, i) => (
-          <div key={x.l} className={`px-5 py-10 md:px-10 ${i ? "border-l border-border" : ""}`}>
-            <div className="display text-5xl md:text-7xl"><Counter to={x.v} decimals={x.d ?? 0} suffix={x.s} /></div>
-            <div className="label mt-2 text-gray">{x.l}</div>
+      <div className="mx-auto grid max-w-[1600px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        {benefits.map((b, i) => (
+          <div key={b.n} className={`px-5 py-8 md:px-8 ${i ? "border-t border-border sm:border-t-0 sm:border-l" : ""}`}>
+            <div className="label text-primary">{b.n}</div>
+            <h3 className="display mt-3 text-2xl text-snow md:text-3xl">{b.title}</h3>
+            <p className="mt-2 text-xs md:text-sm text-gray leading-relaxed">{b.desc}</p>
           </div>
         ))}
       </div>
@@ -1003,12 +1025,15 @@ export function FinalCta() {
         transition={{ duration: 8, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
       />
       <div className="relative mx-auto max-w-[1600px] px-5 md:px-10">
-        <h2 className="display text-[14vw] md:text-[clamp(5rem,10vw,10rem)]">
-          <RevealLines lines={["Ready to", "make something", "worth watching?"]} />
+        <h2 className="display text-[14vw] md:text-[clamp(5rem,9.5vw,9.5rem)]">
+          <RevealLines lines={["Ready to turn", "your footage into", "finished content?"]} />
         </h2>
-        <div className="mt-14 flex flex-wrap gap-3">
-          <Cta to="/get-started">Start a project</Cta>
-          <Cta to="/editors" variant="ghost" hash="apply">Become an editor</Cta>
+        <p className="mt-8 max-w-lg text-lg text-snow/70">
+          Tell us what you're working on. We'll take it from there.
+        </p>
+        <div className="mt-12 flex flex-wrap gap-3">
+          <Cta to="/get-started">Start a Project</Cta>
+          <Cta to="/work" variant="ghost">View Our Work</Cta>
         </div>
       </div>
     </section>

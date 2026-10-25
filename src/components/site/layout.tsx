@@ -38,7 +38,7 @@ export function Logo({
     return (
       <img
         src={mark}
-        alt="HiKARii"
+        alt="HiKARii logo"
         width={621}
         height={479}
         className={`w-auto object-contain ${className}`}
@@ -51,14 +51,14 @@ export function Logo({
       <div className={`inline-flex items-center ${className}`}>
         <img
           src={mark}
-          alt="HiKARii"
+          alt="HiKARii logo"
           width={621}
           height={479}
           className="h-full w-auto sm:hidden object-contain"
         />
         <img
           src={full}
-          alt="HiKARii"
+          alt="HiKARii logo"
           width={1099}
           height={300}
           className="hidden sm:block h-full w-auto object-contain"
@@ -70,7 +70,7 @@ export function Logo({
   return (
     <img
       src={full}
-      alt="HiKARii"
+      alt="HiKARii logo"
       width={1099}
       height={300}
       className={`w-auto object-contain ${className}`}
@@ -157,7 +157,7 @@ export function Nav() {
             Become an Editor
           </Link>
           <Cta to="/get-started" className={scrolled ? "!py-3" : ""}>
-            Get Your Video Edited
+            Start a Project
           </Cta>
         </div>
         <button
@@ -195,7 +195,7 @@ export function Nav() {
               {isSignedIn && (
                 <Cta to="/dashboard">Go to Dashboard ({user?.firstName})</Cta>
               )}
-              <Cta to="/get-started">Get Your Video Edited</Cta>
+              <Cta to="/get-started">Start a Project</Cta>
               <Cta to="/editors" variant="ghost" hash="apply">
                 Become an Editor
               </Cta>

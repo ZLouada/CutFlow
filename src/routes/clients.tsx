@@ -14,7 +14,7 @@ export const Route = createFileRoute("/clients")({
   }),
   component: () => (
     <>
-      <PageHeader n="C" eyebrow="For clients" lines={["Your footage.", "The right editor."]} intro="Tell us what you're making. HiKARii assigns dedicated editors whose work elevates the video in your head." />
+      <PageHeader n="C" eyebrow="For clients" lines={["Your footage.", " Our editing team."]} intro="Tell us what you're making. HiKARii's dedicated post-production team crafts your story to elevate the video in your head." />
       <ForClients />
       <Matching />
       <Editors />

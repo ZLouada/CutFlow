@@ -14,7 +14,7 @@ export const Route = createFileRoute("/editors")({
   }),
   component: () => (
     <>
-      <PageHeader n="E" eyebrow="For editors" lines={["Cut more.", "Pitch less."]} intro="Projects matched to your specialty, agreed budgets, and payment on delivery." />
+      <PageHeader n="E" eyebrow="For editors" lines={["Cut more.", " Pitch less."]} intro="Projects matched to your specialty, agreed budgets, and direct payment on delivery." />
       <ForEditors />
       <Stats />
       <Editors />

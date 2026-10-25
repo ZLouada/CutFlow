@@ -5,8 +5,8 @@ import { FinalCta, PageHeader } from "@/components/site/sections";
 
 const plans = [
   { n: "Short", p: "$149", u: "per video", f: ["Up to 60s final", "Vertical + square cuts", "Captions included", "2 review rounds", "48h first cut"] },
-  { n: "Story", p: "$590", u: "per video", f: ["Up to 12 min final", "Color & sound mix", "Motion titles", "3 review rounds", "Dedicated editor"], hot: true },
-  { n: "Studio", p: "Custom", u: "monthly retainer", f: ["Unlimited requests", "Editor team on call", "Brand toolkit", "Priority turnaround", "Account producer"] },
+  { n: "Story", p: "$590", u: "per video", f: ["Up to 12 min final", "Color & sound mix", "Motion titles", "3 review rounds", "Dedicated lead editor"], hot: true },
+  { n: "Studio", p: "Custom", u: "monthly retainer", f: ["Unlimited requests", "Dedicated post-production team", "Brand toolkit", "Priority turnaround", "Account producer"] },
 ];
 
 export const Route = createFileRoute("/pricing")({
@@ -15,9 +15,9 @@ export const Route = createFileRoute("/pricing")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { title: "Pricing — HiKARii" },
-      { name: "description", content: "Clear pricing for professional video editing: short-form, long-form stories and studio retainers." },
+      { name: "description", content: "Transparent pricing for professional video editing: short-form, long-form stories, and studio retainers." },
       { property: "og:title", content: "Pricing — HiKARii" },
-      { property: "og:description", content: "Pay per video or keep an editing team on call." },
+      { property: "og:description", content: "Pay per video or keep a dedicated post-production team on call." },
     ],
   }),
   component: Pricing,
@@ -54,7 +54,7 @@ function Pricing() {
                 ))}
               </ul>
               <div className="mt-10">
-                <Cta to="/get-started" variant={p.hot ? "primary" : "ink"}>Start a project</Cta>
+                <Cta to="/get-started" variant={p.hot ? "primary" : "ink"}>Start a Project</Cta>
               </div>
             </motion.div>
           ))}

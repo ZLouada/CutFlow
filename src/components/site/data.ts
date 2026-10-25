@@ -11,8 +11,8 @@ export const images = { hero, commercial, social, podcast, film, ugc, gaming };
 export const editors = [
   {
     name: "Omar",
-    role: "Short-form editor",
-    style: "Fast cuts • Social • YouTube",
+    role: "Lead Short-Form Editor",
+    style: "Fast cuts • Social • High Retention",
     years: 6,
     rating: 4.9,
     projects: 312,
@@ -21,8 +21,8 @@ export const editors = [
   },
   {
     name: "Theo",
-    role: "Colorist & long-form",
-    style: "Cinematic • Documentary • Brand",
+    role: "Colorist & Long-Form Lead",
+    style: "Cinematic • Documentary • Brand Grade",
     years: 11,
     rating: 5.0,
     projects: 188,
@@ -31,8 +31,8 @@ export const editors = [
   },
   {
     name: "Yusuf",
-    role: "Motion designer",
-    style: "Kinetic type • Launch • Explainers",
+    role: "Lead Motion Designer",
+    style: "Kinetic type • Product Launch • 3D",
     years: 8,
     rating: 4.9,
     projects: 241,
@@ -51,11 +51,11 @@ export const work = [
 ];
 
 export const steps = [
-  { n: "01", t: "Upload", d: "Drop raw footage, references and notes. Any format, any length." },
-  { n: "02", t: "Assign", d: "We assign your brief to senior HiKARii editors specialized in your style." },
-  { n: "03", t: "Edit", d: "Your HiKARii team cuts, grades, mixes and designs the story." },
-  { n: "04", t: "Review", d: "Frame-accurate comments right on the timeline. Two rounds included." },
-  { n: "05", t: "Deliver", d: "Final masters in every format you need — 16:9, 9:16, 1:1." },
+  { n: "01", t: "Start a Project", d: "Tell us what you're creating, share references, and outline your target deadline." },
+  { n: "02", t: "Send Footage", d: "Upload your raw rushes, camera logs, and audio tracks in any resolution or codec." },
+  { n: "03", t: "Team Craft", d: "Our dedicated HiKARii editing team cuts, grades, mixes audio, and polishes your story." },
+  { n: "04", t: "Review", d: "Review the cut with frame-accurate timestamp notes. Iterative revisions included." },
+  { n: "05", t: "Deliver", d: "Approve the master cut and receive high-bitrate deliverables in 16:9, 9:16, and 1:1." },
 ];
 
 export const testimonials = [
