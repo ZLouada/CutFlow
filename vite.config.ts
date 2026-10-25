@@ -7,17 +7,10 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  nitro: { preset: "aws-amplify" },
   tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
-    server: { entry: "server" },
-    prerender: {
-      enabled: true,
-      crawlLinks: true,
-      // Amplify's build-time crawler returns a 500 for the home route even
-      // though the SSR compute bundle is produced successfully. Keep any
-      // routes that prerender cleanly and let Amplify serve the rest at runtime.
-      failOnError: false,
-    },
+    // Amplify serves this app from Nitro's SSR compute bundle. TanStack's
+    // build-time preview crawler cannot load that Amplify bundle reliably.
+    prerender: { enabled: false },
   },
 });
