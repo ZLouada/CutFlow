@@ -22,9 +22,9 @@ type Form = z.infer<typeof schema>;
 export const Route = createFileRoute("/get-started")({
   head: () => ({
     meta: [
-      { title: "Get Started — Apply for a Video Editor | EditLink" },
+      { title: "Get Started — Apply for a Video Editor | Cutflow" },
       { name: "description", content: "Tell us about your project and get matched with a professional video editor." },
-      { property: "og:title", content: "Get Started — EditLink" },
+      { property: "og:title", content: "Get Started — Cutflow" },
       { property: "og:description", content: "Apply in two minutes and get paired with a vetted video editor." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

@@ -19,9 +19,9 @@ export const Route = createFileRoute("/")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "EditLink — From footage to finished" },
-      { name: "description", content: "EditLink connects people with raw footage to professional video editors. Upload, match, edit, review, deliver." },
-      { property: "og:title", content: "EditLink — From footage to finished" },
+      { title: "Cutflow — From footage to finished" },
+      { name: "description", content: "Cutflow connects people with raw footage to professional video editors. Upload, match, edit, review, deliver." },
+      { property: "og:title", content: "Cutflow — From footage to finished" },
       { property: "og:description", content: "The video-editing marketplace that connects the people with the story to the people with the craft." },
     ],
   }),

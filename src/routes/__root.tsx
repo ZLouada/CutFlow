@@ -79,8 +79,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "EditLink" },
-      { name: "description", content: "EditLink — the video-editing marketplace." },
+      { title: "Cutflow" },
+      { name: "description", content: "Cutflow — the video-editing marketplace." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "theme-color", content: "#0A0A0A" },

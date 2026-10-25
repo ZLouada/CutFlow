@@ -6,9 +6,9 @@ export const Route = createFileRoute("/clients")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "For Clients — EditLink" },
-      { name: "description", content: "Bring your story. EditLink finds the professional editor who fits your style, budget and deadline." },
-      { property: "og:title", content: "For Clients — EditLink" },
+      { title: "For Clients — Cutflow" },
+      { name: "description", content: "Bring your story. Cutflow finds the professional editor who fits your style, budget and deadline." },
+      { property: "og:title", content: "For Clients — Cutflow" },
       { property: "og:description", content: "You bring the story. We find the editor." },
     ],
   }),

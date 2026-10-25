@@ -210,7 +210,7 @@ export function Hero() {
         {/* timeline */}
         <div className="mt-10 border border-border bg-ink/80 backdrop-blur-sm">
           <div className="label flex items-center justify-between border-b border-border px-3 py-2 text-gray">
-            <span>EDITLINK_SEQ_01</span>
+            <span>CUTFLOW_SEQ_01</span>
             <span ref={timeRef} className="tabular-nums text-primary">{tc(0.05)}</span>
           </div>
           <div
@@ -386,7 +386,7 @@ export function SystemTimeline() {
             <div>
               <div className="label flex items-center gap-3 text-ink/60">
                 <span className="text-primary">02</span>
-                <span className="h-px w-10 bg-primary" /> The EditLink system
+                <span className="h-px w-10 bg-primary" /> The Cutflow system
               </div>
               <h2 className="display mt-4 text-[length:clamp(2.5rem,min(6vw,9vh),6rem)]">Five cuts to final.</h2>
             </div>
@@ -425,7 +425,7 @@ export function SystemTimeline() {
       <div className="px-5 py-24 md:px-10 lg:hidden">
         <div className="label flex items-center gap-3 text-ink/60">
           <span className="text-primary">02</span>
-          <span className="h-px w-10 bg-primary" /> The EditLink system
+          <span className="h-px w-10 bg-primary" /> The Cutflow system
         </div>
         <h2 className="display mt-4 text-6xl">Five cuts to final.</h2>
         <div className="relative mt-12 border-l-2 border-ink-line pl-6">
@@ -553,7 +553,7 @@ export function Reel() {
       <div className="mx-auto max-w-[1600px] px-5 md:px-10">
         <Eyebrow n="04">The reel</Eyebrow>
         <h2 className="display mt-6 text-[12vw] md:text-[clamp(4rem,7vw,7rem)]">
-          <RevealLines lines={["See what EditLink", "can create."]} />
+          <RevealLines lines={["See what Cutflow", "can create."]} />
         </h2>
       </div>
       <motion.div ref={ref} style={lightweight ? {} : { clipPath: clip }} className="grain relative mt-14 aspect-[16/9] w-full overflow-hidden md:aspect-[21/9]">
@@ -565,7 +565,7 @@ export function Reel() {
             <span className="label relative text-snow group-hover:text-ink">▶ Play reel</span>
           </span>
         </button>
-        <div className="label absolute bottom-5 left-5 text-snow/70 md:left-10">EditLink Showreel 2026 — 01:32</div>
+        <div className="label absolute bottom-5 left-5 text-snow/70 md:left-10">Cutflow Showreel 2026 — 01:32</div>
       </motion.div>
 
       <AnimatePresence>

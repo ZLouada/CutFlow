@@ -1,11 +1,11 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import logo from "@/assets/editlink-logo.png";
+import logo from "@/assets/cutflow-logo.png";
 import { useEffect, useState, type ReactNode } from "react";
 import { useLightweightMotion } from "@/hooks/use-lightweight-motion";
 
 export function Logo({ className = "h-8" }: { className?: string }) {
-  return <img src={logo} alt="EditLink" width={1057} height={298} className={`w-auto ${className}`} />;
+  return <img src={logo} alt="Cutflow" width={960} height={495} className={`w-auto ${className}`} />;
 }
 
 type CtaProps = {
@@ -56,7 +56,7 @@ export function Nav() {
       }`}
     >
       <div className="mx-auto flex max-w-[1600px] items-center justify-between px-5 md:px-10">
-        <Link to="/" aria-label="EditLink home">
+        <Link to="/" aria-label="Cutflow home">
           <Logo className={`transition-all duration-500 ${scrolled ? "h-7" : "h-9"}`} />
         </Link>
         <nav className="hidden items-center gap-6 whitespace-nowrap xl:flex 2xl:gap-9">
@@ -178,12 +178,12 @@ export function Footer() {
         <div className="col-span-2 lg:col-span-1">
           <Logo className="h-12" />
           <p className="mt-6 max-w-xs text-sm text-gray">
-            EditLink connects the people with the story to the people with the craft.
+            Cutflow connects the people with the story to the people with the craft.
           </p>
           <div className="mt-6 flex gap-5">
             <a
               key="X"
-              href="https://x.com/editlink"
+              href="https://x.com/cutflow"
               target="_blank"
               rel="noreferrer"
               className="link-line label text-gray hover:text-snow"
@@ -209,11 +209,11 @@ export function Footer() {
       </div>
       <div className="group mt-16 select-none px-3">
         <div className="display relative text-center text-[22vw] leading-[0.8] text-soft transition-colors duration-700 group-hover:text-primary">
-          EDITLINK
+          CUTFLOW
         </div>
       </div>
       <div className="mx-auto flex max-w-[1600px] justify-between px-5 py-6 text-xs text-gray md:px-10">
-        <span>© 2026 EditLink</span>
+        <span>© 2026 Cutflow</span>
         <span className="label">00:00:00:00 — End of reel</span>
       </div>
     </footer>

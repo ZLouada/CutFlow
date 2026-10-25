@@ -6,9 +6,9 @@ export const Route = createFileRoute("/how-it-works")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "How It Works — EditLink" },
-      { name: "description", content: "Upload, match, edit, review, deliver. See how EditLink turns raw footage into a finished video." },
-      { property: "og:title", content: "How It Works — EditLink" },
+      { title: "How It Works — Cutflow" },
+      { name: "description", content: "Upload, match, edit, review, deliver. See how Cutflow turns raw footage into a finished video." },
+      { property: "og:title", content: "How It Works — Cutflow" },
       { property: "og:description", content: "Five steps from raw footage to final cut." },
     ],
   }),

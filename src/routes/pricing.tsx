@@ -14,9 +14,9 @@ export const Route = createFileRoute("/pricing")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "Pricing — EditLink" },
+      { title: "Pricing — Cutflow" },
       { name: "description", content: "Clear pricing for professional video editing: short-form, long-form stories and studio retainers." },
-      { property: "og:title", content: "Pricing — EditLink" },
+      { property: "og:title", content: "Pricing — Cutflow" },
       { property: "og:description", content: "Pay per video or keep an editing team on call." },
     ],
   }),

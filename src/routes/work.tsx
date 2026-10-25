@@ -6,10 +6,10 @@ export const Route = createFileRoute("/work")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "Work — EditLink" },
-      { name: "description", content: "Commercials, YouTube, podcasts, short films, UGC and gaming — edited by EditLink editors in every format." },
-      { property: "og:title", content: "Work — EditLink" },
-      { property: "og:description", content: "Selected projects cut by EditLink editors in 16:9, 9:16 and 1:1." },
+      { title: "Work — Cutflow" },
+      { name: "description", content: "Commercials, YouTube, podcasts, short films, UGC and gaming — edited by Cutflow editors in every format." },
+      { property: "og:title", content: "Work — Cutflow" },
+      { property: "og:description", content: "Selected projects cut by Cutflow editors in 16:9, 9:16 and 1:1." },
     ],
   }),
   component: () => (
