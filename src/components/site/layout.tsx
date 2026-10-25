@@ -3,13 +3,14 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import logo from "@/assets/cutflow-logo.png";
 import { useEffect, useState, type ReactNode } from "react";
 import { useLightweightMotion } from "@/hooks/use-lightweight-motion";
+import { useCutflowAuth } from "@/lib/auth-context";
 
 export function Logo({ className = "h-8" }: { className?: string }) {
   return <img src={logo} alt="Cutflow" width={960} height={495} className={`w-auto ${className}`} />;
 }
 
 type CtaProps = {
-  to: "/" | "/work" | "/how-it-works" | "/clients" | "/editors" | "/pricing" | "/get-started" | "/terms";
+  to: "/" | "/work" | "/how-it-works" | "/clients" | "/editors" | "/pricing" | "/get-started" | "/terms" | "/dashboard" | "/sign-in";
   hash?: string;
   children: ReactNode;
   variant?: "primary" | "ghost" | "ink";
@@ -35,6 +36,7 @@ const nav = [
 
 export function Nav() {
   const lightweight = useLightweightMotion();
+  const { isSignedIn, user } = useCutflowAuth();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
@@ -72,6 +74,20 @@ export function Nav() {
           ))}
         </nav>
         <div className="hidden items-center gap-5 whitespace-nowrap xl:flex">
+          {isSignedIn ? (
+            <Link
+              to="/dashboard"
+              className="flex items-center gap-2 px-3 py-1.5 border border-primary/40 bg-primary/10 rounded-xs text-xs text-snow hover:border-primary transition-colors font-mono"
+            >
+              <span className="h-2 w-2 rounded-full bg-emerald-400" />
+              <span>Dashboard</span>
+              <span className="text-primary font-bold">({user?.firstName || "Client"})</span>
+            </Link>
+          ) : (
+            <Link to="/sign-in" className="link-line label text-snow/70 hover:text-snow">
+              Client Portal
+            </Link>
+          )}
           <Link to="/editors" hash="apply" className="link-line label hidden 2xl:inline text-snow/70 hover:text-snow">
             Become an Editor
           </Link>
@@ -111,6 +127,11 @@ export function Nav() {
               </motion.div>
             ))}
             <div className="mt-8 flex flex-col gap-3">
+              {isSignedIn ? (
+                <Cta to="/dashboard">Go to Dashboard ({user?.firstName})</Cta>
+              ) : (
+                <Cta to="/sign-in" variant="ghost">Client Portal Sign In</Cta>
+              )}
               <Cta to="/get-started">Get Your Video Edited</Cta>
               <Cta to="/editors" variant="ghost" hash="apply">
                 Become an Editor

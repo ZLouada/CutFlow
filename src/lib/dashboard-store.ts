@@ -63,12 +63,13 @@ export type FileItem = {
   projectName: string;
   clientId: string;
   name: string;
-  type: "video" | "audio" | "image" | "document" | "archive";
-  format: string;
+  type: string;
+  format?: string;
   size: string;
   url: string;
   status: "Ready" | "Processing" | "Archived";
   uploadedAt: string;
+  uploadDate?: string;
 };
 
 export type Message = {
@@ -76,11 +77,15 @@ export type Message = {
   projectId?: string;
   projectName?: string;
   clientId: string;
-  senderId: string;
-  senderName: string;
-  senderRole: "client" | "agency" | "editor";
+  senderId?: string;
+  senderName?: string;
+  sender?: string;
+  senderRole?: "client" | "agency" | "editor";
   senderAvatar?: string;
-  message: string;
+  message?: string;
+  text?: string;
+  isClient?: boolean;
+  timestamp?: string;
   attachments?: { name: string; size: string; url: string }[];
   createdAt: string;
 };
@@ -88,11 +93,15 @@ export type Message = {
 export type Revision = {
   id: string;
   projectId: string;
-  round: number;
+  round?: number;
+  roundNumber?: number;
   timecode?: string;
-  description: string;
+  timestamps?: string[];
+  description?: string;
+  feedback?: string;
   status: "Pending" | "In Progress" | "Resolved";
   createdAt: string;
+  requestedAt?: string;
   resolvedAt?: string;
 };
 
@@ -101,12 +110,15 @@ export type Invoice = {
   invoiceNumber: string;
   clientId: string;
   projectId?: string;
-  projectName: string;
-  amount: number;
+  projectName?: string;
+  description?: string;
+  amount: number | string;
   status: "Paid" | "Pending" | "Overdue";
   issuedAt: string;
+  date?: string;
   dueDate: string;
   pdfUrl?: string;
+  downloadUrl?: string;
 };
 
 export type NotificationItem = {
@@ -548,12 +560,33 @@ export class DashboardStore {
     return this.getProjects().find((p) => p.id === id);
   }
 
-  addProject(projectData: Omit<Project, "id" | "clientId" | "createdAt" | "updatedAt">): Project {
+  getProjectById(id: string): Project | undefined {
+    return this.getProject(id);
+  }
+
+  addProject(projectData: Partial<Project> & { name: string }): Project {
     const projects = this.getProjects();
     const newProject: Project = {
-      ...projectData,
       id: `proj-${Date.now()}`,
       clientId: this.clientId,
+      name: projectData.name,
+      type: projectData.type || "YouTube Video",
+      platform: projectData.platform || "YouTube",
+      description: projectData.description || "Project brief submitted by client.",
+      status: projectData.status || "Brief Received",
+      assignedEditor: projectData.assignedEditor || {
+        name: "Omar",
+        role: "Lead Commercial Editor",
+      },
+      progress: projectData.progress ?? 10,
+      aspectRatio: projectData.aspectRatio || "16:9",
+      duration: projectData.duration || "05:00",
+      numVideos: projectData.numVideos || 1,
+      editingStyle: projectData.editingStyle || "Clean cuts, cinematic pacing",
+      references: projectData.references || "",
+      specialInstructions: projectData.specialInstructions,
+      revisionsCount: projectData.revisionsCount || 0,
+      dueDate: projectData.dueDate || new Date(Date.now() + 86400000 * 5).toISOString().split("T")[0],
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
@@ -589,6 +622,113 @@ export class DashboardStore {
     return projects[idx];
   }
 
+  updateProjectStatus(id: string, status: ProjectStatus, progress?: number): void {
+    const project = this.getProject(id);
+    if (!project) return;
+
+    let defaultProgress = project.progress;
+    if (progress !== undefined) {
+      defaultProgress = progress;
+    } else {
+      switch (status) {
+        case "Brief Received": defaultProgress = 10; break;
+        case "Files Uploaded": defaultProgress = 25; break;
+        case "Editor Assigned": defaultProgress = 35; break;
+        case "Editing": defaultProgress = 60; break;
+        case "Internal Review": defaultProgress = 75; break;
+        case "Client Review": defaultProgress = 85; break;
+        case "Revisions Requested": defaultProgress = 80; break;
+        case "Approved": defaultProgress = 95; break;
+        case "Delivered": defaultProgress = 100; break;
+      }
+    }
+
+    this.updateProject(id, {
+      status,
+      progress: defaultProgress,
+      deliveredDate: status === "Delivered" ? new Date().toISOString().split("T")[0] : project.deliveredDate,
+    });
+  }
+
+  requestRevision(projectId: string, feedback: string, timestamps?: string[]): void {
+    const project = this.getProject(projectId);
+    if (!project) return;
+
+    const nextRound = (project.revisionsCount || 0) + 1;
+    const revs = this.getRevisions(projectId);
+    const newRev: Revision = {
+      id: `rev-${Date.now()}`,
+      projectId,
+      round: nextRound,
+      roundNumber: nextRound,
+      feedback,
+      description: feedback,
+      timestamps,
+      status: "In Progress",
+      createdAt: new Date().toISOString(),
+      requestedAt: new Date().toISOString(),
+    };
+    revs.unshift(newRev);
+    this.saveCollection(`revisions_${projectId}`, revs);
+
+    this.updateProject(projectId, {
+      status: "Revisions Requested",
+      revisionsCount: nextRound,
+      progress: 78,
+    });
+
+    this.addTask({
+      projectId,
+      projectName: project.name,
+      title: `Review updated Revision Round ${nextRound} when delivered`,
+      description: `Editor is applying notes: "${feedback.slice(0, 80)}..."`,
+      status: "In Progress",
+      priority: "High",
+      dueDate: new Date(Date.now() + 86400000 * 2).toISOString().split("T")[0],
+      actionUrl: `/dashboard/projects/${projectId}`,
+      actionLabel: "View Details",
+    });
+  }
+
+  approveProject(projectId: string): void {
+    const project = this.getProject(projectId);
+    if (!project) return;
+
+    this.updateProject(projectId, {
+      status: "Approved",
+      progress: 100,
+      finalVideoUrl: "https://cutflow.agency/assets/videos/final-master-render.mp4",
+    });
+
+    this.addTask({
+      projectId,
+      projectName: project.name,
+      title: `Download master deliverables for '${project.name}'`,
+      description: "Approved master cut is ready for download in 4K ProRes and H.264 formats.",
+      status: "To Do",
+      priority: "Medium",
+      dueDate: new Date(Date.now() + 86400000 * 7).toISOString().split("T")[0],
+      actionUrl: `/dashboard/projects/${projectId}`,
+      actionLabel: "Download Master",
+    });
+  }
+
+  getRevisions(projectId: string): Revision[] {
+    return this.getCollection<Revision>(`revisions_${projectId}`, [
+      {
+        id: `rev-sample-${projectId}`,
+        projectId,
+        round: 1,
+        roundNumber: 1,
+        description: "Initial color grade balance and pacing review.",
+        feedback: "Color grade looks crisp. Let's make sure the audio riser at 00:45 is subtle and clean.",
+        status: "Resolved",
+        createdAt: "2026-10-23T14:00:00Z",
+        requestedAt: "2026-10-23T14:00:00Z",
+      },
+    ]);
+  }
+
   getTasks(): Task[] {
     return this.getCollection<Task>("tasks", getInitialSeedTasks(this.clientId));
   }
@@ -622,13 +762,26 @@ export class DashboardStore {
     return this.getCollection<FileItem>("files", getInitialSeedFiles(this.clientId));
   }
 
-  addFile(fileData: Omit<FileItem, "id" | "clientId" | "uploadedAt">): FileItem {
+  getFilesByProject(projectId: string): FileItem[] {
+    return this.getFiles().filter((f) => f.projectId === projectId);
+  }
+
+  addFile(fileData: Partial<FileItem> & { name: string; projectId: string }): FileItem {
     const files = this.getFiles();
+    const dateStr = new Date().toISOString().split("T")[0];
     const newFile: FileItem = {
-      ...fileData,
       id: `file-${Date.now()}`,
       clientId: this.clientId,
+      projectId: fileData.projectId,
+      projectName: fileData.projectName || "Project",
+      name: fileData.name,
+      type: fileData.type || "Video",
+      format: fileData.format || "MP4",
+      size: fileData.size || "120 MB",
+      url: fileData.url || "https://cutflow.media/storage/sample.mp4",
+      status: (fileData.status as any) || "Ready",
       uploadedAt: new Date().toISOString(),
+      uploadDate: dateStr,
     };
     files.unshift(newFile);
     this.saveCollection("files", files);
@@ -640,21 +793,38 @@ export class DashboardStore {
     this.saveCollection("files", files);
   }
 
-  getMessages(): Message[] {
-    return this.getCollection<Message>("messages", getInitialSeedMessages(this.clientId));
+  getMessages(projectId?: string): Message[] {
+    const all = this.getCollection<Message>("messages", getInitialSeedMessages(this.clientId));
+    if (projectId) {
+      return all.filter((m) => m.projectId === projectId);
+    }
+    return all;
   }
 
-  addMessage(messageData: Omit<Message, "id" | "clientId" | "createdAt">): Message {
-    const messages = this.getMessages();
-    const newMessage: Message = {
-      ...messageData,
+  sendMessage(projectId: string, senderName: string, text: string, isClient: boolean = true): Message {
+    const messages = this.getCollection<Message>("messages", getInitialSeedMessages(this.clientId));
+    const project = this.getProject(projectId);
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+    const newMsg: Message = {
       id: `msg-${Date.now()}`,
       clientId: this.clientId,
-      createdAt: new Date().toISOString(),
+      projectId,
+      projectName: project?.name || "Project",
+      senderId: isClient ? this.clientId : "editor",
+      senderName,
+      sender: senderName,
+      senderRole: isClient ? "client" : "editor",
+      message: text,
+      text,
+      isClient,
+      timestamp: timeStr,
+      createdAt: now.toISOString(),
     };
-    messages.push(newMessage);
+    messages.push(newMsg);
     this.saveCollection("messages", messages);
-    return newMessage;
+    return newMsg;
   }
 
   getInvoices(): Invoice[] {

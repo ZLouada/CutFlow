@@ -16,10 +16,20 @@ import { Route as GetStartedRouteImport } from './routes/get-started'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as PoliciesRouteImport } from './routes/policies'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as SignInRouteImport } from './routes/sign-in'
+import { Route as SignUpRouteImport } from './routes/sign-up'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as WorkRouteImport } from './routes/work'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as DashboardBillingRouteImport } from './routes/dashboard/billing'
+import { Route as DashboardFilesRouteImport } from './routes/dashboard/files'
+import { Route as DashboardHistoryRouteImport } from './routes/dashboard/history'
+import { Route as DashboardMessagesRouteImport } from './routes/dashboard/messages'
+import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
+import { Route as DashboardTasksRouteImport } from './routes/dashboard/tasks'
 import { Route as DashboardProjectsIndexRouteImport } from './routes/dashboard/projects/index'
+import { Route as DashboardProjectsProjectIdRouteImport } from './routes/dashboard/projects/$projectId'
+import { Route as DashboardProjectsNewRouteImport } from './routes/dashboard/projects/new'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -56,6 +66,16 @@ const PricingRoute = PricingRouteImport.update({
   path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SignInRoute = SignInRouteImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignUpRoute = SignUpRouteImport.update({
+  id: '/sign-up',
+  path: '/sign-up',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -71,9 +91,50 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/dashboard/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardBillingRoute = DashboardBillingRouteImport.update({
+  id: '/dashboard/billing',
+  path: '/dashboard/billing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardFilesRoute = DashboardFilesRouteImport.update({
+  id: '/dashboard/files',
+  path: '/dashboard/files',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardHistoryRoute = DashboardHistoryRouteImport.update({
+  id: '/dashboard/history',
+  path: '/dashboard/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardMessagesRoute = DashboardMessagesRouteImport.update({
+  id: '/dashboard/messages',
+  path: '/dashboard/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+  id: '/dashboard/settings',
+  path: '/dashboard/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardTasksRoute = DashboardTasksRouteImport.update({
+  id: '/dashboard/tasks',
+  path: '/dashboard/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardProjectsIndexRoute = DashboardProjectsIndexRouteImport.update({
   id: '/dashboard/projects/',
   path: '/dashboard/projects/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardProjectsProjectIdRoute =
+  DashboardProjectsProjectIdRouteImport.update({
+    id: '/dashboard/projects/$projectId',
+    path: '/dashboard/projects/$projectId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DashboardProjectsNewRoute = DashboardProjectsNewRouteImport.update({
+  id: '/dashboard/projects/new',
+  path: '/dashboard/projects/new',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -85,9 +146,19 @@ export interface FileRoutesByFullPath {
   '/how-it-works': typeof HowItWorksRoute
   '/policies': typeof PoliciesRoute
   '/pricing': typeof PricingRoute
+  '/sign-in': typeof SignInRoute
+  '/sign-up': typeof SignUpRoute
   '/terms': typeof TermsRoute
   '/work': typeof WorkRoute
+  '/dashboard/billing': typeof DashboardBillingRoute
+  '/dashboard/files': typeof DashboardFilesRoute
+  '/dashboard/history': typeof DashboardHistoryRoute
+  '/dashboard/messages': typeof DashboardMessagesRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/tasks': typeof DashboardTasksRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/projects/$projectId': typeof DashboardProjectsProjectIdRoute
+  '/dashboard/projects/new': typeof DashboardProjectsNewRoute
   '/dashboard/projects/': typeof DashboardProjectsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -98,9 +169,19 @@ export interface FileRoutesByTo {
   '/how-it-works': typeof HowItWorksRoute
   '/policies': typeof PoliciesRoute
   '/pricing': typeof PricingRoute
+  '/sign-in': typeof SignInRoute
+  '/sign-up': typeof SignUpRoute
   '/terms': typeof TermsRoute
   '/work': typeof WorkRoute
+  '/dashboard/billing': typeof DashboardBillingRoute
+  '/dashboard/files': typeof DashboardFilesRoute
+  '/dashboard/history': typeof DashboardHistoryRoute
+  '/dashboard/messages': typeof DashboardMessagesRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/tasks': typeof DashboardTasksRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/projects/$projectId': typeof DashboardProjectsProjectIdRoute
+  '/dashboard/projects/new': typeof DashboardProjectsNewRoute
   '/dashboard/projects': typeof DashboardProjectsIndexRoute
 }
 export interface FileRoutesById {
@@ -112,9 +193,19 @@ export interface FileRoutesById {
   '/how-it-works': typeof HowItWorksRoute
   '/policies': typeof PoliciesRoute
   '/pricing': typeof PricingRoute
+  '/sign-in': typeof SignInRoute
+  '/sign-up': typeof SignUpRoute
   '/terms': typeof TermsRoute
   '/work': typeof WorkRoute
+  '/dashboard/billing': typeof DashboardBillingRoute
+  '/dashboard/files': typeof DashboardFilesRoute
+  '/dashboard/history': typeof DashboardHistoryRoute
+  '/dashboard/messages': typeof DashboardMessagesRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/tasks': typeof DashboardTasksRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/projects/$projectId': typeof DashboardProjectsProjectIdRoute
+  '/dashboard/projects/new': typeof DashboardProjectsNewRoute
   '/dashboard/projects/': typeof DashboardProjectsIndexRoute
 }
 export interface FileRouteTypes {
@@ -127,9 +218,19 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/policies'
     | '/pricing'
+    | '/sign-in'
+    | '/sign-up'
     | '/terms'
     | '/work'
+    | '/dashboard/billing'
+    | '/dashboard/files'
+    | '/dashboard/history'
+    | '/dashboard/messages'
+    | '/dashboard/settings'
+    | '/dashboard/tasks'
     | '/dashboard/'
+    | '/dashboard/projects/$projectId'
+    | '/dashboard/projects/new'
     | '/dashboard/projects/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -140,9 +241,19 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/policies'
     | '/pricing'
+    | '/sign-in'
+    | '/sign-up'
     | '/terms'
     | '/work'
+    | '/dashboard/billing'
+    | '/dashboard/files'
+    | '/dashboard/history'
+    | '/dashboard/messages'
+    | '/dashboard/settings'
+    | '/dashboard/tasks'
     | '/dashboard'
+    | '/dashboard/projects/$projectId'
+    | '/dashboard/projects/new'
     | '/dashboard/projects'
   id:
     | '__root__'
@@ -153,9 +264,19 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/policies'
     | '/pricing'
+    | '/sign-in'
+    | '/sign-up'
     | '/terms'
     | '/work'
+    | '/dashboard/billing'
+    | '/dashboard/files'
+    | '/dashboard/history'
+    | '/dashboard/messages'
+    | '/dashboard/settings'
+    | '/dashboard/tasks'
     | '/dashboard/'
+    | '/dashboard/projects/$projectId'
+    | '/dashboard/projects/new'
     | '/dashboard/projects/'
   fileRoutesById: FileRoutesById
 }
@@ -167,9 +288,19 @@ export interface RootRouteChildren {
   HowItWorksRoute: typeof HowItWorksRoute
   PoliciesRoute: typeof PoliciesRoute
   PricingRoute: typeof PricingRoute
+  SignInRoute: typeof SignInRoute
+  SignUpRoute: typeof SignUpRoute
   TermsRoute: typeof TermsRoute
   WorkRoute: typeof WorkRoute
+  DashboardBillingRoute: typeof DashboardBillingRoute
+  DashboardFilesRoute: typeof DashboardFilesRoute
+  DashboardHistoryRoute: typeof DashboardHistoryRoute
+  DashboardMessagesRoute: typeof DashboardMessagesRoute
+  DashboardSettingsRoute: typeof DashboardSettingsRoute
+  DashboardTasksRoute: typeof DashboardTasksRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardProjectsProjectIdRoute: typeof DashboardProjectsProjectIdRoute
+  DashboardProjectsNewRoute: typeof DashboardProjectsNewRoute
   DashboardProjectsIndexRoute: typeof DashboardProjectsIndexRoute
 }
 
@@ -224,6 +355,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sign-in': {
+      id: '/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof SignInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sign-up': {
+      id: '/sign-up'
+      path: '/sign-up'
+      fullPath: '/sign-up'
+      preLoaderRoute: typeof SignUpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -245,11 +390,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/billing': {
+      id: '/dashboard/billing'
+      path: '/dashboard/billing'
+      fullPath: '/dashboard/billing'
+      preLoaderRoute: typeof DashboardBillingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/files': {
+      id: '/dashboard/files'
+      path: '/dashboard/files'
+      fullPath: '/dashboard/files'
+      preLoaderRoute: typeof DashboardFilesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/history': {
+      id: '/dashboard/history'
+      path: '/dashboard/history'
+      fullPath: '/dashboard/history'
+      preLoaderRoute: typeof DashboardHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/messages': {
+      id: '/dashboard/messages'
+      path: '/dashboard/messages'
+      fullPath: '/dashboard/messages'
+      preLoaderRoute: typeof DashboardMessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/settings': {
+      id: '/dashboard/settings'
+      path: '/dashboard/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/tasks': {
+      id: '/dashboard/tasks'
+      path: '/dashboard/tasks'
+      fullPath: '/dashboard/tasks'
+      preLoaderRoute: typeof DashboardTasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard/projects/': {
       id: '/dashboard/projects/'
       path: '/dashboard/projects'
       fullPath: '/dashboard/projects/'
       preLoaderRoute: typeof DashboardProjectsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/projects/$projectId': {
+      id: '/dashboard/projects/$projectId'
+      path: '/dashboard/projects/$projectId'
+      fullPath: '/dashboard/projects/$projectId'
+      preLoaderRoute: typeof DashboardProjectsProjectIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/projects/new': {
+      id: '/dashboard/projects/new'
+      path: '/dashboard/projects/new'
+      fullPath: '/dashboard/projects/new'
+      preLoaderRoute: typeof DashboardProjectsNewRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -263,9 +464,19 @@ const rootRouteChildren: RootRouteChildren = {
   HowItWorksRoute: HowItWorksRoute,
   PoliciesRoute: PoliciesRoute,
   PricingRoute: PricingRoute,
+  SignInRoute: SignInRoute,
+  SignUpRoute: SignUpRoute,
   TermsRoute: TermsRoute,
   WorkRoute: WorkRoute,
+  DashboardBillingRoute: DashboardBillingRoute,
+  DashboardFilesRoute: DashboardFilesRoute,
+  DashboardHistoryRoute: DashboardHistoryRoute,
+  DashboardMessagesRoute: DashboardMessagesRoute,
+  DashboardSettingsRoute: DashboardSettingsRoute,
+  DashboardTasksRoute: DashboardTasksRoute,
   DashboardIndexRoute: DashboardIndexRoute,
+  DashboardProjectsProjectIdRoute: DashboardProjectsProjectIdRoute,
+  DashboardProjectsNewRoute: DashboardProjectsNewRoute,
   DashboardProjectsIndexRoute: DashboardProjectsIndexRoute,
 }
 export const routeTree = rootRouteImport

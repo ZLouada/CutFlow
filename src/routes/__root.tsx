@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
@@ -14,6 +15,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Footer, Nav, PageTransition } from "../components/site/layout";
 import { PolicyModal } from "../components/site/policy-modal";
+import { CutflowAuthProvider } from "../lib/auth-context";
 
 function NotFoundComponent() {
   return (
@@ -122,16 +124,22 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isDashboard = pathname.startsWith("/dashboard");
+  const isAuthPage = pathname === "/sign-in" || pathname === "/sign-up";
+  const hideMarketingLayout = isDashboard || isAuthPage;
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Nav />
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
-      <PolicyModal />
-      <PageTransition />
-    </QueryClientProvider>
+    <CutflowAuthProvider>
+      <QueryClientProvider client={queryClient}>
+        {!hideMarketingLayout && <Nav />}
+        <main>
+          <Outlet />
+        </main>
+        {!hideMarketingLayout && <Footer />}
+        {!hideMarketingLayout && <PolicyModal />}
+        {!hideMarketingLayout && <PageTransition />}
+      </QueryClientProvider>
+    </CutflowAuthProvider>
   );
 }
