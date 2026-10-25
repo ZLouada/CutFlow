@@ -557,7 +557,7 @@ export function Reel() {
         </h2>
       </div>
       <motion.div ref={ref} style={lightweight ? {} : { clipPath: clip }} className="grain relative mt-14 aspect-[16/9] w-full overflow-hidden md:aspect-[21/9]">
-        <video ref={videoRef} src={playBackground ? reel.url : undefined} poster={images.hero} muted loop playsInline preload="none" className="h-full w-full object-cover" />
+        <video ref={videoRef} src={playBackground ? reel.url : undefined} poster={images.hero} muted loop playsInline preload="auto" className="h-full w-full object-cover" />
         <div className="absolute inset-0 bg-ink/40" />
         <button onClick={() => setOpen(true)} className="group absolute inset-0 flex items-center justify-center" aria-label="Play reel">
           <span className="relative flex h-28 w-28 items-center justify-center rounded-full border border-snow/60 transition-transform duration-500 group-hover:scale-110 md:h-40 md:w-40">
