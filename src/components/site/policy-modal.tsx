@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Logo } from "@/components/site/layout";
 import { useLightweightMotion } from "@/hooks/use-lightweight-motion";
 
-export const POLICY_STORAGE_KEY = "cutflow_policy_consent";
+export const POLICY_STORAGE_KEY = "hikarii_policy_consent";
 
 export function PolicyModal() {
   const [open, setOpen] = useState(false);
@@ -127,7 +127,7 @@ export function PolicyModal() {
                   </div>
 
                   <p className="mt-4 text-xs text-snow/70 sm:text-sm leading-relaxed">
-                    Before using Cutflow, please review and accept our policy standards governing every project:
+                    Before using HiKARii, please review and accept our policy standards governing every project:
                   </p>
 
                   <ul className="mt-4 space-y-2.5 text-xs text-snow/80 sm:text-sm">
@@ -172,7 +172,7 @@ export function PolicyModal() {
                   </h2>
 
                   <p className="mt-4 text-xs text-snow/80 sm:text-sm leading-relaxed">
-                    Cutflow operates strictly under our Halal Content Policy and Client Content Authorization.
+                    HiKARii operates strictly under our Halal Content Policy and Client Content Authorization.
                   </p>
 
                   <div className="mt-4 border border-border bg-ink/70 p-4 text-xs text-snow/70 space-y-2">

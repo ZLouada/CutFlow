@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { DashboardLayout } from "@/components/dashboard/dashboard-layout";
-import { useCutflowAuth } from "@/lib/auth-context";
+import { useHikariiAuth } from "@/lib/auth-context";
 import { DashboardStore, type Invoice } from "@/lib/dashboard-store";
 import {
   CreditCard,
@@ -13,11 +13,14 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard/billing")({
+  head: () => ({
+    meta: [{ title: "Billing — HiKARii" }],
+  }),
   component: BillingPage,
 });
 
 function BillingPage() {
-  const { user } = useCutflowAuth();
+  const { user } = useHikariiAuth();
   const clientId = user?.id || "client-default";
   const [store] = useState(() => new DashboardStore(clientId));
 

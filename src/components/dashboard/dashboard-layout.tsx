@@ -19,7 +19,7 @@ import {
   ShieldAlert,
 } from "lucide-react";
 import { Logo } from "@/components/site/layout";
-import { useCutflowAuth, ProtectedRoute, UserButton } from "@/lib/auth-context";
+import { useHikariiAuth, ProtectedRoute, UserButton } from "@/lib/auth-context";
 import { DashboardStore, type NotificationItem } from "@/lib/dashboard-store";
 
 const navItems = [
@@ -34,7 +34,7 @@ const navItems = [
 ];
 
 export function DashboardLayout({ children }: { children: ReactNode }) {
-  const { user, signOut } = useCutflowAuth();
+  const { user, signOut } = useHikariiAuth();
   const currentPath = useRouterState({ select: (s) => s.location.pathname });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
@@ -138,7 +138,7 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
             >
               <span className="flex items-center gap-2">
                 <ExternalLink className="h-3.5 w-3.5" />
-                <span>Cutflow Website</span>
+                <span>HiKARii Website</span>
               </span>
               <span className="label text-[0.6rem] text-gray">Public</span>
             </Link>
@@ -266,7 +266,7 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
                 onClick={() => setMobileMenuOpen(false)}
                 className="block text-center py-2.5 text-xs text-gray border border-border hover:text-snow"
               >
-                Back to Cutflow Website →
+                Back to HiKARii Website →
               </Link>
             </div>
           </div>

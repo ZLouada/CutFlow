@@ -15,7 +15,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Footer, Nav, PageTransition } from "../components/site/layout";
 import { PolicyModal } from "../components/site/policy-modal";
-import { CutflowAuthProvider } from "../lib/auth-context";
+import { HikariiAuthProvider } from "../lib/auth-context";
 
 function NotFoundComponent() {
   return (
@@ -82,10 +82,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Cutflow" },
-      { name: "description", content: "Cutflow — the video-editing marketplace." },
+      { title: "HiKARii — Video Editing Agency" },
+      { name: "description", content: "HiKARii is a professional video editing agency. Upload, edit, review, and deliver high-impact video." },
+      { property: "og:site_name", content: "HiKARii" },
+      { property: "og:title", content: "HiKARii — Video Editing Agency" },
+      { property: "og:description", content: "HiKARii is a professional video editing agency. Upload, edit, review, and deliver high-impact video." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:site", content: "@hikarii" },
       { name: "theme-color", content: "#0A0A0A" },
     ],
     links: [
@@ -130,7 +134,7 @@ function RootComponent() {
   const hideMarketingLayout = isDashboard || isAuthPage;
 
   return (
-    <CutflowAuthProvider>
+    <HikariiAuthProvider>
       <QueryClientProvider client={queryClient}>
         {!hideMarketingLayout && <Nav />}
         <main>
@@ -140,6 +144,6 @@ function RootComponent() {
         {!hideMarketingLayout && <PolicyModal />}
         {!hideMarketingLayout && <PageTransition />}
       </QueryClientProvider>
-    </CutflowAuthProvider>
+    </HikariiAuthProvider>
   );
 }

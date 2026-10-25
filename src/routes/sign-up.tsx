@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useCutflowAuth } from "@/lib/auth-context";
+import { useHikariiAuth } from "@/lib/auth-context";
 import { ArrowRight } from "lucide-react";
-import logo from "@/assets/cutflow-logo.png";
+import { Logo } from "@/components/site/layout";
 
 export const Route = createFileRoute("/sign-up")({
+  head: () => ({
+    meta: [{ title: "Create Account — HiKARii" }],
+  }),
   component: SignUpPage,
 });
 
 function SignUpPage() {
-  const { signIn } = useCutflowAuth();
+  const { signIn } = useHikariiAuth();
   const navigate = useNavigate();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -29,11 +32,11 @@ function SignUpPage() {
 
       <div className="text-center mb-8 relative z-10">
         <Link to="/" className="inline-block">
-          <img src={logo} alt="Cutflow" className="h-9 w-auto mx-auto" />
+          <Logo className="h-9 w-auto mx-auto" />
         </Link>
         <div className="label text-primary font-bold mt-4 tracking-wider">Client Onboarding</div>
         <h1 className="display text-2xl sm:text-3xl font-extrabold text-snow mt-1">
-          Create Your Cutflow Client Account
+          Create Your HiKARii Client Account
         </h1>
         <p className="text-xs sm:text-sm text-gray mt-1">
           Connect with professional editors under our verified Halal Content Policy.
@@ -99,7 +102,7 @@ function SignUpPage() {
 
       <div className="mt-8 relative z-10">
         <Link to="/" className="text-xs text-gray hover:text-snow transition-colors">
-          ← Back to Cutflow Home
+          ← Back to HiKARii Home
         </Link>
       </div>
     </div>

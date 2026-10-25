@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { DashboardLayout } from "@/components/dashboard/dashboard-layout";
-import { useCutflowAuth, UserButton } from "@/lib/auth-context";
+import { useHikariiAuth, UserButton } from "@/lib/auth-context";
 import {
   User,
   Bell,
@@ -14,11 +14,14 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard/settings")({
+  head: () => ({
+    meta: [{ title: "Settings — HiKARii" }],
+  }),
   component: SettingsPage,
 });
 
 function SettingsPage() {
-  const { user, signOut } = useCutflowAuth();
+  const { user, signOut } = useHikariiAuth();
 
   const [channelName, setChannelName] = useState("");
   const [website, setWebsite] = useState("");
@@ -75,7 +78,7 @@ function SettingsPage() {
             </div>
             <div>
               <h3 className="text-base font-bold text-snow">{user?.fullName || "Client"}</h3>
-              <p className="text-xs text-gray font-mono mt-0.5">{user?.email || "client@cutflow.agency"}</p>
+              <p className="text-xs text-gray font-mono mt-0.5">{user?.email || "client@hikarii.agency"}</p>
               <div className="flex items-center gap-3 mt-3">
                 <span className="label text-[0.65rem] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-xs">
                   Active Client
@@ -221,7 +224,7 @@ function SettingsPage() {
               className="btn-slide btn-ghost !py-2 !px-4 text-xs text-rose-400 border-rose-500/30 hover:border-rose-400 hover:text-rose-300 flex items-center gap-1.5 cursor-pointer"
             >
               <LogOut className="h-3.5 w-3.5" />
-              <span>Sign Out of Cutflow</span>
+              <span>Sign Out of HiKARii</span>
             </button>
           </div>
         </div>

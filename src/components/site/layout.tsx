@@ -1,12 +1,69 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import logo from "@/assets/cutflow-logo.png";
+import logoWhite from "@/assets/hikarii-logo-white.png";
+import logoBlack from "@/assets/hikarii-logo-black.png";
+import markWhite from "@/assets/hikarii-mark-white.png";
+import markBlack from "@/assets/hikarii-mark-black.png";
 import { useEffect, useState, type ReactNode } from "react";
 import { useLightweightMotion } from "@/hooks/use-lightweight-motion";
-import { useCutflowAuth } from "@/lib/auth-context";
+import { useHikariiAuth } from "@/lib/auth-context";
 
-export function Logo({ className = "h-8" }: { className?: string }) {
-  return <img src={logo} alt="Cutflow" width={960} height={495} className={`w-auto ${className}`} />;
+export function Logo({
+  className = "h-8",
+  variant = "white",
+  symbolOnly = false,
+  responsive = false,
+}: {
+  className?: string;
+  variant?: "white" | "black";
+  symbolOnly?: boolean;
+  responsive?: boolean;
+}) {
+  const full = variant === "black" ? logoBlack : logoWhite;
+  const mark = variant === "black" ? markBlack : markWhite;
+
+  if (symbolOnly) {
+    return (
+      <img
+        src={mark}
+        alt="HiKARii"
+        width={621}
+        height={479}
+        className={`w-auto object-contain ${className}`}
+      />
+    );
+  }
+
+  if (responsive) {
+    return (
+      <div className={`inline-flex items-center ${className}`}>
+        <img
+          src={mark}
+          alt="HiKARii"
+          width={621}
+          height={479}
+          className="h-full w-auto sm:hidden object-contain"
+        />
+        <img
+          src={full}
+          alt="HiKARii"
+          width={1099}
+          height={300}
+          className="hidden sm:block h-full w-auto object-contain"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={full}
+      alt="HiKARii"
+      width={1099}
+      height={300}
+      className={`w-auto object-contain ${className}`}
+    />
+  );
 }
 
 type CtaProps = {
@@ -36,7 +93,7 @@ const nav = [
 
 export function Nav() {
   const lightweight = useLightweightMotion();
-  const { isSignedIn, user } = useCutflowAuth();
+  const { isSignedIn, user } = useHikariiAuth();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
@@ -58,8 +115,8 @@ export function Nav() {
       }`}
     >
       <div className="mx-auto flex max-w-[1600px] items-center justify-between px-5 md:px-10">
-        <Link to="/" aria-label="Cutflow home">
-          <Logo className={`transition-all duration-500 ${scrolled ? "h-7" : "h-9"}`} />
+        <Link to="/" aria-label="HiKARii home">
+          <Logo responsive className={`transition-all duration-500 ${scrolled ? "h-7" : "h-9"}`} />
         </Link>
         <nav className="hidden items-center gap-6 whitespace-nowrap xl:flex 2xl:gap-9">
           {nav.map((n) => (
@@ -206,14 +263,14 @@ export function Footer() {
     <footer className="relative overflow-hidden border-t border-border bg-ink pt-20">
       <div className="mx-auto grid max-w-[1600px] grid-cols-2 gap-12 px-5 md:px-10 lg:grid-cols-[2fr_1fr_1fr_1fr]">
         <div className="col-span-2 lg:col-span-1">
-          <Logo className="h-12" />
+          <Logo className="h-10 md:h-12" />
           <p className="mt-6 max-w-xs text-sm text-gray">
-            Cutflow connects the people with the story to the people with the craft.
+            HiKARii connects the people with the story to the people with the craft.
           </p>
           <div className="mt-6 flex gap-5">
             <a
               key="X"
-              href="https://x.com/cutflow"
+              href="https://x.com/hikarii"
               target="_blank"
               rel="noreferrer"
               className="link-line label text-gray hover:text-snow"
@@ -238,13 +295,13 @@ export function Footer() {
         ))}
       </div>
       <div className="group mt-16 select-none px-3">
-        <div className="display relative text-center text-[22vw] leading-[0.8] text-soft transition-colors duration-700 group-hover:text-primary">
-          CUTFLOW
+        <div className="font-display font-bold relative text-center text-[20vw] leading-[0.8] tracking-tight text-soft transition-colors duration-700 group-hover:text-snow">
+          HiKARii
         </div>
       </div>
       <div className="mx-auto flex max-w-[1600px] flex-wrap items-center justify-between gap-4 px-5 py-6 text-xs text-gray md:px-10">
         <div className="flex flex-wrap items-center gap-6">
-          <span>© 2026 Cutflow</span>
+          <span>© 2026 HiKARii</span>
           <Link to="/terms" className="link-line hover:text-snow">
             Halal Policy & Content Terms
           </Link>

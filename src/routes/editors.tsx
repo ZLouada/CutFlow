@@ -6,9 +6,9 @@ export const Route = createFileRoute("/editors")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "For Editors — Cutflow" },
-      { name: "description", content: "Join Cutflow to get matched with great video projects, clear budgets and clients who value craft." },
-      { property: "og:title", content: "For Editors — Cutflow" },
+      { title: "For Editors — HiKARii" },
+      { name: "description", content: "Join HiKARii to edit exceptional video projects with clear briefs, dedicated post-production pipelines, and respected craft." },
+      { property: "og:title", content: "For Editors — HiKARii" },
       { property: "og:description", content: "Your skills deserve great projects." },
     ],
   }),

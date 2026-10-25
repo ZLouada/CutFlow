@@ -22,10 +22,10 @@ type Form = z.infer<typeof schema>;
 export const Route = createFileRoute("/get-started")({
   head: () => ({
     meta: [
-      { title: "Get Started — Apply for a Video Editor | Cutflow" },
-      { name: "description", content: "Tell us about your project and get matched with a professional video editor." },
-      { property: "og:title", content: "Get Started — Cutflow" },
-      { property: "og:description", content: "Apply in two minutes and get paired with a vetted video editor." },
+      { title: "Get Started — Video Editing Agency | HiKARii" },
+      { name: "description", content: "Tell us about your project and begin working with HiKARii's professional video editing team." },
+      { property: "og:title", content: "Get Started — HiKARii" },
+      { property: "og:description", content: "Submit your project in two minutes and start working with HiKARii's editing team." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -78,14 +78,14 @@ function GetStarted() {
 
   return (
     <>
-      <PageHeader n="G" eyebrow="Get started" lines={["Find your", "editor."]} intro="Tell us about your project. We review every application and pair you with an editor who fits your format, style and budget." />
+      <PageHeader n="G" eyebrow="Get started" lines={["Start your", "project."]} intro="Tell us about your project. HiKARii reviews every submission and assigns dedicated senior editors who specialize in your format, style, and timeline." />
       <section className="bg-paper py-20 text-ink md:py-28">
         <div className="mx-auto max-w-[1000px] px-5 md:px-10">
           {done ? (
             <div className="border border-ink-line p-10 md:p-16">
               <div className="label text-primary">Application received</div>
               <h2 className="display mt-6 text-5xl md:text-7xl">Thanks, {f.name.split(" ")[0]}.</h2>
-              <p className="mt-6 max-w-lg text-lg text-ink/70">We'll review your {f.format.toLowerCase()} project and email {f.email} with a matched editor within 24 hours.</p>
+              <p className="mt-6 max-w-lg text-lg text-ink/70">We'll review your {f.format.toLowerCase()} project and email {f.email} with your dedicated HiKARii team within 24 hours.</p>
               <button className="btn-slide btn-ink mt-10" onClick={() => { setDone(false); setF({ name: "", email: "", company: "", format: "", budget: "", timeline: "", brief: "", link: "" }); }}>
                 <span>Submit another project</span>
               </button>
@@ -114,9 +114,9 @@ function GetStarted() {
                 <label className="block"><span className="label">Footage or reference link (optional)</span><input className={input} value={f.link} onChange={(e) => set("link")(e.target.value)} maxLength={500} placeholder="https://" /><Err k="link" /></label>
               </div>
               <div className="pt-2">
-                <button type="submit" className="btn-slide btn-primary group"><span>Apply for an editor</span><span className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span></button>
+                <button type="submit" className="btn-slide btn-primary group"><span>Start your project</span><span className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span></button>
                 <p className="mt-4 text-xs text-ink/60">
-                  By submitting, you confirm that you hold necessary rights to your footage and agree to Cutflow's{" "}
+                  By submitting, you confirm that you hold necessary rights to your footage and agree to HiKARii's{" "}
                   <Link to="/terms" className="font-medium underline underline-offset-2 hover:text-ink">
                     Halal Content Policy & Content Authorization Terms
                   </Link>.

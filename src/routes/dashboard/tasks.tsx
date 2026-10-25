@@ -2,16 +2,19 @@ import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { DashboardLayout } from "@/components/dashboard/dashboard-layout";
 import { TaskStatusBadge, PriorityBadge, EmptyState } from "@/components/dashboard/dashboard-ui";
-import { useCutflowAuth } from "@/lib/auth-context";
+import { useHikariiAuth } from "@/lib/auth-context";
 import { DashboardStore, type Task, type TaskStatus, type TaskPriority } from "@/lib/dashboard-store";
 import { CheckSquare, ArrowUpDown, Filter, CheckCircle2, Circle, Clock, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard/tasks")({
+  head: () => ({
+    meta: [{ title: "Tasks — HiKARii" }],
+  }),
   component: TasksPage,
 });
 
 function TasksPage() {
-  const { user } = useCutflowAuth();
+  const { user } = useHikariiAuth();
   const clientId = user?.id || "client-default";
   const [store] = useState(() => new DashboardStore(clientId));
 

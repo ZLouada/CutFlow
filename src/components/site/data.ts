@@ -52,8 +52,8 @@ export const work = [
 
 export const steps = [
   { n: "01", t: "Upload", d: "Drop raw footage, references and notes. Any format, any length." },
-  { n: "02", t: "Match", d: "We pair your brief with editors whose style and specialty fit." },
-  { n: "03", t: "Edit", d: "Your editor cuts, grades, mixes and designs the story." },
+  { n: "02", t: "Assign", d: "We assign your brief to senior HiKARii editors specialized in your style." },
+  { n: "03", t: "Edit", d: "Your HiKARii team cuts, grades, mixes and designs the story." },
   { n: "04", t: "Review", d: "Frame-accurate comments right on the timeline. Two rounds included." },
   { n: "05", t: "Deliver", d: "Final masters in every format you need — 16:9, 9:16, 1:1." },
 ];

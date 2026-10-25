@@ -8,13 +8,13 @@ export const Route = createFileRoute("/terms")({
     meta: [
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "Terms, Halal Policy & Rights — Cutflow" },
+      { title: "Terms, Halal Policy & Rights — HiKARii" },
       {
         name: "description",
         content:
-          "Cutflow's Halal Content Policy and Client Content Authorization. High-quality professional video editing grounded in Islamic and ethical standards.",
+          "HiKARii's Halal Content Policy and Client Content Authorization. High-quality professional video editing grounded in Islamic and ethical standards.",
       },
-      { property: "og:title", content: "Terms, Halal Policy & Rights — Cutflow" },
+      { property: "og:title", content: "Terms, Halal Policy & Rights — HiKARii" },
       {
         property: "og:description",
         content: "Professional video editing without compromising Islamic and ethical standards.",
@@ -36,7 +36,7 @@ const prohibitedItems = [
   "Music videos",
   "Projects requiring songs or musical soundtracks",
   "Content that deliberately promotes obscene or immoral behavior",
-  "Other content that conflicts with Cutflow's ethical standards",
+  "Other content that conflicts with HiKARii's ethical standards",
 ];
 
 const musicProhibited = [
@@ -59,11 +59,11 @@ const audioAlternatives = [
 const authorizationPoints = [
   {
     title: "Ownership & Permissions",
-    desc: "The Client owns the submitted material or has obtained all necessary rights and permissions to provide it to Cutflow.",
+    desc: "The Client owns the submitted material or has obtained all necessary rights and permissions to provide it to HiKARii.",
   },
   {
     title: "Authority to Instruct",
-    desc: "The Client has the legal authority to instruct Cutflow to edit the submitted material.",
+    desc: "The Client has the legal authority to instruct HiKARii to edit the submitted material.",
   },
   {
     title: "Talent & Model Consents",
@@ -71,7 +71,7 @@ const authorizationPoints = [
   },
   {
     title: "Third-Party Assets",
-    desc: "The Client is responsible for obtaining the necessary rights for third-party footage, photographs, logos, trademarks, fonts, audio, music, voice recordings, and other materials supplied to Cutflow.",
+    desc: "The Client is responsible for obtaining the necessary rights for third-party footage, photographs, logos, trademarks, fonts, audio, music, voice recordings, and other materials supplied to HiKARii.",
   },
   {
     title: "Lawful Media Sourcing",
@@ -79,7 +79,7 @@ const authorizationPoints = [
   },
   {
     title: "Processing Authorization",
-    desc: "The Client authorizes Cutflow to copy, store, process, modify, render, export, and transmit the submitted materials solely as reasonably necessary to provide the requested services.",
+    desc: "The Client authorizes HiKARii to copy, store, process, modify, render, export, and transmit the submitted materials solely as reasonably necessary to provide the requested services.",
   },
   {
     title: "Client Indemnity",
@@ -87,15 +87,15 @@ const authorizationPoints = [
   },
   {
     title: "Client Ownership Retained",
-    desc: "Cutflow does not become the owner of Client materials merely by receiving or editing them.",
+    desc: "HiKARii does not become the owner of Client materials merely by receiving or editing them.",
   },
   {
     title: "Internal IP & Presets",
-    desc: "Unless otherwise agreed in writing, Cutflow does not grant the Client ownership of Cutflow's internal templates, workflows, presets, project structures, or pre-existing intellectual property.",
+    desc: "Unless otherwise agreed in writing, HiKARii does not grant the Client ownership of HiKARii's internal templates, workflows, presets, project structures, or pre-existing intellectual property.",
   },
   {
     title: "Deliverables & Rights Transfer",
-    desc: "Rights to the final agreed deliverable are transferred or licensed according to the applicable project agreement and only after all amounts due to Cutflow have been paid in full.",
+    desc: "Rights to the final agreed deliverable are transferred or licensed according to the applicable project agreement and only after all amounts due to HiKARii have been paid in full.",
   },
 ];
 
@@ -160,7 +160,7 @@ function TermsPage() {
                 "We want to create professional, high-quality video content without compromising our Islamic and ethical standards."
               </p>
               <p className="mt-6 text-sm text-snow/70 max-w-2xl">
-                Cutflow was founded on this clear principle. Our Halal Content Policy applies unconditionally to every project and asset submitted to Cutflow.
+                HiKARii was founded on this clear principle. Our Halal Content Policy applies unconditionally to every project and asset submitted to HiKARii.
               </p>
             </div>
 
@@ -171,7 +171,7 @@ function TermsPage() {
                 <span className="label text-primary">Zero Tolerance</span>
               </div>
               <p className="mt-4 text-ink/70">
-                Cutflow does not knowingly accept, process, or produce projects involving any of the following:
+                HiKARii does not knowingly accept, process, or produce projects involving any of the following:
               </p>
               <div className="mt-8 grid gap-4 md:grid-cols-2">
                 {prohibitedItems.map((item, idx) => (
@@ -258,7 +258,7 @@ function TermsPage() {
                 <div className="label text-primary">Agency Policy</div>
                 <h3 className="display mt-2 text-xl">Our Right to Refuse</h3>
                 <p className="mt-3 text-sm text-ink/70 leading-relaxed">
-                  If a project conflicts with this policy, Cutflow may refuse the project or request that prohibited material be removed before editing begins. We would rather decline a project than compromise our principles.
+                  If a project conflicts with this policy, HiKARii may refuse the project or request that prohibited material be removed before editing begins. We would rather decline a project than compromise our principles.
                 </p>
               </div>
 
@@ -266,7 +266,7 @@ function TermsPage() {
                 <div className="label text-ink/50">Clarification</div>
                 <h3 className="display mt-2 text-xl">Religious & Ethical Scope</h3>
                 <p className="mt-3 text-sm text-ink/70 leading-relaxed">
-                  This policy represents Cutflow's internal religious and ethical standards. It is not presented as a formal fatwa or a replacement for advice from a qualified Islamic scholar. Where a matter is genuinely unclear, Cutflow may seek qualified guidance before accepting the work.
+                  This policy represents HiKARii's internal religious and ethical standards. It is not presented as a formal fatwa or a replacement for advice from a qualified Islamic scholar. Where a matter is genuinely unclear, HiKARii may seek qualified guidance before accepting the work.
                 </p>
               </div>
             </div>
@@ -281,7 +281,7 @@ function TermsPage() {
             </div>
             <h2 className="display mt-4 text-5xl md:text-7xl">Client Content Authorization</h2>
             <p className="mt-6 max-w-2xl text-ink/70">
-              By submitting content to Cutflow, the Client confirms and agrees to the following ten terms governing rights, ownership, permissions, and deliverables:
+              By submitting content to HiKARii, the Client confirms and agrees to the following ten terms governing rights, ownership, permissions, and deliverables:
             </p>
 
             <div className="mt-12 space-y-4">
@@ -305,7 +305,7 @@ function TermsPage() {
             <div className="mt-10 border border-primary/40 bg-ink p-8 text-snow">
               <div className="label text-primary">Rights Verification Notice</div>
               <p className="mt-3 text-sm text-snow/80 leading-relaxed">
-                If the Client does not have the necessary rights to a submitted asset, Cutflow reserves the right to refuse to use that asset or require the Client to replace it with properly licensed material before delivery.
+                If the Client does not have the necessary rights to a submitted asset, HiKARii reserves the right to refuse to use that asset or require the Client to replace it with properly licensed material before delivery.
               </p>
             </div>
           </section>

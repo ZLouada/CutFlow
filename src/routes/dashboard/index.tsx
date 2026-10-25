@@ -2,16 +2,19 @@ import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { DashboardLayout } from "@/components/dashboard/dashboard-layout";
 import { StatCard, StatusBadge, PriorityBadge } from "@/components/dashboard/dashboard-ui";
-import { useCutflowAuth } from "@/lib/auth-context";
+import { useHikariiAuth } from "@/lib/auth-context";
 import { DashboardStore, type Project, type Task } from "@/lib/dashboard-store";
 import { ArrowRight, Clock, Video, UserCheck, CheckCircle2, AlertCircle } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard/")({
+  head: () => ({
+    meta: [{ title: "HiKARii — Client Dashboard" }],
+  }),
   component: DashboardOverviewPage,
 });
 
 function DashboardOverviewPage() {
-  const { user } = useCutflowAuth();
+  const { user } = useHikariiAuth();
   const clientId = user?.id || "client-default";
   const [store] = useState(() => new DashboardStore(clientId));
 
@@ -251,7 +254,7 @@ function DashboardOverviewPage() {
                 <AlertCircle className="h-4 w-4" />
                 <span>Production Standard</span>
               </div>
-              <h3 className="display text-lg text-snow font-bold mt-2">Cutflow Halal Guarantee</h3>
+              <h3 className="display text-lg text-snow font-bold mt-2">HiKARii Halal Guarantee</h3>
               <p className="mt-3 text-xs text-gray leading-relaxed">
                 All projects are edited under our verified Halal Content Policy: 100% music-free cinematic sound design, zero indecent imagery, and strict copyright licensing.
               </p>
@@ -277,7 +280,7 @@ function DashboardOverviewPage() {
                 to="/dashboard/messages"
                 className="block text-center w-full py-2.5 text-xs font-medium border border-border text-snow hover:border-primary hover:text-primary transition-colors"
               >
-                Message Cutflow Team →
+                Message HiKARii Team →
               </Link>
             </div>
           </div>

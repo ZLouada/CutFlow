@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { DashboardLayout } from "@/components/dashboard/dashboard-layout";
-import { useCutflowAuth } from "@/lib/auth-context";
+import { useHikariiAuth } from "@/lib/auth-context";
 import { DashboardStore, type VideoType, type AspectRatio } from "@/lib/dashboard-store";
 import { Video, ShieldCheck, ArrowLeft, CheckCircle2, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard/projects/new")({
+  head: () => ({
+    meta: [{ title: "Start a New Project — HiKARii" }],
+  }),
   component: NewProjectPage,
 });
 
 function NewProjectPage() {
-  const { user } = useCutflowAuth();
+  const { user } = useHikariiAuth();
   const clientId = user?.id || "client-default";
   const [store] = useState(() => new DashboardStore(clientId));
   const navigate = useNavigate();
@@ -85,7 +88,7 @@ function NewProjectPage() {
         <div className="border border-primary/30 bg-primary/5 p-4 rounded-xs flex items-start gap-3">
           <ShieldCheck className="h-5 w-5 text-primary shrink-0 mt-0.5" />
           <div className="text-xs text-snow/90 leading-relaxed">
-            <span className="font-bold text-snow">Cutflow Halal Creative Standard:</span> We enforce 100% music-free sound design (using organic foley, ambiances, risers, and voiceover) and reject any sexually explicit or illicit content. By submitting, you confirm your footage complies with our ethical editorial guidelines.
+            <span className="font-bold text-snow">HiKARii Halal Creative Standard:</span> We enforce 100% music-free sound design (using organic foley, ambiances, risers, and voiceover) and reject any sexually explicit or illicit content. By submitting, you confirm your footage complies with our ethical editorial guidelines.
           </div>
         </div>
 
@@ -275,7 +278,7 @@ function NewProjectPage() {
                   className="mt-1 h-4 w-4 rounded-xs border-border bg-ink text-primary accent-primary focus:ring-0"
                 />
                 <span className="text-xs text-gray leading-relaxed">
-                  I confirm that all footage provided complies with Cutflow's <strong className="text-snow">Halal Content Policy</strong> and that I own or hold valid licenses for all uploaded footage and materials.
+                  I confirm that all footage provided complies with HiKARii's <strong className="text-snow">Halal Content Policy</strong> and that I own or hold valid licenses for all uploaded footage and materials.
                 </span>
               </label>
             </div>

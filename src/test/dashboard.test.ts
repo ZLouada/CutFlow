@@ -114,7 +114,7 @@ describe("Dashboard Routes and Store", () => {
         size: "300 MB",
         projectId: "proj-1",
         projectName: "Test Project",
-        url: "https://cutflow.media/storage/file.mp4",
+        url: "https://hikarii.media/storage/file.mp4",
         status: "Ready",
       });
 

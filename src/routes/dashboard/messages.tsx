@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { DashboardLayout } from "@/components/dashboard/dashboard-layout";
 import { EmptyState } from "@/components/dashboard/dashboard-ui";
-import { useCutflowAuth } from "@/lib/auth-context";
+import { useHikariiAuth } from "@/lib/auth-context";
 import { DashboardStore, type Message, type Project } from "@/lib/dashboard-store";
 import {
   MessageSquare,
@@ -12,11 +12,14 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard/messages")({
+  head: () => ({
+    meta: [{ title: "Messages — HiKARii" }],
+  }),
   component: MessagesPage,
 });
 
 function MessagesPage() {
-  const { user } = useCutflowAuth();
+  const { user } = useHikariiAuth();
   const clientId = user?.id || "client-default";
   const [store] = useState(() => new DashboardStore(clientId));
 

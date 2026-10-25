@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useCutflowAuth } from "@/lib/auth-context";
+import { useHikariiAuth } from "@/lib/auth-context";
 import { ArrowRight, ShieldCheck } from "lucide-react";
-import logo from "@/assets/cutflow-logo.png";
+import { Logo } from "@/components/site/layout";
 
 export const Route = createFileRoute("/sign-in")({
+  head: () => ({
+    meta: [{ title: "Sign In — HiKARii" }],
+  }),
   component: SignInPage,
 });
 
 function SignInPage() {
-  const { signIn } = useCutflowAuth();
+  const { signIn } = useHikariiAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,7 +33,7 @@ function SignInPage() {
       {/* Brand Header */}
       <div className="text-center mb-8 relative z-10">
         <Link to="/" className="inline-block">
-          <img src={logo} alt="Cutflow" className="h-9 w-auto mx-auto" />
+          <Logo className="h-9 w-auto mx-auto" />
         </Link>
         <div className="label text-primary font-bold mt-4 tracking-wider">Client Portal Access</div>
         <h1 className="display text-2xl sm:text-3xl font-extrabold text-snow mt-1">
@@ -78,7 +81,7 @@ function SignInPage() {
               type="submit"
               className="btn-slide btn-primary !py-3 w-full text-xs font-semibold flex items-center justify-center gap-2 mt-2"
             >
-              <span>Enter Cutflow Dashboard</span>
+              <span>Enter HiKARii Dashboard</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </button>
           </form>
@@ -95,7 +98,7 @@ function SignInPage() {
       {/* Footer Return Link */}
       <div className="mt-8 relative z-10">
         <Link to="/" className="text-xs text-gray hover:text-snow transition-colors">
-          ← Back to Cutflow Home
+          ← Back to HiKARii Home
         </Link>
       </div>
     </div>

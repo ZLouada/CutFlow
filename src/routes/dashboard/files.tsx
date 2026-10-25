@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { DashboardLayout } from "@/components/dashboard/dashboard-layout";
 import { EmptyState } from "@/components/dashboard/dashboard-ui";
-import { useCutflowAuth } from "@/lib/auth-context";
+import { useHikariiAuth } from "@/lib/auth-context";
 import { DashboardStore, type FileItem, type Project } from "@/lib/dashboard-store";
 import {
   Folder,
@@ -20,11 +20,14 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard/files")({
+  head: () => ({
+    meta: [{ title: "Files — HiKARii" }],
+  }),
   component: FilesPage,
 });
 
 function FilesPage() {
-  const { user } = useCutflowAuth();
+  const { user } = useHikariiAuth();
   const clientId = user?.id || "client-default";
   const [store] = useState(() => new DashboardStore(clientId));
 
@@ -68,7 +71,7 @@ function FilesPage() {
       size: "245.8 MB",
       projectId: targetProject ? targetProject.id : "proj-global",
       projectName: targetProject ? targetProject.name : "General Assets",
-      url: "https://cutflow.media/storage/sample.mp4",
+      url: "https://hikarii.media/storage/sample.mp4",
       status: "Ready",
     });
 

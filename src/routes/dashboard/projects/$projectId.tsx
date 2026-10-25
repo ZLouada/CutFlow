@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { DashboardLayout } from "@/components/dashboard/dashboard-layout";
 import { StatusBadge, PriorityBadge } from "@/components/dashboard/dashboard-ui";
-import { useCutflowAuth } from "@/lib/auth-context";
+import { useHikariiAuth } from "@/lib/auth-context";
 import {
   DashboardStore,
   type Project,
@@ -29,6 +29,9 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard/projects/$projectId")({
+  head: () => ({
+    meta: [{ title: "Project Details — HiKARii" }],
+  }),
   component: ProjectDetailPage,
 });
 
@@ -50,7 +53,7 @@ function getStageIndex(status: ProjectStatus): number {
 
 function ProjectDetailPage() {
   const { projectId } = useParams({ from: "/dashboard/projects/$projectId" });
-  const { user } = useCutflowAuth();
+  const { user } = useHikariiAuth();
   const clientId = user?.id || "client-default";
   const [store] = useState(() => new DashboardStore(clientId));
 
@@ -119,7 +122,7 @@ function ProjectDetailPage() {
       size: "148.4 MB",
       projectId,
       projectName: project?.name || "Project",
-      url: "https://cutflow.media/storage/files/sample.mp4",
+      url: "https://hikarii.media/storage/files/sample.mp4",
       status: "Ready",
     });
 

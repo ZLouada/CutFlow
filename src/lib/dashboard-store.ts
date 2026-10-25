@@ -175,13 +175,17 @@ export class DashboardStore {
   }
 
   private getKey(collection: string) {
+    return `hikarii_data_${this.clientId}_${collection}`;
+  }
+
+  private getLegacyKey(collection: string) {
     return `cutflow_data_${this.clientId}_${collection}`;
   }
 
   private getCollection<T>(collection: string, defaultData: T[]): T[] {
     if (typeof window === "undefined") return defaultData;
     try {
-      const stored = localStorage.getItem(this.getKey(collection));
+      const stored = localStorage.getItem(this.getKey(collection)) || localStorage.getItem(this.getLegacyKey(collection));
       if (!stored) {
         localStorage.setItem(this.getKey(collection), JSON.stringify(defaultData));
         return defaultData;
@@ -346,7 +350,7 @@ export class DashboardStore {
     this.updateProject(projectId, {
       status: "Approved",
       progress: 100,
-      finalVideoUrl: "https://cutflow.agency/assets/videos/final-master-render.mp4",
+      finalVideoUrl: "https://hikarii.agency/assets/videos/final-master-render.mp4",
     });
 
     this.addTask({
@@ -415,7 +419,7 @@ export class DashboardStore {
       type: fileData.type || "Video",
       format: fileData.format || "MP4",
       size: fileData.size || "120 MB",
-      url: fileData.url || "https://cutflow.media/storage/sample.mp4",
+      url: fileData.url || "https://hikarii.media/storage/sample.mp4",
       status: (fileData.status as any) || "Ready",
       uploadedAt: new Date().toISOString(),
       uploadDate: dateStr,

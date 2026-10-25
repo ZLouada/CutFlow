@@ -2,16 +2,19 @@ import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { DashboardLayout } from "@/components/dashboard/dashboard-layout";
 import { StatusBadge, EmptyState } from "@/components/dashboard/dashboard-ui";
-import { useCutflowAuth } from "@/lib/auth-context";
+import { useHikariiAuth } from "@/lib/auth-context";
 import { DashboardStore, type Project, type ProjectStatus } from "@/lib/dashboard-store";
 import { Search, Plus, ArrowRight, Video } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard/projects/")({
+  head: () => ({
+    meta: [{ title: "My Projects — HiKARii" }],
+  }),
   component: MyProjectsPage,
 });
 
 function MyProjectsPage() {
-  const { user } = useCutflowAuth();
+  const { user } = useHikariiAuth();
   const clientId = user?.id || "client-default";
   const [store] = useState(() => new DashboardStore(clientId));
 
@@ -102,7 +105,7 @@ function MyProjectsPage() {
             description={
               searchQuery
                 ? `No projects matched "${searchQuery}". Try a different search term or clear the filter.`
-                : "Start your first project and let Cutflow handle the editing."
+                : "Start your first project and let HiKARii handle the editing."
             }
             actionLabel="Start a Project"
             actionTo="/dashboard/projects/new"

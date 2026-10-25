@@ -25,15 +25,16 @@ const AuthContext = createContext<AuthContextType>({
   signOut: async () => {},
 });
 
-const STORAGE_KEY = "cutflow_auth_user";
+const STORAGE_KEY = "hikarii_auth_user";
+const LEGACY_STORAGE_KEY = "cutflow_auth_user";
 
-export function CutflowAuthProvider({ children }: { children: ReactNode }) {
+export function HikariiAuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const stored = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
       if (stored) {
         setUser(JSON.parse(stored) as AuthUser);
       }
@@ -71,6 +72,7 @@ export function CutflowAuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
     try {
       localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(LEGACY_STORAGE_KEY);
     } catch {
       // ignore
     }
@@ -87,12 +89,16 @@ export function CutflowAuthProvider({ children }: { children: ReactNode }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-export function useCutflowAuth() {
+export const CutflowAuthProvider = HikariiAuthProvider;
+
+export function useHikariiAuth() {
   return useContext(AuthContext);
 }
 
+export const useCutflowAuth = useHikariiAuth;
+
 export function UserButton() {
-  const { user } = useCutflowAuth();
+  const { user } = useHikariiAuth();
   if (!user) return null;
 
   return (
@@ -105,14 +111,14 @@ export function UserButton() {
 }
 
 export function ProtectedRoute({ children }: { children: ReactNode }) {
-  const { isLoaded, isSignedIn } = useCutflowAuth();
+  const { isLoaded, isSignedIn } = useHikariiAuth();
 
   if (!isLoaded) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-ink text-snow">
         <div className="flex flex-col items-center gap-3">
           <div className="h-6 w-6 animate-spin border-2 border-primary border-t-transparent rounded-full" />
-          <span className="label text-gray text-xs">Loading Cutflow Portal...</span>
+          <span className="label text-gray text-xs">Loading HiKARii Workspace...</span>
         </div>
       </div>
     );
