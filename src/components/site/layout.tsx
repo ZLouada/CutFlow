@@ -1,0 +1,221 @@
+import { Link, useRouterState } from "@tanstack/react-router";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import logo from "@/assets/editlink-logo.png";
+import { useEffect, useState, type ReactNode } from "react";
+import { useLightweightMotion } from "@/hooks/use-lightweight-motion";
+
+export function Logo({ className = "h-8" }: { className?: string }) {
+  return <img src={logo} alt="EditLink" width={1057} height={298} className={`w-auto ${className}`} />;
+}
+
+type CtaProps = {
+  to: "/" | "/work" | "/how-it-works" | "/clients" | "/editors" | "/pricing" | "/get-started";
+  hash?: string;
+  children: ReactNode;
+  variant?: "primary" | "ghost" | "ink";
+  className?: string;
+};
+
+export function Cta({ to, hash, children, variant = "primary", className = "" }: CtaProps) {
+  return (
+    <Link to={to} {...(hash ? { hash } : {})} className={`btn-slide btn-${variant} group ${className}`}>
+      <span>{children}</span>
+      <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
+    </Link>
+  );
+}
+
+const nav = [
+  { to: "/work", label: "Work" },
+  { to: "/how-it-works", label: "How It Works" },
+  { to: "/clients", label: "For Clients" },
+  { to: "/editors", label: "For Editors" },
+  { to: "/pricing", label: "Pricing" },
+] as const;
+
+export function Nav() {
+  const lightweight = useLightweightMotion();
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const path = useRouterState({ select: (s) => s.location.pathname });
+  useEffect(() => {
+    const on = () => setScrolled(window.scrollY > 40);
+    on();
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
+  useEffect(() => setOpen(false), [path]);
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+  }, [open]);
+
+  return (
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        open ? "border-b border-border bg-ink py-3" : scrolled ? "border-b border-border bg-ink/95 py-3 backdrop-blur-md" : "border-b border-transparent py-6"
+      }`}
+    >
+      <div className="mx-auto flex max-w-[1600px] items-center justify-between px-5 md:px-10">
+        <Link to="/" aria-label="EditLink home">
+          <Logo className={`transition-all duration-500 ${scrolled ? "h-7" : "h-9"}`} />
+        </Link>
+        <nav className="hidden items-center gap-6 whitespace-nowrap xl:flex 2xl:gap-9">
+          {nav.map((n) => (
+            <Link
+              key={n.to}
+              to={n.to}
+              className="link-line label text-snow/80 hover:text-snow"
+              activeProps={{ className: "text-primary" }}
+            >
+              {n.label}
+            </Link>
+          ))}
+        </nav>
+        <div className="hidden items-center gap-5 whitespace-nowrap xl:flex">
+          <Link to="/editors" hash="apply" className="link-line label hidden 2xl:inline text-snow/70 hover:text-snow">
+            Become an Editor
+          </Link>
+          <Cta to="/get-started" className={scrolled ? "!py-3" : ""}>
+            Get Your Video Edited
+          </Cta>
+        </div>
+        <button
+          className="label flex items-center gap-2 xl:hidden"
+          onClick={() => setOpen((o) => !o)}
+          aria-expanded={open}
+        >
+          <span className={`h-px w-6 bg-primary transition-transform ${open ? "rotate-45" : ""}`} />
+          {open ? "Close" : "Menu"}
+        </button>
+      </div>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={lightweight ? { opacity: 0 } : { clipPath: "inset(0 0 100% 0)" }}
+            animate={lightweight ? { opacity: 1 } : { clipPath: "inset(0 0 0% 0)" }}
+            exit={lightweight ? { opacity: 0 } : { clipPath: "inset(0 0 100% 0)" }}
+            transition={{ duration: lightweight ? 0.15 : 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-x-0 top-0 -z-10 flex h-dvh flex-col justify-end overflow-y-auto bg-ink px-5 pb-10 pt-24 xl:hidden"
+          >
+            {nav.map((n, i) => (
+              <motion.div
+                key={n.to}
+                initial={{ y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.1 + i * 0.05 }}
+              >
+                <Link to={n.to} className="display block py-2 text-[length:clamp(2rem,9vw,3rem)]">
+                  <span className="label mr-3 align-middle text-primary">0{i + 1}</span>
+                  {n.label}
+                </Link>
+              </motion.div>
+            ))}
+            <div className="mt-8 flex flex-col gap-3">
+              <Cta to="/get-started">Get Your Video Edited</Cta>
+              <Cta to="/editors" variant="ghost" hash="apply">
+                Become an Editor
+              </Cta>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
+  );
+}
+
+/** Black wipe + orange line sweep on every route change */
+export function PageTransition() {
+  const path = useRouterState({ select: (s) => s.location.pathname });
+  const reduce = useReducedMotion();
+  const [key, setKey] = useState<string | null>(null);
+  useEffect(() => {
+    if (key === null) {
+      setKey("init");
+      return;
+    }
+    if (!reduce) setKey(path);
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [path]);
+  if (!key || key === "init") return null;
+  return (
+    <motion.div
+      key={key}
+      className="pointer-events-none fixed inset-0 z-[100]"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 0 }}
+      transition={{ delay: 0.35, duration: 0.25 }}
+    >
+      <div className="absolute inset-0 bg-ink" />
+      <motion.div
+        className="absolute left-0 top-1/2 h-[2px] w-full origin-left bg-primary"
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      />
+    </motion.div>
+  );
+}
+
+const cols = [
+  {
+    h: "Platform",
+    l: [
+      { to: "/how-it-works", t: "How It Works" },
+      { to: "/clients", t: "For Clients" },
+      { to: "/editors", t: "For Editors" },
+      { to: "/pricing", t: "Pricing" },
+    ],
+  },
+  { h: "Company", l: [{ to: "/", t: "About" }, { to: "/work", t: "Work" }, { to: "/clients", t: "Contact" }] },
+  { h: "Resources", l: [{ to: "/how-it-works", t: "Guides" }, { to: "/pricing", t: "Help" }, { to: "/work", t: "Blog" }] },
+] as const;
+
+export function Footer() {
+  return (
+    <footer className="relative overflow-hidden border-t border-border bg-ink pt-20">
+      <div className="mx-auto grid max-w-[1600px] grid-cols-2 gap-12 px-5 md:px-10 lg:grid-cols-[2fr_1fr_1fr_1fr]">
+        <div className="col-span-2 lg:col-span-1">
+          <Logo className="h-12" />
+          <p className="mt-6 max-w-xs text-sm text-gray">
+            EditLink connects the people with the story to the people with the craft.
+          </p>
+          <div className="mt-6 flex gap-5">
+            <a
+              key="X"
+              href="https://x.com/editlink"
+              target="_blank"
+              rel="noreferrer"
+              className="link-line label text-gray hover:text-snow"
+            >
+              X
+            </a>
+          </div>
+        </div>
+        {cols.map((c) => (
+          <div key={c.h}>
+            <div className="label mb-5 text-primary">{c.h}</div>
+            <ul className="space-y-3">
+              {c.l.map((l) => (
+                <li key={l.t}>
+                  <Link to={l.to} className="link-line text-sm text-snow/80 hover:text-snow">
+                    {l.t}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <div className="group mt-16 select-none px-3">
+        <div className="display relative text-center text-[22vw] leading-[0.8] text-soft transition-colors duration-700 group-hover:text-primary">
+          EDITLINK
+        </div>
+      </div>
+      <div className="mx-auto flex max-w-[1600px] justify-between px-5 py-6 text-xs text-gray md:px-10">
+        <span>© 2026 EditLink</span>
+        <span className="label">00:00:00:00 — End of reel</span>
+      </div>
+    </footer>
+  );
+}
