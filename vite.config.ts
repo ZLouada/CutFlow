@@ -14,6 +14,10 @@ export default defineConfig({
     prerender: {
       enabled: true,
       crawlLinks: true,
+      // Amplify's build-time crawler returns a 500 for the home route even
+      // though the SSR compute bundle is produced successfully. Keep any
+      // routes that prerender cleanly and let Amplify serve the rest at runtime.
+      failOnError: false,
     },
   },
 });
