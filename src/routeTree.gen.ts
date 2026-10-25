@@ -18,6 +18,8 @@ import { Route as PoliciesRouteImport } from './routes/policies'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as WorkRouteImport } from './routes/work'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as DashboardProjectsIndexRouteImport } from './routes/dashboard/projects/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -64,6 +66,16 @@ const WorkRoute = WorkRouteImport.update({
   path: '/work',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardProjectsIndexRoute = DashboardProjectsIndexRouteImport.update({
+  id: '/dashboard/projects/',
+  path: '/dashboard/projects/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -75,6 +87,8 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/terms': typeof TermsRoute
   '/work': typeof WorkRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/projects/': typeof DashboardProjectsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -86,6 +100,8 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/terms': typeof TermsRoute
   '/work': typeof WorkRoute
+  '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/projects': typeof DashboardProjectsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -98,6 +114,8 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/terms': typeof TermsRoute
   '/work': typeof WorkRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/projects/': typeof DashboardProjectsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,6 +129,8 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/terms'
     | '/work'
+    | '/dashboard/'
+    | '/dashboard/projects/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,6 +142,8 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/terms'
     | '/work'
+    | '/dashboard'
+    | '/dashboard/projects'
   id:
     | '__root__'
     | '/'
@@ -133,6 +155,8 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/terms'
     | '/work'
+    | '/dashboard/'
+    | '/dashboard/projects/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -145,6 +169,8 @@ export interface RootRouteChildren {
   PricingRoute: typeof PricingRoute
   TermsRoute: typeof TermsRoute
   WorkRoute: typeof WorkRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardProjectsIndexRoute: typeof DashboardProjectsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -212,6 +238,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/projects/': {
+      id: '/dashboard/projects/'
+      path: '/dashboard/projects'
+      fullPath: '/dashboard/projects/'
+      preLoaderRoute: typeof DashboardProjectsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -225,6 +265,8 @@ const rootRouteChildren: RootRouteChildren = {
   PricingRoute: PricingRoute,
   TermsRoute: TermsRoute,
   WorkRoute: WorkRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+  DashboardProjectsIndexRoute: DashboardProjectsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
