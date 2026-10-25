@@ -7,10 +7,5 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
-  nitro: { preset: "aws-amplify" },
-  tanstackStart: {
-    // Amplify serves this app from Nitro's SSR compute bundle. TanStack's
-    // build-time preview crawler cannot load that Amplify bundle reliably.
-    prerender: { enabled: false },
-  },
+  nitro: { preset: "vercel" },
 });
