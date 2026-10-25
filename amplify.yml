@@ -4,9 +4,9 @@ frontend:
     preBuild:
       commands:
         - nvm use 20 || nvm install 20
-        - npm install -g bun
+        - npm install -g bun@1.4.4
         - bun --version
-        - bun install
+        - bun install --frozen-lockfile
     build:
       commands:
         - bun run build
