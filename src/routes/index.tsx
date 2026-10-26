@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  Editors,
   FinalCta,
   Hero,
+  HiKARiiStandard,
   Matching,
   Portfolio,
   Problem,
@@ -31,7 +31,7 @@ function Index() {
       <Hero />
       <Problem />
       <SystemTimeline />
-      <Editors />
+      <HiKARiiStandard />
       <Reel />
       <Portfolio />
       <Matching />

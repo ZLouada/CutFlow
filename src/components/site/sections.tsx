@@ -446,6 +446,392 @@ export function SystemTimeline() {
   );
 }
 
+/* ---------- THE HIKARII STANDARD ---------- */
+
+function HookCardVisual() {
+  const [hovered, setHovered] = useState(false);
+  const lightweight = useLightweightMotion();
+  return (
+    <div
+      className="relative aspect-[16/11] w-full overflow-hidden border border-border/70 bg-ink"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <img
+        src={images.social}
+        alt="Hook timeline visualization"
+        loading="lazy"
+        decoding="async"
+        className="h-full w-full object-cover opacity-70 transition-transform duration-700 ease-out group-hover:scale-105 group-hover:opacity-85"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/70" />
+
+      {/* Top HUD metadata */}
+      <div className="absolute left-3.5 right-3.5 top-3.5 flex items-center justify-between text-[0.6rem] font-mono">
+        <div className="flex items-center gap-1.5 border border-border bg-ink/80 px-2 py-0.5 text-snow backdrop-blur-xs">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
+          <span>00:00:01:14</span>
+        </div>
+        <span className="border border-primary/40 bg-primary/20 px-2 py-0.5 font-bold text-primary">
+          HOOK RETENTION 94.8%
+        </span>
+      </div>
+
+      {/* Center Dynamic Playhead & Reticle */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+        <div className="relative w-4/5">
+          {/* Audio Waveform Spikes */}
+          <div className="mb-2 flex h-8 items-end justify-between gap-[2px] opacity-75">
+            {[40, 65, 90, 100, 85, 45, 30, 75, 95, 60, 40, 80, 100, 90, 70, 50, 85, 95, 60].map((h, idx) => (
+              <div
+                key={idx}
+                style={{ height: `${h}%` }}
+                className={`w-full transition-all duration-500 ${
+                  idx < 7 ? "bg-primary" : "bg-snow/30"
+                } ${hovered && idx >= 7 && idx <= 15 ? "!bg-primary" : ""}`}
+              />
+            ))}
+          </div>
+
+          {/* Timeline Bar with Active Playhead */}
+          <div className="relative h-1.5 w-full overflow-visible rounded-full bg-snow/20">
+            <motion.div
+              className="absolute bottom-0 left-0 top-0 bg-primary"
+              animate={hovered && !lightweight ? { width: "78%" } : { width: "32%" }}
+              transition={{ duration: 0.7, ease }}
+            />
+            <motion.div
+              className="absolute top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-primary bg-snow shadow-[0_0_12px_rgba(255,90,0,0.8)]"
+              animate={hovered && !lightweight ? { left: "78%" } : { left: "32%" }}
+              transition={{ duration: 0.7, ease }}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom status */}
+      <div className="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between text-[0.6rem] font-mono text-gray">
+        <span className="flex items-center gap-1.5 text-primary">
+          <span className="text-[0.65rem]">▶</span> SCRUB: ACTIVE
+        </span>
+        <span className="hidden sm:inline">HOOK WINDOW: 0.0s – 1.8s</span>
+      </div>
+    </div>
+  );
+}
+
+function RhythmCardVisual() {
+  const [hovered, setHovered] = useState(false);
+  const lightweight = useLightweightMotion();
+  return (
+    <div
+      className="relative flex aspect-[16/11] w-full flex-col justify-between overflow-hidden border border-border/70 bg-ink p-3.5"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Top HUD metadata */}
+      <div className="flex items-center justify-between text-[0.6rem] font-mono text-snow">
+        <span className="border border-border bg-ink/80 px-2 py-0.5">128 BPM · MULTI-TRACK</span>
+        <span className="font-bold text-primary">TEMPO: LOCKED</span>
+      </div>
+
+      {/* Film Strip Sequence with Sprocket Holes */}
+      <div className="relative my-auto overflow-hidden py-1">
+        {/* Sprocket perforations top */}
+        <div className="mb-1.5 flex justify-between gap-1 opacity-40">
+          {Array.from({ length: 14 }).map((_, idx) => (
+            <div key={idx} className="h-1 w-2.5 rounded-[1px] bg-snow/60" />
+          ))}
+        </div>
+
+        {/* 3 Synchronized Film Frames */}
+        <div className="relative flex gap-2">
+          <motion.div
+            className="relative h-20 w-1/3 overflow-hidden border border-border bg-soft"
+            animate={hovered && !lightweight ? { x: -4, scale: 1.03 } : { x: 0, scale: 1 }}
+            transition={{ duration: 0.6, ease }}
+          >
+            <img src={images.film} alt="Film scene 01" className="h-full w-full object-cover" />
+            <span className="absolute bottom-1 left-1 bg-ink/80 px-1 font-mono text-[0.5rem] text-snow">SC_01</span>
+          </motion.div>
+
+          <motion.div
+            className="relative h-20 w-1/3 overflow-hidden border border-primary bg-soft shadow-lg"
+            animate={hovered && !lightweight ? { y: -2, scale: 1.06 } : { y: 0, scale: 1 }}
+            transition={{ duration: 0.6, ease }}
+          >
+            <img src={images.commercial} alt="Film scene 02" className="h-full w-full object-cover" />
+            <div className="absolute inset-0 border border-primary/50" />
+            <span className="absolute bottom-1 left-1 bg-primary px-1 font-mono text-[0.5rem] font-bold text-ink">BEAT CUT</span>
+          </motion.div>
+
+          <motion.div
+            className="relative h-20 w-1/3 overflow-hidden border border-border bg-soft"
+            animate={hovered && !lightweight ? { x: 4, scale: 1.03 } : { x: 0, scale: 1 }}
+            transition={{ duration: 0.6, ease }}
+          >
+            <img src={images.ugc} alt="Film scene 03" className="h-full w-full object-cover" />
+            <span className="absolute bottom-1 left-1 bg-ink/80 px-1 font-mono text-[0.5rem] text-snow">SC_03</span>
+          </motion.div>
+        </div>
+
+        {/* Sprocket perforations bottom */}
+        <div className="mt-1.5 flex justify-between gap-1 opacity-40">
+          {Array.from({ length: 14 }).map((_, idx) => (
+            <div key={idx} className="h-1 w-2.5 rounded-[1px] bg-snow/60" />
+          ))}
+        </div>
+      </div>
+
+      {/* Audio Waveform / Beat Spectrum */}
+      <div className="flex h-5 items-end justify-between gap-[2px]">
+        {[30, 50, 75, 40, 90, 60, 30, 85, 100, 70, 45, 95, 60, 40, 80, 100, 65, 35, 70].map((h, idx) => (
+          <motion.div
+            key={idx}
+            className={`w-full ${idx % 4 === 0 ? "bg-primary" : "bg-snow/30"}`}
+            animate={
+              hovered && !lightweight
+                ? { height: `${Math.min(100, h * 1.25)}%` }
+                : { height: `${h}%` }
+            }
+            transition={{
+              duration: 0.35,
+              delay: idx * 0.02,
+              repeat: hovered && !lightweight ? Infinity : 0,
+              repeatType: "reverse",
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function FinishCardVisual() {
+  const [hovered, setHovered] = useState(false);
+  const lightweight = useLightweightMotion();
+  return (
+    <div
+      className="relative aspect-[16/11] w-full overflow-hidden border border-border/70 bg-ink"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Graded Master Image */}
+      <img
+        src={images.hero}
+        alt="Graded Master Cut"
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-transparent to-ink/40" />
+
+      {/* Raw / Log Frame Split Overlay */}
+      <motion.div
+        className="absolute inset-y-0 left-0 overflow-hidden border-r-2 border-primary bg-ink"
+        animate={hovered && !lightweight ? { width: "16%" } : { width: "50%" }}
+        transition={{ duration: 0.7, ease }}
+      >
+        <div className="relative h-full w-[240%] sm:w-[280%] md:w-[320%]">
+          <img
+            src={images.hero}
+            alt="Raw Log footage"
+            className="h-full w-full object-cover brightness-[0.8] contrast-[0.7] saturate-[0.15]"
+          />
+          <div className="absolute inset-0 bg-ink/20" />
+          <div className="absolute left-3 top-3 border border-border bg-ink/80 px-2 py-0.5 font-mono text-[0.55rem] text-gray">
+            RAW LOG
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Split Drag / Compare Handle */}
+      <motion.div
+        className="pointer-events-none absolute top-1/2 flex h-6 w-6 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-primary font-mono text-[0.65rem] font-bold text-ink shadow-[0_0_16px_rgba(255,90,0,0.9)]"
+        animate={hovered && !lightweight ? { left: "16%" } : { left: "50%" }}
+        transition={{ duration: 0.7, ease }}
+      >
+        ⇄
+      </motion.div>
+
+      {/* Top HUD metadata right */}
+      <div className="absolute right-3.5 top-3.5 flex items-center gap-1.5 border border-primary/50 bg-ink/80 px-2 py-0.5 font-mono text-[0.6rem] text-snow">
+        <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+        <span className="font-bold text-primary">HIKARii MASTER</span>
+      </div>
+
+      {/* Bottom Technical Specs */}
+      <div className="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between font-mono text-[0.55rem] text-snow/80">
+        <span className="border border-border bg-ink/80 px-1.5 py-0.5">ACEScc · 4K DCI</span>
+        <span className="text-primary">-14 LUFS TRUE PEAK</span>
+      </div>
+    </div>
+  );
+}
+
+export function HiKARiiStandard() {
+  return (
+    <section className="grain relative overflow-hidden bg-ink py-28 md:py-40">
+      <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+        {/* Header Block */}
+        <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+          <div>
+            <Eyebrow n="04">The HiKARii Standard</Eyebrow>
+            <h2 className="display mt-6 text-[13vw] md:text-[clamp(4rem,7vw,7rem)] text-snow">
+              <RevealLines lines={["Editing that ", "feels different."]} />
+            </h2>
+            <p className="mt-4 max-w-xl text-base text-gray md:text-lg leading-relaxed">
+              Every cut has a reason. Every frame has a purpose. HiKARii turns raw footage into content with rhythm, identity, and impact.
+            </p>
+          </div>
+          <Cta to="/get-started" variant="ghost">Start a Project</Cta>
+        </div>
+
+        {/* Three Signature Cards */}
+        <div className="mt-16 grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-3">
+          {/* Card 01 — HOOK */}
+          <motion.article
+            initial={{ opacity: 0, y: 35 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.8, ease, delay: 0.1 }}
+            className="group relative flex flex-col justify-between border border-border bg-charcoal/70 p-6 md:p-8 transition-all duration-700 hover:-translate-y-1 hover:border-primary/60 hover:bg-charcoal hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.8)]"
+          >
+            <div>
+              {/* Card Header */}
+              <div className="flex items-start justify-between">
+                <div>
+                  <div className="label text-primary font-bold">01 — HOOK</div>
+                  <div className="label mt-1 text-[0.6rem] text-gray">ATTENTION FIRST</div>
+                </div>
+                <div className="display select-none text-6xl text-soft transition-all duration-700 group-hover:scale-110 group-hover:text-primary/25 md:text-7xl">
+                  01
+                </div>
+              </div>
+
+              {/* Visual Element */}
+              <div className="mt-6">
+                <HookCardVisual />
+              </div>
+            </div>
+
+            {/* Typography & Copy */}
+            <div className="mt-8 flex flex-1 flex-col justify-between">
+              <div>
+                <h3 className="display text-3xl text-snow transition-colors duration-300 group-hover:text-primary md:text-4xl">
+                  STOP THE SCROLL.
+                </h3>
+                <p className="mt-3 text-sm text-gray leading-relaxed md:text-base">
+                  Strong openings, intentional pacing, and cuts that earn the next second.
+                </p>
+              </div>
+
+              <div className="mt-8 flex items-center justify-between border-t border-border pt-4 font-mono text-[0.65rem] text-gray">
+                <span className="text-primary font-bold">PACING STANDARD</span>
+                <span className="transition-transform duration-300 group-hover:translate-x-1 text-snow/70 group-hover:text-snow">
+                  VIEW TIMELINE →
+                </span>
+              </div>
+            </div>
+          </motion.article>
+
+          {/* Card 02 — RHYTHM */}
+          <motion.article
+            initial={{ opacity: 0, y: 35 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.8, ease, delay: 0.2 }}
+            className="group relative flex flex-col justify-between border border-border bg-charcoal/70 p-6 md:p-8 transition-all duration-700 hover:-translate-y-1 hover:border-primary/60 hover:bg-charcoal hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.8)]"
+          >
+            <div>
+              {/* Card Header */}
+              <div className="flex items-start justify-between">
+                <div>
+                  <div className="label text-primary font-bold">02 — RHYTHM</div>
+                  <div className="label mt-1 text-[0.6rem] text-gray">STRUCTURE & MOVEMENT</div>
+                </div>
+                <div className="display select-none text-6xl text-soft transition-all duration-700 group-hover:scale-110 group-hover:text-primary/25 md:text-7xl">
+                  02
+                </div>
+              </div>
+
+              {/* Visual Element */}
+              <div className="mt-6">
+                <RhythmCardVisual />
+              </div>
+            </div>
+
+            {/* Typography & Copy */}
+            <div className="mt-8 flex flex-1 flex-col justify-between">
+              <div>
+                <h3 className="display text-3xl text-snow transition-colors duration-300 group-hover:text-primary md:text-4xl">
+                  MAKE THEM STAY.
+                </h3>
+                <p className="mt-3 text-sm text-gray leading-relaxed md:text-base">
+                  Timing, sound, movement, and structure working together to keep attention.
+                </p>
+              </div>
+
+              <div className="mt-8 flex items-center justify-between border-t border-border pt-4 font-mono text-[0.65rem] text-gray">
+                <span className="text-primary font-bold">FLOW STANDARD</span>
+                <span className="transition-transform duration-300 group-hover:translate-x-1 text-snow/70 group-hover:text-snow">
+                  VIEW RHYTHM →
+                </span>
+              </div>
+            </div>
+          </motion.article>
+
+          {/* Card 03 — FINISH */}
+          <motion.article
+            initial={{ opacity: 0, y: 35 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.8, ease, delay: 0.3 }}
+            className="group relative flex flex-col justify-between border border-border bg-charcoal/70 p-6 md:p-8 transition-all duration-700 hover:-translate-y-1 hover:border-primary/60 hover:bg-charcoal hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.8)]"
+          >
+            <div>
+              {/* Card Header */}
+              <div className="flex items-start justify-between">
+                <div>
+                  <div className="label text-primary font-bold">03 — FINISH</div>
+                  <div className="label mt-1 text-[0.6rem] text-gray">IDENTITY & DETAIL</div>
+                </div>
+                <div className="display select-none text-6xl text-soft transition-all duration-700 group-hover:scale-110 group-hover:text-primary/25 md:text-7xl">
+                  03
+                </div>
+              </div>
+
+              {/* Visual Element */}
+              <div className="mt-6">
+                <FinishCardVisual />
+              </div>
+            </div>
+
+            {/* Typography & Copy */}
+            <div className="mt-8 flex flex-1 flex-col justify-between">
+              <div>
+                <h3 className="display text-3xl text-snow transition-colors duration-300 group-hover:text-primary md:text-4xl">
+                  MAKE IT REMEMBERED.
+                </h3>
+                <p className="mt-3 text-sm text-gray leading-relaxed md:text-base">
+                  Polish, color, typography, sound design, and detail that give the content its identity.
+                </p>
+              </div>
+
+              <div className="mt-8 flex items-center justify-between border-t border-border pt-4 font-mono text-[0.65rem] text-gray">
+                <span className="text-primary font-bold">IDENTITY STANDARD</span>
+                <span className="transition-transform duration-300 group-hover:translate-x-1 text-snow/70 group-hover:text-snow">
+                  VIEW FINISH →
+                </span>
+              </div>
+            </div>
+          </motion.article>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------- EDITORS ---------- */
 
 export function Editors() {
