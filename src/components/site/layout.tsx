@@ -194,6 +194,24 @@ export function Nav() {
               )}
               <Cta to="/get-started">Start a Project</Cta>
             </div>
+            <div className="mt-6 flex gap-5 border-t border-border pt-6">
+              <a
+                href="https://www.instagram.com/hikarii.ab?exln=dG93amIza2VwOTBp&utm_source=qr"
+                target="_blank"
+                rel="noreferrer"
+                className="link-line label text-gray hover:text-snow text-xs"
+              >
+                Instagram
+              </a>
+              <a
+                href="https://x.com/hikarii"
+                target="_blank"
+                rel="noreferrer"
+                className="link-line label text-gray hover:text-snow text-xs"
+              >
+                X
+              </a>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -274,6 +292,15 @@ export function Footer() {
             HiKARii is a professional video editing agency built to turn your footage into finished content.
           </p>
           <div className="mt-6 flex gap-5">
+            <a
+              key="Instagram"
+              href="https://www.instagram.com/hikarii.ab?exln=dG93amIza2VwOTBp&utm_source=qr"
+              target="_blank"
+              rel="noreferrer"
+              className="link-line label text-gray hover:text-snow"
+            >
+              Instagram
+            </a>
             <a
               key="X"
               href="https://x.com/hikarii"
