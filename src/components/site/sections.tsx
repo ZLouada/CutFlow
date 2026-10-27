@@ -22,13 +22,14 @@ const ease = [0.16, 1, 0.3, 1] as const;
 /* ---------- primitives ---------- */
 
 export function RevealLines({ lines, className = "", delay = 0 }: { lines: string[]; className?: string; delay?: number }) {
+  const lightweight = useLightweightMotion();
   return (
     <span className={className}>
       {lines.map((l, i) => (
         <span key={i} className="block overflow-hidden pb-[0.06em]">
           <motion.span
             className="block"
-            initial={{ y: "105%" }}
+            initial={lightweight ? false : { y: "105%" }}
             whileInView={{ y: "0%" }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.9, ease, delay: delay + i * 0.09 }}
@@ -153,16 +154,20 @@ export function Hero() {
     >
       {/* footage */}
       <motion.div className="absolute inset-0" style={lightweight ? {} : { x: imgX, y: imgY, clipPath: clip }}>
-        <motion.img
-          src={images.hero}
-          alt="Editor working on a timeline in a dark studio"
-          width={1920}
-          height={1088}
-          className="h-full w-full object-cover opacity-70"
-          fetchPriority="high"
-          decoding="async"
-          style={lightweight ? {} : { scale, filter }}
-        />
+        <picture className="h-full w-full">
+          <source media="(max-width: 768px)" srcSet={images.heroMobile} type="image/webp" />
+          <source srcSet={images.hero} type="image/webp" />
+          <motion.img
+            src={images.hero}
+            alt="Editor working on a timeline in a dark studio"
+            width={1920}
+            height={1088}
+            className="h-full w-full object-cover opacity-70"
+            fetchPriority="high"
+            decoding="async"
+            style={lightweight ? {} : { scale, filter }}
+          />
+        </picture>
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/60" />
       </motion.div>
 
@@ -181,12 +186,12 @@ export function Hero() {
           </motion.div>
           <h1 className="display mt-6 text-[17vw] md:text-[clamp(5rem,10.5vw,9.5rem)]">
             <span className="block overflow-hidden">
-              <motion.span className="block" initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 1, ease }}>
+              <motion.span className="block" initial={lightweight ? false : { y: "100%" }} animate={{ y: 0 }} transition={{ duration: 1, ease }}>
                 From footage
               </motion.span>
             </span>
             <span className="block overflow-hidden">
-              <motion.span className="block" initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 1, ease, delay: 0.1 }}>
+              <motion.span className="block" initial={lightweight ? false : { y: "100%" }} animate={{ y: 0 }} transition={{ duration: 1, ease, delay: 0.1 }}>
                 to <span className="text-primary">finished.</span>
               </motion.span>
             </span>
@@ -194,7 +199,7 @@ export function Hero() {
         </motion.div>
         <motion.div
           className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
-          initial={{ opacity: 0, y: 20 }}
+          initial={lightweight ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8, ease }}
         >
@@ -460,6 +465,8 @@ function HookCardVisual() {
       <img
         src={images.social}
         alt="Hook timeline visualization"
+        width={720}
+        height={1280}
         loading="lazy"
         decoding="async"
         className="h-full w-full object-cover opacity-70 transition-transform duration-700 ease-out group-hover:scale-105 group-hover:opacity-85"
@@ -551,7 +558,15 @@ function RhythmCardVisual() {
             animate={hovered && !lightweight ? { x: -4, scale: 1.03 } : { x: 0, scale: 1 }}
             transition={{ duration: 0.6, ease }}
           >
-            <img src={images.film} alt="Film scene 01" className="h-full w-full object-cover" />
+            <img
+              src={images.film}
+              alt="Film scene 01"
+              width={1280}
+              height={720}
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover"
+            />
             <span className="absolute bottom-1 left-1 bg-ink/80 px-1 font-mono text-[0.5rem] text-snow">SC_01</span>
           </motion.div>
 
@@ -560,7 +575,15 @@ function RhythmCardVisual() {
             animate={hovered && !lightweight ? { y: -2, scale: 1.06 } : { y: 0, scale: 1 }}
             transition={{ duration: 0.6, ease }}
           >
-            <img src={images.commercial} alt="Film scene 02" className="h-full w-full object-cover" />
+            <img
+              src={images.commercial}
+              alt="Film scene 02"
+              width={1280}
+              height={720}
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover"
+            />
             <div className="absolute inset-0 border border-primary/50" />
             <span className="absolute bottom-1 left-1 bg-primary px-1 font-mono text-[0.5rem] font-bold text-ink">BEAT CUT</span>
           </motion.div>
@@ -570,7 +593,15 @@ function RhythmCardVisual() {
             animate={hovered && !lightweight ? { x: 4, scale: 1.03 } : { x: 0, scale: 1 }}
             transition={{ duration: 0.6, ease }}
           >
-            <img src={images.ugc} alt="Film scene 03" className="h-full w-full object-cover" />
+            <img
+              src={images.ugc}
+              alt="Film scene 03"
+              width={720}
+              height={1280}
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover"
+            />
             <span className="absolute bottom-1 left-1 bg-ink/80 px-1 font-mono text-[0.5rem] text-snow">SC_03</span>
           </motion.div>
         </div>
@@ -620,6 +651,8 @@ function FinishCardVisual() {
       <img
         src={images.hero}
         alt="Graded Master Cut"
+        width={1920}
+        height={1088}
         loading="lazy"
         decoding="async"
         className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -636,6 +669,10 @@ function FinishCardVisual() {
           <img
             src={images.hero}
             alt="Raw Log footage"
+            width={1920}
+            height={1088}
+            loading="lazy"
+            decoding="async"
             className="h-full w-full object-cover brightness-[0.8] contrast-[0.7] saturate-[0.15]"
           />
           <div className="absolute inset-0 bg-ink/20" />
@@ -945,7 +982,7 @@ export function Reel() {
         </h2>
       </div>
       <motion.div ref={ref} style={lightweight ? {} : { clipPath: clip }} className="grain relative mt-14 aspect-[16/9] w-full overflow-hidden md:aspect-[21/9]">
-        <video ref={videoRef} src={playBackground ? reel.url : undefined} poster={images.hero} muted loop playsInline preload="auto" className="h-full w-full object-cover" />
+        <video ref={videoRef} src={playBackground ? reel.url : undefined} poster={lightweight ? images.heroMobile : images.hero} muted loop playsInline preload="none" className="h-full w-full object-cover" />
         <div className="absolute inset-0 bg-ink/40" />
         <button onClick={() => setOpen(true)} className="group absolute inset-0 flex items-center justify-center" aria-label="Play reel">
           <span className="relative flex h-28 w-28 items-center justify-center rounded-full border border-snow/60 transition-transform duration-500 group-hover:scale-110 md:h-40 md:w-40">
@@ -1210,7 +1247,15 @@ export function Portfolio() {
   const Card = ({ w, i, desk }: { w: (typeof work)[number]; i: number; desk?: boolean }) => (
     <div className={`group relative shrink-0 cursor-pointer ${desk ? "" : w.w}`}>
       <div className="relative overflow-hidden" style={desk ? { aspectRatio: w.ratio, height: "min(50vh, 520px)" } : { aspectRatio: w.ratio }}>
-        <img src={w.img} alt={`${w.title} — ${w.cat}`} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-105" />
+        <img
+          src={w.img}
+          alt={`${w.title} — ${w.cat}`}
+          width={w.width}
+          height={w.height}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-105"
+        />
         <div className="absolute inset-0 border-0 border-primary transition-all duration-300 group-hover:border-[3px]" />
         <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           <span className="label flex h-20 w-20 scale-75 items-center justify-center rounded-full bg-primary text-ink transition-transform duration-500 group-hover:scale-100">▶ View</span>

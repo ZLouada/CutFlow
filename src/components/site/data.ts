@@ -1,12 +1,13 @@
-import commercial from "@/assets/work-commercial.jpg";
-import social from "@/assets/work-social.jpg";
-import podcast from "@/assets/work-podcast.jpg";
-import film from "@/assets/work-film.jpg";
-import ugc from "@/assets/work-ugc.jpg";
-import gaming from "@/assets/work-gaming.jpg";
-import hero from "@/assets/hero.jpg";
+import commercial from "@/assets/work-commercial.webp";
+import social from "@/assets/work-social.webp";
+import podcast from "@/assets/work-podcast.webp";
+import film from "@/assets/work-film.webp";
+import ugc from "@/assets/work-ugc.webp";
+import gaming from "@/assets/work-gaming.webp";
+import hero from "@/assets/hero.webp";
+import heroMobile from "@/assets/hero-mobile.webp";
 
-export const images = { hero, commercial, social, podcast, film, ugc, gaming };
+export const images = { hero, heroMobile, commercial, social, podcast, film, ugc, gaming };
 
 export const editors = [
   {
@@ -42,12 +43,12 @@ export const editors = [
 ];
 
 export const work = [
-  { title: "Night Drive", cat: "Commercial", img: commercial, ratio: "16/9", w: "w-[78vw] md:w-[46rem]" },
-  { title: "Rooftop Sessions", cat: "Social Media", img: social, ratio: "9/16", w: "w-[58vw] md:w-[18rem]" },
-  { title: "The Wild Ideas", cat: "Podcast", img: podcast, ratio: "1/1", w: "w-[70vw] md:w-[26rem]" },
-  { title: "Dust", cat: "Short Film", img: film, ratio: "16/9", w: "w-[78vw] md:w-[46rem]" },
-  { title: "Daily SPF", cat: "UGC", img: ugc, ratio: "9/16", w: "w-[58vw] md:w-[18rem]" },
-  { title: "Clutch", cat: "Gaming", img: gaming, ratio: "1/1", w: "w-[70vw] md:w-[26rem]" },
+  { title: "Night Drive", cat: "Commercial", img: commercial, ratio: "16/9", w: "w-[78vw] md:w-[46rem]", width: 1280, height: 720 },
+  { title: "Rooftop Sessions", cat: "Social Media", img: social, ratio: "9/16", w: "w-[58vw] md:w-[18rem]", width: 720, height: 1280 },
+  { title: "The Wild Ideas", cat: "Podcast", img: podcast, ratio: "1/1", w: "w-[70vw] md:w-[26rem]", width: 1024, height: 1024 },
+  { title: "Dust", cat: "Short Film", img: film, ratio: "16/9", w: "w-[78vw] md:w-[46rem]", width: 1280, height: 720 },
+  { title: "Daily SPF", cat: "UGC", img: ugc, ratio: "9/16", w: "w-[58vw] md:w-[18rem]", width: 720, height: 1280 },
+  { title: "Clutch", cat: "Gaming", img: gaming, ratio: "1/1", w: "w-[70vw] md:w-[26rem]", width: 1024, height: 1024 },
 ];
 
 export const steps = [

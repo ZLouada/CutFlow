@@ -11,6 +11,8 @@ import {
   Trust,
 } from "@/components/site/sections";
 
+import { images } from "@/components/site/data";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -20,6 +22,24 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "HiKARii is a professional video editing agency. Upload raw footage, collaborate with our creative post-production team, and receive master edits." },
       { property: "og:title", content: "HiKARii — Professional Video Editing Agency" },
       { property: "og:description", content: "HiKARii is a professional video editing agency. Send us your footage, and our dedicated team handles the entire post-production workflow." },
+    ],
+    links: [
+      {
+        rel: "preload",
+        as: "image",
+        href: images.heroMobile,
+        type: "image/webp",
+        media: "(max-width: 768px)",
+        fetchPriority: "high",
+      },
+      {
+        rel: "preload",
+        as: "image",
+        href: images.hero,
+        type: "image/webp",
+        media: "(min-width: 769px)",
+        fetchPriority: "high",
+      },
     ],
   }),
   component: Index,

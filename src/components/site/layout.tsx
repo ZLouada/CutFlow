@@ -1,11 +1,11 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import logoWhite from "@/assets/hikarii-logo-white.png";
-import logoBlack from "@/assets/hikarii-logo-black.png";
-import logoOrange from "@/assets/hikarii-logo-orange.png";
-import markWhite from "@/assets/hikarii-mark-white.png";
-import markBlack from "@/assets/hikarii-mark-black.png";
-import markOrange from "@/assets/hikarii-mark-orange.png";
+import logoWhite from "@/assets/hikarii-logo-white.webp";
+import logoBlack from "@/assets/hikarii-logo-black.webp";
+import logoOrange from "@/assets/hikarii-logo-orange.webp";
+import markWhite from "@/assets/hikarii-mark-white.webp";
+import markBlack from "@/assets/hikarii-mark-black.webp";
+import markOrange from "@/assets/hikarii-mark-orange.webp";
 import { useEffect, useState, type ReactNode } from "react";
 import { useLightweightMotion } from "@/hooks/use-lightweight-motion";
 import { useHikariiAuth } from "@/lib/auth-context";
@@ -48,22 +48,17 @@ export function Logo({
 
   if (responsive) {
     return (
-      <div className={`inline-flex items-center ${className}`}>
-        <img
-          src={mark}
-          alt="HiKARii logo"
-          width={621}
-          height={479}
-          className="h-full w-auto sm:hidden object-contain"
-        />
+      <picture className={`inline-flex items-center ${className}`}>
+        <source media="(max-width: 639px)" srcSet={mark} />
+        <source srcSet={full} />
         <img
           src={full}
           alt="HiKARii logo"
           width={1099}
           height={300}
-          className="hidden sm:block h-full w-auto object-contain"
+          className={`h-full w-auto object-contain ${className}`}
         />
-      </div>
+      </picture>
     );
   }
 
