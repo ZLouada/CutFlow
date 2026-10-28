@@ -1,6 +1,7 @@
 import React, { type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import type { ProjectStatus, TaskPriority, TaskStatus } from "@/lib/dashboard-store";
+import { trackEvent } from "@/lib/analytics";
 
 export function StatusBadge({ status }: { status: ProjectStatus }) {
   const styles: Record<ProjectStatus, string> = {
@@ -116,16 +117,29 @@ export function EmptyState({
       )}
       <h3 className="display text-xl sm:text-2xl text-snow font-bold">{title}</h3>
       <p className="mt-2 text-sm text-gray max-w-md">{description}</p>
-      {(actionLabel && (actionTo || onAction)) && (
+      {actionLabel && (actionTo || onAction) && (
         <div className="mt-6">
           {actionTo ? (
-            <Link to={actionTo} className="btn-slide btn-primary !py-2.5 !px-5 text-xs font-semibold">
+            <Link
+              to={actionTo}
+              onClick={() => {
+                if (actionLabel?.toLowerCase().includes("project")) {
+                  trackEvent("start_project_clicked", { location: "other" });
+                }
+              }}
+              className="btn-slide btn-primary !py-2.5 !px-5 text-xs font-semibold"
+            >
               <span>{actionLabel}</span>
             </Link>
           ) : (
             <button
               type="button"
-              onClick={onAction}
+              onClick={() => {
+                if (actionLabel?.toLowerCase().includes("project")) {
+                  trackEvent("start_project_clicked", { location: "other" });
+                }
+                onAction?.();
+              }}
               className="btn-slide btn-primary !py-2.5 !px-5 text-xs font-semibold cursor-pointer"
             >
               <span>{actionLabel}</span>

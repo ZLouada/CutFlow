@@ -1,12 +1,48 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { motion } from "motion/react";
 import { Cta } from "@/components/site/layout";
 import { FinalCta, PageHeader } from "@/components/site/sections";
+import { trackEvent } from "@/lib/analytics";
 
 const plans = [
-  { n: "Short", p: "$149", u: "per video", f: ["Up to 60s final", "Vertical + square cuts", "Captions included", "2 review rounds", "48h first cut"] },
-  { n: "Story", p: "$590", u: "per video", f: ["Up to 12 min final", "Color & sound mix", "Motion titles", "3 review rounds", "Dedicated lead editor"], hot: true },
-  { n: "Studio", p: "Custom", u: "monthly retainer", f: ["Unlimited requests", "Dedicated post-production team", "Brand toolkit", "Priority turnaround", "Account producer"] },
+  {
+    n: "Short",
+    p: "$149",
+    u: "per video",
+    f: [
+      "Up to 60s final",
+      "Vertical + square cuts",
+      "Captions included",
+      "2 review rounds",
+      "48h first cut",
+    ],
+  },
+  {
+    n: "Story",
+    p: "$590",
+    u: "per video",
+    f: [
+      "Up to 12 min final",
+      "Color & sound mix",
+      "Motion titles",
+      "3 review rounds",
+      "Dedicated lead editor",
+    ],
+    hot: true,
+  },
+  {
+    n: "Studio",
+    p: "Custom",
+    u: "monthly retainer",
+    f: [
+      "Unlimited requests",
+      "Dedicated post-production team",
+      "Brand toolkit",
+      "Priority turnaround",
+      "Account producer",
+    ],
+  },
 ];
 
 export const Route = createFileRoute("/pricing")({
@@ -15,18 +51,34 @@ export const Route = createFileRoute("/pricing")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { title: "Pricing — HiKARii" },
-      { name: "description", content: "Transparent pricing for professional video editing: short-form, long-form stories, and studio retainers." },
+      {
+        name: "description",
+        content:
+          "Transparent pricing for professional video editing: short-form, long-form stories, and studio retainers.",
+      },
       { property: "og:title", content: "Pricing — HiKARii" },
-      { property: "og:description", content: "Pay per video or keep a dedicated post-production team on call." },
+      {
+        property: "og:description",
+        content: "Pay per video or keep a dedicated post-production team on call.",
+      },
     ],
   }),
   component: Pricing,
 });
 
 function Pricing() {
+  useEffect(() => {
+    trackEvent("pricing_viewed");
+  }, []);
+
   return (
     <>
-      <PageHeader n="P" eyebrow="Pricing" lines={["Priced per", "finished video."]} intro="No hourly guesswork. Pick a format, upload footage, and know the cost before the first cut." />
+      <PageHeader
+        n="P"
+        eyebrow="Pricing"
+        lines={["Priced per", "finished video."]}
+        intro="No hourly guesswork. Pick a format, upload footage, and know the cost before the first cut."
+      />
       <section className="bg-paper py-24 text-ink md:py-32">
         <div className="mx-auto grid max-w-[1600px] gap-0 px-5 md:grid-cols-3 md:px-10">
           {plans.map((p, i) => (
@@ -54,7 +106,20 @@ function Pricing() {
                 ))}
               </ul>
               <div className="mt-10">
-                <Cta to="/get-started" variant={p.hot ? "primary" : "ink"}>Start a Project</Cta>
+                <Cta
+                  to="/get-started"
+                  variant={p.hot ? "primary" : "ink"}
+                  analyticsLocation="pricing"
+                  analyticsPlan={p.n}
+                  onClick={() => {
+                    trackEvent("pricing_plan_selected", {
+                      plan: p.n,
+                      billing: p.u.includes("monthly") ? "monthly" : "pack",
+                    });
+                  }}
+                >
+                  Start a Project
+                </Cta>
               </div>
             </motion.div>
           ))}

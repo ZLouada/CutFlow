@@ -12,6 +12,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import { Analytics } from "@vercel/analytics/react";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Footer, Nav, PageTransition } from "../components/site/layout";
 import { PolicyModal } from "../components/site/policy-modal";
@@ -83,10 +84,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "HiKARii — Video Editing Agency" },
-      { name: "description", content: "HiKARii is a professional video editing agency. Upload, edit, review, and deliver high-impact video." },
+      {
+        name: "description",
+        content:
+          "HiKARii is a professional video editing agency. Upload, edit, review, and deliver high-impact video.",
+      },
       { property: "og:site_name", content: "HiKARii" },
       { property: "og:title", content: "HiKARii — Video Editing Agency" },
-      { property: "og:description", content: "HiKARii is a professional video editing agency. Upload, edit, review, and deliver high-impact video." },
+      {
+        property: "og:description",
+        content:
+          "HiKARii is a professional video editing agency. Upload, edit, review, and deliver high-impact video.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@hikarii" },
@@ -128,6 +137,7 @@ function RootShell({ children }: { children: ReactNode }) {
       </head>
       <body>
         {children}
+        <Analytics />
         <Scripts />
       </body>
     </html>

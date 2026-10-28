@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { FinalCta, PageHeader, Portfolio, Reel, Trust } from "@/components/site/sections";
+import { trackEvent } from "@/lib/analytics";
 
 export const Route = createFileRoute("/work")({
   head: () => ({
@@ -7,18 +9,38 @@ export const Route = createFileRoute("/work")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { title: "Work — HiKARii" },
-      { name: "description", content: "Commercials, YouTube, podcasts, short films, UGC and gaming — crafted by HiKARii editors in every format." },
+      {
+        name: "description",
+        content:
+          "Commercials, YouTube, podcasts, short films, UGC and gaming — crafted by HiKARii editors in every format.",
+      },
       { property: "og:title", content: "Work — HiKARii" },
-      { property: "og:description", content: "Selected projects cut by HiKARii editors in 16:9, 9:16 and 1:1." },
+      {
+        property: "og:description",
+        content: "Selected projects cut by HiKARii editors in 16:9, 9:16 and 1:1.",
+      },
     ],
   }),
-  component: () => (
+  component: WorkPage,
+});
+
+function WorkPage() {
+  useEffect(() => {
+    trackEvent("work_viewed");
+  }, []);
+
+  return (
     <>
-      <PageHeader n="W" eyebrow="Selected work" lines={["Cut for", "every screen."]} intro="From cinema-wide brand films to vertical social, our editors deliver the format your audience watches." />
+      <PageHeader
+        n="W"
+        eyebrow="Selected work"
+        lines={["Cut for", "every screen."]}
+        intro="From cinema-wide brand films to vertical social, our editors deliver the format your audience watches."
+      />
       <Portfolio />
       <Reel />
       <Trust />
       <FinalCta />
     </>
-  ),
-});
+  );
+}

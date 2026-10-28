@@ -9,6 +9,7 @@ import markOrange from "@/assets/hikarii-mark-orange.webp";
 import { useEffect, useState, type ReactNode } from "react";
 import { useLightweightMotion } from "@/hooks/use-lightweight-motion";
 import { useHikariiAuth } from "@/lib/auth-context";
+import { trackEvent, type EventLocation } from "@/lib/analytics";
 
 export function Logo({
   className = "h-8",
@@ -21,18 +22,8 @@ export function Logo({
   symbolOnly?: boolean;
   responsive?: boolean;
 }) {
-  const full =
-    variant === "black"
-      ? logoBlack
-      : variant === "white"
-      ? logoWhite
-      : logoOrange;
-  const mark =
-    variant === "black"
-      ? markBlack
-      : variant === "white"
-      ? markWhite
-      : markOrange;
+  const full = variant === "black" ? logoBlack : variant === "white" ? logoWhite : logoOrange;
+  const mark = variant === "black" ? markBlack : variant === "white" ? markWhite : markOrange;
 
   if (symbolOnly) {
     return (
@@ -74,18 +65,57 @@ export function Logo({
 }
 
 type CtaProps = {
-  to: "/" | "/work" | "/how-it-works" | "/clients" | "/editors" | "/pricing" | "/get-started" | "/terms" | "/dashboard" | "/sign-in";
+  to:
+    | "/"
+    | "/work"
+    | "/how-it-works"
+    | "/clients"
+    | "/editors"
+    | "/pricing"
+    | "/get-started"
+    | "/terms"
+    | "/dashboard"
+    | "/sign-in";
   hash?: string;
   children: ReactNode;
   variant?: "primary" | "ghost" | "ink";
   className?: string;
+  onClick?: (e: React.MouseEvent) => void;
+  analyticsLocation?: EventLocation;
+  analyticsPlan?: string;
 };
 
-export function Cta({ to, hash, children, variant = "primary", className = "" }: CtaProps) {
+export function Cta({
+  to,
+  hash,
+  children,
+  variant = "primary",
+  className = "",
+  onClick,
+  analyticsLocation,
+  analyticsPlan,
+}: CtaProps) {
+  const handleClick = (e: React.MouseEvent) => {
+    if (to === "/get-started" || analyticsLocation) {
+      trackEvent("start_project_clicked", {
+        location: analyticsLocation || "other",
+        ...(analyticsPlan ? { plan: analyticsPlan } : {}),
+      });
+    }
+    onClick?.(e);
+  };
+
   return (
-    <Link to={to} {...(hash ? { hash } : {})} className={`btn-slide btn-${variant} group ${className}`}>
+    <Link
+      to={to}
+      {...(hash ? { hash } : {})}
+      onClick={handleClick}
+      className={`btn-slide btn-${variant} group ${className}`}
+    >
       <span>{children}</span>
-      <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
+      <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">
+        →
+      </span>
     </Link>
   );
 }
@@ -118,7 +148,11 @@ export function Nav() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        open ? "border-b border-border bg-ink py-3" : scrolled ? "border-b border-border bg-ink/95 py-3 backdrop-blur-md" : "border-b border-transparent py-6"
+        open
+          ? "border-b border-border bg-ink py-3"
+          : scrolled
+            ? "border-b border-border bg-ink/95 py-3 backdrop-blur-md"
+            : "border-b border-transparent py-6"
       }`}
     >
       <div className="mx-auto flex max-w-[1600px] items-center justify-between px-5 md:px-10">
@@ -148,7 +182,7 @@ export function Nav() {
               <span className="text-primary font-bold">({user?.firstName || "Client"})</span>
             </Link>
           )}
-          <Cta to="/get-started" className={scrolled ? "!py-3" : ""}>
+          <Cta to="/get-started" analyticsLocation="header" className={scrolled ? "!py-3" : ""}>
             Start a Project
           </Cta>
         </div>
@@ -184,10 +218,10 @@ export function Nav() {
               </motion.div>
             ))}
             <div className="mt-8 flex flex-col gap-3">
-              {isSignedIn && (
-                <Cta to="/dashboard">Go to Dashboard ({user?.firstName})</Cta>
-              )}
-              <Cta to="/get-started">Start a Project</Cta>
+              {isSignedIn && <Cta to="/dashboard">Go to Dashboard ({user?.firstName})</Cta>}
+              <Cta to="/get-started" analyticsLocation="header">
+                Start a Project
+              </Cta>
             </div>
             <div className="mt-6 flex gap-5 border-t border-border pt-6">
               <a
@@ -284,7 +318,8 @@ export function Footer() {
         <div className="col-span-2 lg:col-span-1">
           <Logo className="h-10 md:h-12" />
           <p className="mt-6 max-w-xs text-sm text-gray">
-            HiKARii is a professional video editing agency built to turn your footage into finished content.
+            HiKARii is a professional video editing agency built to turn your footage into finished
+            content.
           </p>
           <div className="mt-6 flex gap-5">
             <a

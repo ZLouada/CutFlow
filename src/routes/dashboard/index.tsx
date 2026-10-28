@@ -5,6 +5,7 @@ import { StatCard, StatusBadge, PriorityBadge } from "@/components/dashboard/das
 import { useHikariiAuth } from "@/lib/auth-context";
 import { DashboardStore, type Project, type Task } from "@/lib/dashboard-store";
 import { ArrowRight, Clock, Video, UserCheck, CheckCircle2, AlertCircle } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 export const Route = createFileRoute("/dashboard/")({
   head: () => ({
@@ -28,7 +29,8 @@ function DashboardOverviewPage() {
 
   const activeProjects = projects.filter((p) => p.status !== "Delivered" && !p.isArchived);
   const inProgressProjects = projects.filter(
-    (p) => p.status === "Editing" || p.status === "Editor Assigned" || p.status === "Internal Review",
+    (p) =>
+      p.status === "Editing" || p.status === "Editor Assigned" || p.status === "Internal Review",
   );
   const awaitingReviewProjects = projects.filter(
     (p) => p.status === "Client Review" || p.status === "Revisions Requested",
@@ -55,7 +57,9 @@ function DashboardOverviewPage() {
             className="btn-slide btn-primary !py-3 !px-6 text-xs font-semibold self-start sm:self-auto shrink-0"
           >
             <span>+ Start a New Project</span>
-            <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
+            <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">
+              →
+            </span>
           </Link>
         </div>
 
@@ -90,7 +94,9 @@ function DashboardOverviewPage() {
           <div className="flex items-center justify-between mb-6">
             <div>
               <h2 className="display text-2xl text-snow font-bold">Active Projects</h2>
-              <p className="text-xs text-gray mt-1">Live edits progressing through post-production</p>
+              <p className="text-xs text-gray mt-1">
+                Live edits progressing through post-production
+              </p>
             </div>
             <Link
               to="/dashboard/projects"
@@ -106,6 +112,7 @@ function DashboardOverviewPage() {
               <p className="text-sm text-gray">No active projects currently in production.</p>
               <Link
                 to="/dashboard/projects/new"
+                onClick={() => trackEvent("start_project_clicked", { location: "other" })}
                 className="btn-slide btn-primary !py-2 !px-4 text-xs mt-4 inline-flex"
               >
                 <span>Start a Project</span>
@@ -139,7 +146,9 @@ function DashboardOverviewPage() {
                     {/* Progress Bar */}
                     <div className="mt-5">
                       <div className="flex justify-between text-xs mb-1.5">
-                        <span className="text-[0.7rem] text-gray uppercase font-mono">Progress</span>
+                        <span className="text-[0.7rem] text-gray uppercase font-mono">
+                          Progress
+                        </span>
                         <span className="text-[0.7rem] font-mono text-primary font-bold">
                           {project.progress}%
                         </span>
@@ -155,7 +164,9 @@ function DashboardOverviewPage() {
                     {/* Details Grid */}
                     <div className="mt-5 grid grid-cols-2 gap-3 pt-4 border-t border-border/60 text-xs">
                       <div>
-                        <div className="text-[0.65rem] text-gray uppercase font-mono">Assigned Editor</div>
+                        <div className="text-[0.65rem] text-gray uppercase font-mono">
+                          Assigned Editor
+                        </div>
                         <div className="font-medium text-snow mt-0.5 flex items-center gap-1.5">
                           <span className="h-2 w-2 rounded-full bg-emerald-400" />
                           {project.assignedEditor.name}
@@ -166,12 +177,18 @@ function DashboardOverviewPage() {
                         <div className="font-mono text-snow/90 mt-0.5">{project.dueDate}</div>
                       </div>
                       <div>
-                        <div className="text-[0.65rem] text-gray uppercase font-mono">Video Type</div>
+                        <div className="text-[0.65rem] text-gray uppercase font-mono">
+                          Video Type
+                        </div>
                         <div className="font-medium text-snow/80 mt-0.5">{project.type}</div>
                       </div>
                       <div>
-                        <div className="text-[0.65rem] text-gray uppercase font-mono">Revisions</div>
-                        <div className="font-mono text-snow/80 mt-0.5">Round {project.revisionsCount}</div>
+                        <div className="text-[0.65rem] text-gray uppercase font-mono">
+                          Revisions
+                        </div>
+                        <div className="font-mono text-snow/80 mt-0.5">
+                          Round {project.revisionsCount}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -229,7 +246,9 @@ function DashboardOverviewPage() {
                       </div>
                       <p className="text-[0.75rem] text-gray mt-1 truncate">{task.description}</p>
                       <div className="flex items-center gap-3 mt-1 text-[0.68rem] text-gray/80">
-                        <span>Project: <strong className="text-snow/70">{task.projectName}</strong></span>
+                        <span>
+                          Project: <strong className="text-snow/70">{task.projectName}</strong>
+                        </span>
                         <span>•</span>
                         <span>Due: {task.dueDate}</span>
                       </div>
@@ -256,7 +275,8 @@ function DashboardOverviewPage() {
               </div>
               <h3 className="display text-lg text-snow font-bold mt-2">HiKARii Halal Guarantee</h3>
               <p className="mt-3 text-xs text-gray leading-relaxed">
-                All projects are edited under our verified Halal Content Policy: 100% music-free cinematic sound design, zero indecent imagery, and strict copyright licensing.
+                All projects are edited under our verified Halal Content Policy: 100% music-free
+                cinematic sound design, zero indecent imagery, and strict copyright licensing.
               </p>
 
               <div className="mt-5 space-y-2 text-xs text-snow/80">

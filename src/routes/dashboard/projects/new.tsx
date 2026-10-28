@@ -4,6 +4,7 @@ import { DashboardLayout } from "@/components/dashboard/dashboard-layout";
 import { useHikariiAuth } from "@/lib/auth-context";
 import { DashboardStore, type VideoType, type AspectRatio } from "@/lib/dashboard-store";
 import { Video, ShieldCheck, ArrowLeft, CheckCircle2, Sparkles } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 export const Route = createFileRoute("/dashboard/projects/new")({
   head: () => ({
@@ -54,6 +55,8 @@ function NewProjectPage() {
       specialInstructions: specialInstructions.trim() || undefined,
     });
 
+    trackEvent("contact_submitted", { source: "dashboard" });
+
     setTimeout(() => {
       navigate({ to: `/dashboard/projects/${newProject.id}` });
     }, 350);
@@ -78,7 +81,8 @@ function NewProjectPage() {
                 Start a New Project
               </h1>
               <p className="mt-1 text-xs sm:text-sm text-gray">
-                Provide your footage parameters and creative direction. We'll assign your dedicated lead editor.
+                Provide your footage parameters and creative direction. We'll assign your dedicated
+                lead editor.
               </p>
             </div>
           </div>
@@ -88,12 +92,18 @@ function NewProjectPage() {
         <div className="border border-primary/30 bg-primary/5 p-4 rounded-xs flex items-start gap-3">
           <ShieldCheck className="h-5 w-5 text-primary shrink-0 mt-0.5" />
           <div className="text-xs text-snow/90 leading-relaxed">
-            <span className="font-bold text-snow">HiKARii Halal Creative Standard:</span> We enforce 100% music-free sound design (using organic foley, ambiances, risers, and voiceover) and reject any sexually explicit or illicit content. By submitting, you confirm your footage complies with our ethical editorial guidelines.
+            <span className="font-bold text-snow">HiKARii Halal Creative Standard:</span> We enforce
+            100% music-free sound design (using organic foley, ambiances, risers, and voiceover) and
+            reject any sexually explicit or illicit content. By submitting, you confirm your footage
+            complies with our ethical editorial guidelines.
           </div>
         </div>
 
         {/* Form Container */}
-        <form onSubmit={handleSubmit} className="border border-border bg-charcoal/80 p-6 sm:p-8 rounded-sm space-y-8">
+        <form
+          onSubmit={handleSubmit}
+          className="border border-border bg-charcoal/80 p-6 sm:p-8 rounded-sm space-y-8"
+        >
           {/* Section 1: Basic Information */}
           <div className="space-y-4">
             <h2 className="text-sm font-bold uppercase tracking-wider font-mono text-primary flex items-center gap-2">
@@ -278,7 +288,9 @@ function NewProjectPage() {
                   className="mt-1 h-4 w-4 rounded-xs border-border bg-ink text-primary accent-primary focus:ring-0"
                 />
                 <span className="text-xs text-gray leading-relaxed">
-                  I confirm that all footage provided complies with HiKARii's <strong className="text-snow">Halal Content Policy</strong> and that I own or hold valid licenses for all uploaded footage and materials.
+                  I confirm that all footage provided complies with HiKARii's{" "}
+                  <strong className="text-snow">Halal Content Policy</strong> and that I own or hold
+                  valid licenses for all uploaded footage and materials.
                 </span>
               </label>
             </div>
@@ -299,7 +311,9 @@ function NewProjectPage() {
               className="btn-slide btn-primary !py-3 !px-8 text-xs font-semibold w-full sm:w-auto order-1 sm:order-2"
             >
               <span>{isSubmitting ? "Submitting Brief..." : "Submit Project & Assign Editor"}</span>
-              <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
+              <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">
+                →
+              </span>
             </button>
           </div>
         </form>

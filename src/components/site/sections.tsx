@@ -207,7 +207,7 @@ export function Hero() {
             You create. HiKARii handles the edit. Send us your raw footage and creative brief—our dedicated team handles the entire post-production process from first cut to final master.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Cta to="/get-started">Start a Project</Cta>
+            <Cta to="/get-started" analyticsLocation="hero">Start a Project</Cta>
             <Cta to="/work" variant="ghost">View Our Work</Cta>
           </div>
         </motion.div>
@@ -721,7 +721,7 @@ export function HiKARiiStandard() {
               Every cut has a reason. Every frame has a purpose. HiKARii turns raw footage into content with rhythm, identity, and impact.
             </p>
           </div>
-          <Cta to="/get-started" variant="ghost">Start a Project</Cta>
+          <Cta to="/get-started" variant="ghost" analyticsLocation="other">Start a Project</Cta>
         </div>
 
         {/* Three Signature Cards */}
@@ -886,7 +886,7 @@ export function Editors() {
               Behind every HiKARii cut is a dedicated lead editor from our internal studio team. We assign the right specialist to your brief—you never have to browse or manage freelancers.
             </p>
           </div>
-          <Cta to="/get-started" variant="ghost">Start a Project</Cta>
+          <Cta to="/get-started" variant="ghost" analyticsLocation="other">Start a Project</Cta>
         </div>
 
         <div className="no-scrollbar mt-16 flex snap-x gap-4 overflow-x-auto pb-8 lg:gap-0 lg:overflow-visible lg:pl-4">
@@ -1034,7 +1034,7 @@ export function ForClients() {
             </motion.span>
           ))}
         </div>
-        <div className="mt-12"><Cta to="/get-started" variant="ink">Start a project</Cta></div>
+        <div className="mt-12"><Cta to="/get-started" variant="ink" analyticsLocation="other">Start a project</Cta></div>
       </div>
       <div className="bg-ink px-5 py-24 md:px-10 md:py-40">
         <h2 className="display text-[13vw] lg:text-right md:text-[clamp(3.5rem,6vw,6rem)]">
@@ -1463,7 +1463,7 @@ export function FinalCta() {
           Tell us what you're working on. We'll take it from there.
         </p>
         <div className="mt-12 flex flex-wrap gap-3">
-          <Cta to="/get-started">Start a Project</Cta>
+          <Cta to="/get-started" analyticsLocation="footer">Start a Project</Cta>
           <Cta to="/work" variant="ghost">View Our Work</Cta>
         </div>
       </div>
