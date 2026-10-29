@@ -1,14 +1,24 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
+# HiKARii Robots Configuration
+# https://hikarii.studio/robots.txt
 
 User-agent: *
 Allow: /
+Allow: /work
+Allow: /how-it-works
+Allow: /clients
+Allow: /editors
+Allow: /pricing
+Allow: /get-started
+Allow: /terms
+Allow: /assets/
+Allow: /fonts/
+
+# Disallow private application routes & internal endpoints
+Disallow: /dashboard/
+Disallow: /sign-in
+Disallow: /sign-up
+Disallow: /api/
+Disallow: /policies
+
+# Sitemap
+Sitemap: https://hikarii.studio/sitemap.xml
