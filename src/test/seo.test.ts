@@ -47,4 +47,72 @@ describe("Technical SEO: Sitemap & Robots", () => {
     expect(content).toContain("Disallow: /sign-in");
     expect(content).toContain("Disallow: /sign-up");
   });
+
+  it("has high-resolution favicon and touch icon assets in public directory", () => {
+    const icoPath = path.join(publicDir, "favicon.ico");
+    const pngPath = path.join(publicDir, "favicon.png");
+    const svgPath = path.join(publicDir, "favicon.svg");
+    const appleTouchPath = path.join(publicDir, "apple-touch-icon.png");
+
+    expect(fs.existsSync(icoPath)).toBe(true);
+    expect(fs.statSync(icoPath).size).toBeGreaterThan(0);
+
+    expect(fs.existsSync(pngPath)).toBe(true);
+    expect(fs.statSync(pngPath).size).toBeGreaterThan(0);
+
+    expect(fs.existsSync(svgPath)).toBe(true);
+    expect(fs.statSync(svgPath).size).toBeGreaterThan(0);
+
+    expect(fs.existsSync(appleTouchPath)).toBe(true);
+    expect(fs.statSync(appleTouchPath).size).toBeGreaterThan(0);
+  });
+
+  it("has stable public logo and social sharing preview assets", () => {
+    const logoPath = path.join(publicDir, "logo.png");
+    const ogImagePath = path.join(publicDir, "og-image.png");
+
+    expect(fs.existsSync(logoPath)).toBe(true);
+    expect(fs.statSync(logoPath).size).toBeGreaterThan(0);
+
+    expect(fs.existsSync(ogImagePath)).toBe(true);
+    expect(fs.statSync(ogImagePath).size).toBeGreaterThan(0);
+  });
+
+  it("includes valid Organization structured data and Open Graph / Twitter metadata in root and homepage", () => {
+    const rootRoutePath = path.resolve(__dirname, "../routes/__root.tsx");
+    const indexRoutePath = path.resolve(__dirname, "../routes/index.tsx");
+
+    const rootContent = fs.readFileSync(rootRoutePath, "utf-8");
+    const indexContent = fs.readFileSync(indexRoutePath, "utf-8");
+
+    // Organization schema in __root.tsx
+    expect(rootContent).toContain('"@context": "https://schema.org"');
+    expect(rootContent).toContain('"@type": "Organization"');
+    expect(rootContent).toContain('name: "HiKARii"');
+    expect(rootContent).toContain('url: "https://hikarii.studio"');
+    expect(rootContent).toContain('logo: "https://hikarii.studio/logo.png"');
+    expect(rootContent).toContain('"https://x.com/hikarii"');
+    expect(rootContent).toContain(
+      '"https://www.instagram.com/hikarii.ab?exln=dG93amIza2VwOTBp&utm_source=qr"',
+    );
+
+    // Favicon links
+    expect(rootContent).toContain('href: "/favicon.ico"');
+    expect(rootContent).toContain('href: "/favicon.svg"');
+    expect(rootContent).toContain('href: "/favicon.png"');
+    expect(rootContent).toContain('href: "/apple-touch-icon.png"');
+
+    // Open Graph & Twitter metadata
+    for (const content of [rootContent, indexContent]) {
+      expect(content).toContain('"og:site_name"');
+      expect(content).toContain('"og:type"');
+      expect(content).toContain('"og:title"');
+      expect(content).toContain('"og:description"');
+      expect(content).toContain('"https://hikarii.studio/og-image.png"');
+      expect(content).toContain('"twitter:card"');
+      expect(content).toContain('"twitter:site"');
+      expect(content).toContain('"@hikarii"');
+      expect(content).toContain('"https://hikarii.studio"');
+    }
+  });
 });

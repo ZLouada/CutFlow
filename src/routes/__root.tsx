@@ -90,15 +90,31 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "HiKARii is a professional video editing agency. Upload, edit, review, and deliver high-impact video.",
       },
       { property: "og:site_name", content: "HiKARii" },
+      { property: "og:type", content: "website" },
       { property: "og:title", content: "HiKARii — Video Editing Agency" },
       {
         property: "og:description",
         content:
           "HiKARii is a professional video editing agency. Upload, edit, review, and deliver high-impact video.",
       },
-      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://hikarii.studio" },
+      { property: "og:image", content: "https://hikarii.studio/og-image.png" },
+      { property: "og:image:secure_url", content: "https://hikarii.studio/og-image.png" },
+      { property: "og:image:type", content: "image/png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "HiKARii — Professional Video Editing Agency" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@hikarii" },
+      { name: "twitter:creator", content: "@hikarii" },
+      { name: "twitter:title", content: "HiKARii — Video Editing Agency" },
+      {
+        name: "twitter:description",
+        content:
+          "HiKARii is a professional video editing agency. Upload, edit, review, and deliver high-impact video.",
+      },
+      { name: "twitter:image", content: "https://hikarii.studio/og-image.png" },
+      { name: "twitter:image:alt", content: "HiKARii — Professional Video Editing Agency" },
       { name: "theme-color", content: "#0A0A0A" },
     ],
     links: [
@@ -117,10 +133,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         crossOrigin: "anonymous",
       },
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", sizes: "any" },
+      { rel: "canonical", href: "https://hikarii.studio/" },
+      { rel: "icon", href: "/favicon.ico", sizes: "32x32 48x48" },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
-      { rel: "icon", href: "/favicon.png", type: "image/png" },
-      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+      { rel: "icon", href: "/favicon.png", type: "image/png", sizes: "512x512" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
     ],
   }),
   shellComponent: RootShell,
@@ -129,11 +146,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "HiKARii",
+  url: "https://hikarii.studio",
+  logo: "https://hikarii.studio/logo.png",
+  sameAs: [
+    "https://x.com/hikarii",
+    "https://www.instagram.com/hikarii.ab?exln=dG93amIza2VwOTBp&utm_source=qr",
+  ],
+};
+
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
       </head>
       <body>
         {children}
