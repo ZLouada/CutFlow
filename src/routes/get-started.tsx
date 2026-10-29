@@ -88,14 +88,21 @@ function GetStarted() {
   });
   const [errors, setErrors] = useState<Partial<Record<keyof Form, string>>>({});
   const [done, setDone] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [honeypot, setHoneypot] = useState("");
+  const [loadedAt] = useState<number>(() => Date.now());
+
   const set = (k: keyof Form) => (v: string) => setF((p) => ({ ...p, [k]: v }));
 
   useEffect(() => {
     trackEvent("get_started_started");
   }, []);
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitting) return;
+
     const r = schema.safeParse(f);
     if (!r.success) {
       const errs: Partial<Record<keyof Form, string>> = {};
@@ -106,9 +113,44 @@ function GetStarted() {
       return;
     }
     setErrors({});
-    setDone(true);
-    trackEvent("contact_submitted", { source: "website" });
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setServerError(null);
+    setSubmitting(true);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...f,
+          _hp: honeypot,
+          _ts: loadedAt,
+        }),
+      });
+
+      const data = (await res.json().catch(() => ({}))) as {
+        success?: boolean;
+        error?: string;
+      };
+
+      if (!res.ok || !data.success) {
+        setServerError(
+          data.error ||
+            "Unable to deliver your project inquiry via email. Please try again or email us directly at contact@hikarii.studio.",
+        );
+        setSubmitting(false);
+        return;
+      }
+
+      setDone(true);
+      trackEvent("contact_submitted", { source: "website" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch {
+      setServerError(
+        "Network connection error. Please check your connection or email us directly at contact@hikarii.studio.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const input =
@@ -144,6 +186,7 @@ function GetStarted() {
                 className="btn-slide btn-ink mt-10"
                 onClick={() => {
                   setDone(false);
+                  setServerError(null);
                   setF({
                     name: "",
                     email: "",
@@ -239,9 +282,46 @@ function GetStarted() {
                   <Err k="link" />
                 </label>
               </div>
+
+              {/* Honeypot field for bot/spam protection */}
+              <div
+                style={{
+                  position: "absolute",
+                  left: "-9999px",
+                  top: "-9999px",
+                  opacity: 0,
+                  pointerEvents: "none",
+                }}
+                aria-hidden="true"
+              >
+                <label htmlFor="website_hp">Leave this field blank</label>
+                <input
+                  id="website_hp"
+                  type="text"
+                  name="website_hp"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
+              {serverError && (
+                <div
+                  role="alert"
+                  className="border border-primary/40 bg-primary/10 p-4 text-sm text-primary"
+                >
+                  {serverError}
+                </div>
+              )}
+
               <div className="pt-2">
-                <button type="submit" className="btn-slide btn-primary group">
-                  <span>Start your project</span>
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="btn-slide btn-primary group disabled:opacity-50"
+                >
+                  <span>{submitting ? "Sending inquiry..." : "Start your project"}</span>
                   <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">
                     →
                   </span>

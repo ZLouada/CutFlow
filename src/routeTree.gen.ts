@@ -20,6 +20,7 @@ import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as SignUpRouteImport } from './routes/sign-up'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as WorkRouteImport } from './routes/work'
+import { Route as ApiContactRouteImport } from './routes/api/contact'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as DashboardBillingRouteImport } from './routes/dashboard/billing'
 import { Route as DashboardFilesRouteImport } from './routes/dashboard/files'
@@ -86,6 +87,11 @@ const WorkRoute = WorkRouteImport.update({
   path: '/work',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiContactRoute = ApiContactRouteImport.update({
+  id: '/api/contact',
+  path: '/api/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: '/dashboard/',
   path: '/dashboard/',
@@ -150,6 +156,7 @@ export interface FileRoutesByFullPath {
   '/sign-up': typeof SignUpRoute
   '/terms': typeof TermsRoute
   '/work': typeof WorkRoute
+  '/api/contact': typeof ApiContactRoute
   '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/files': typeof DashboardFilesRoute
   '/dashboard/history': typeof DashboardHistoryRoute
@@ -173,6 +180,7 @@ export interface FileRoutesByTo {
   '/sign-up': typeof SignUpRoute
   '/terms': typeof TermsRoute
   '/work': typeof WorkRoute
+  '/api/contact': typeof ApiContactRoute
   '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/files': typeof DashboardFilesRoute
   '/dashboard/history': typeof DashboardHistoryRoute
@@ -197,6 +205,7 @@ export interface FileRoutesById {
   '/sign-up': typeof SignUpRoute
   '/terms': typeof TermsRoute
   '/work': typeof WorkRoute
+  '/api/contact': typeof ApiContactRoute
   '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/files': typeof DashboardFilesRoute
   '/dashboard/history': typeof DashboardHistoryRoute
@@ -222,6 +231,7 @@ export interface FileRouteTypes {
     | '/sign-up'
     | '/terms'
     | '/work'
+    | '/api/contact'
     | '/dashboard/billing'
     | '/dashboard/files'
     | '/dashboard/history'
@@ -245,6 +255,7 @@ export interface FileRouteTypes {
     | '/sign-up'
     | '/terms'
     | '/work'
+    | '/api/contact'
     | '/dashboard/billing'
     | '/dashboard/files'
     | '/dashboard/history'
@@ -268,6 +279,7 @@ export interface FileRouteTypes {
     | '/sign-up'
     | '/terms'
     | '/work'
+    | '/api/contact'
     | '/dashboard/billing'
     | '/dashboard/files'
     | '/dashboard/history'
@@ -292,6 +304,7 @@ export interface RootRouteChildren {
   SignUpRoute: typeof SignUpRoute
   TermsRoute: typeof TermsRoute
   WorkRoute: typeof WorkRoute
+  ApiContactRoute: typeof ApiContactRoute
   DashboardBillingRoute: typeof DashboardBillingRoute
   DashboardFilesRoute: typeof DashboardFilesRoute
   DashboardHistoryRoute: typeof DashboardHistoryRoute
@@ -383,6 +396,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/contact': {
+      id: '/api/contact'
+      path: '/api/contact'
+      fullPath: '/api/contact'
+      preLoaderRoute: typeof ApiContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard/': {
       id: '/dashboard/'
       path: '/dashboard'
@@ -468,6 +488,7 @@ const rootRouteChildren: RootRouteChildren = {
   SignUpRoute: SignUpRoute,
   TermsRoute: TermsRoute,
   WorkRoute: WorkRoute,
+  ApiContactRoute: ApiContactRoute,
   DashboardBillingRoute: DashboardBillingRoute,
   DashboardFilesRoute: DashboardFilesRoute,
   DashboardHistoryRoute: DashboardHistoryRoute,
