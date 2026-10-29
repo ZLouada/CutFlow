@@ -91,10 +91,10 @@ describe("Technical SEO: Sitemap & Robots", () => {
     expect(rootContent).toContain('name: "HiKARii"');
     expect(rootContent).toContain('url: "https://hikarii.studio"');
     expect(rootContent).toContain('logo: "https://hikarii.studio/logo.png"');
-    expect(rootContent).toContain('"https://x.com/hikarii"');
     expect(rootContent).toContain(
       '"https://www.instagram.com/hikarii.ab?exln=dG93amIza2VwOTBp&utm_source=qr"',
     );
+    expect(rootContent).not.toContain("https://x.com/hikarii");
 
     // Favicon links
     expect(rootContent).toContain('href: "/favicon.ico"');
@@ -110,9 +110,12 @@ describe("Technical SEO: Sitemap & Robots", () => {
       expect(content).toContain('"og:description"');
       expect(content).toContain('"https://hikarii.studio/og-image.png"');
       expect(content).toContain('"twitter:card"');
-      expect(content).toContain('"twitter:site"');
-      expect(content).toContain('"@hikarii"');
       expect(content).toContain('"https://hikarii.studio"');
     }
+
+    // Site layout must not contain X link
+    const layoutPath = path.resolve(__dirname, "../components/site/layout.tsx");
+    const layoutContent = fs.readFileSync(layoutPath, "utf-8");
+    expect(layoutContent).not.toContain("https://x.com");
   });
 });

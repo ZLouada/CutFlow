@@ -38,8 +38,6 @@ export const Route = createFileRoute("/")({
       { property: "og:image:height", content: "630" },
       { property: "og:image:alt", content: "HiKARii — Professional Video Editing Agency" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@hikarii" },
-      { name: "twitter:creator", content: "@hikarii" },
       { name: "twitter:title", content: "HiKARii — Professional Video Editing Agency" },
       {
         name: "twitter:description",

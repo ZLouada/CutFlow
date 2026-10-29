@@ -105,8 +105,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:image:height", content: "630" },
       { property: "og:image:alt", content: "HiKARii — Professional Video Editing Agency" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@hikarii" },
-      { name: "twitter:creator", content: "@hikarii" },
       { name: "twitter:title", content: "HiKARii — Video Editing Agency" },
       {
         name: "twitter:description",
@@ -152,10 +150,7 @@ const organizationSchema = {
   name: "HiKARii",
   url: "https://hikarii.studio",
   logo: "https://hikarii.studio/logo.png",
-  sameAs: [
-    "https://x.com/hikarii",
-    "https://www.instagram.com/hikarii.ab?exln=dG93amIza2VwOTBp&utm_source=qr",
-  ],
+  sameAs: ["https://www.instagram.com/hikarii.ab?exln=dG93amIza2VwOTBp&utm_source=qr"],
 };
 
 function RootShell({ children }: { children: ReactNode }) {

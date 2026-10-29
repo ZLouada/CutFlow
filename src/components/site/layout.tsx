@@ -232,14 +232,6 @@ export function Nav() {
               >
                 Instagram
               </a>
-              <a
-                href="https://x.com/hikarii"
-                target="_blank"
-                rel="noreferrer"
-                className="link-line label text-gray hover:text-snow text-xs"
-              >
-                X
-              </a>
             </div>
           </motion.div>
         )}
@@ -330,15 +322,6 @@ export function Footer() {
               className="link-line label text-gray hover:text-snow"
             >
               Instagram
-            </a>
-            <a
-              key="X"
-              href="https://x.com/hikarii"
-              target="_blank"
-              rel="noreferrer"
-              className="link-line label text-gray hover:text-snow"
-            >
-              X
             </a>
           </div>
         </div>
